@@ -1,0 +1,217 @@
+name: Android CICD
+on:
+  #  pull_request:
+  push:
+
+jobs:
+
+  run_tests:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ci-${{ github.ref }}
+      cancel-in-progress: true
+
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO_NAME: ${{ secrets.REPO_NAME }}
+      LATEST_TAG_FILE: ${{ secrets.LATEST_TAG_FILE }}
+      RELEASE_VERSION: ${{ secrets.GITHUB_RUN_ID }}
+      MAPBOX_DOWNLOADS_TOKEN: ${{ secrets.MAPBOX_DOWNLOADS_TOKEN }}
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      #- name: Run Mock build
+      #  run: ./gradlew bundleRelease -x test
+
+      - name: Run Unit tests
+        run: ./gradlew testRelease
+        continue-on-error: true
+
+      - name: Make Unit test report
+        uses: doanpt/AndroidTestReportAction@v1.0
+        if: ${{ always() }} # IMPORTANT: run Android Test Report regardless
+
+  build_artifacts:
+    if: contains(github.ref, 'beta') || contains(github.ref, 'main')
+    needs: run_tests
+    name: Build artifacts
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO_NAME: ${{ secrets.REPO_NAME }}
+      BRANCH_NAME: ${{ github.head_ref }}
+      LATEST_TAG_FILE: ${{ secrets.LATEST_TAG_FILE }}
+      RELEASE_VERSION: ${{ secrets.GITHUB_RUN_ID }}
+      MAPBOX_DOWNLOADS_TOKEN: ${{ secrets.MAPBOX_DOWNLOADS_TOKEN }}
+      PACKAGE_NAME: ${{ secrets.APP_PACKAGE }}
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Get and set name of current branch
+        run: echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
+
+      - name: Display current branch name
+        run: echo ${BRANCH_NAME}
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+
+      - name: Download requirement file
+        run: curl -L https://raw.githubusercontent.com/masgeek/py-github/develop/requirements.txt -o requirements.txt
+
+      - name: Download Tag fetching script
+        run: curl -L https://raw.githubusercontent.com/masgeek/py-github/develop/get-tag-raw.py -o latest-tag.py
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt;
+
+      - name: Fetch latest tag
+        run: python latest-tag.py
+
+      - name: Update release version
+        run: echo "RELEASE_VERSION=$(cat $LATEST_TAG_FILE)" >> $GITHUB_ENV
+
+      - name: Set branch name
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
+
+      - name: Show branch name
+        run: echo $BRANCH_NAME
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Generate android AAB
+        run: ./gradlew bundleRelease -x test
+
+      - name: Create release folder
+        run: mkdir -p $GITHUB_WORKSPACE/release
+
+      - name: Reverse JKS file
+        run: echo "${{ secrets.KEYSTORE_FILE }}" | base64 -d > $GITHUB_WORKSPACE/akilimo.jks
+
+      - name: Sign AAB
+        run: jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore akilimo.jks
+          -storepass ${{ secrets.KEYSTORE_PASSWORD }} -keypass ${{ secrets.KEY_PASSWORD }}
+          app/build/outputs/bundle/release/app-release.aab ${{ secrets.KEY_ALIAS }} --signedjar $GITHUB_WORKSPACE/release/app-release-signed.aab
+
+      - name: Copy release tag file
+        run: cp  $LATEST_TAG_FILE release
+
+      - name: Copy release notes
+        run: cp -r distribution release
+
+      - uses: actions/upload-artifact@v2
+        name: Upload artifact
+        with:
+          name: app-release
+          if-no-files-found: error
+          path: release
+
+  publish_to_playstore:
+    needs: build_artifacts
+    name: Publish to Google PlayStore
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        name: Retreive artifacts
+        with:
+          name: app-release
+          path: release
+
+      - name: Upload Beta Release
+        if: contains(github.ref, 'beta')
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
+          packageName: ${{ secrets.APP_PACKAGE }}
+          releaseFiles: release/*.aab
+          track: beta
+          status: completed
+          whatsNewDirectory: release/distribution/whatsnew
+
+      - name: Upload Production Release
+        if: contains(github.ref, 'main')
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
+          packageName: ${{ secrets.APP_PACKAGE }}
+          releaseFiles: release/*.aab
+          track: production
+          status: completed
+          whatsNewDirectory: release/distribution/whatsnew
+
+
+  upload_beta_artifacts:
+    if: contains(github.ref, 'beta')
+    needs: publish_to_playstore
+    name: Upload to github beta
+    runs-on: ubuntu-latest
+    env:
+      LATEST_TAG_FILE: ${{ secrets.LATEST_TAG_FILE }}
+      GHR_TAG: "1.0.0"
+      GHR_REPLACE: "1"
+      GHR_PATH: release
+      GHR_PRERELEASE: "1"
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/download-artifact@v2
+        name: Retrieve artifacts
+        with:
+          name: app-release
+          path: release
+      - run: |
+          cp release/distribution/whatsnew/* release
+          rm -rf release/distribution
+          ls release
+
+      - name: Read latest tag from tag file
+        run: echo "GHR_TAG=$(cat release/$LATEST_TAG_FILE)-beta" >> $GITHUB_ENV
+
+      - name: Upload release artifacts
+        uses: masgeek/github-action-ghr@v1.3.2
+
+  upload_production_artifacts:
+    if: contains(github.ref, 'main')
+    needs: publish_to_playstore
+    name: Upload to github release
+    runs-on: ubuntu-latest
+    env:
+      LATEST_TAG_FILE: ${{ secrets.LATEST_TAG_FILE }}
+      GHR_TAG: "1.0.0"
+      GHR_REPLACE: "1"
+      GHR_PATH: release
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/download-artifact@v2
+        name: Retrieve artifacts
+        with:
+          name: app-release
+          path: release
+      - run: |
+          cp release/distribution/whatsnew/* release
+          rm -rf release/distribution
+          ls release
+
+      - name: Read latest tag from tag file
+        run: echo "GHR_TAG=$(cat release/$LATEST_TAG_FILE)" >> $GITHUB_ENV
+
+      - name: Upload release artifacts
+        uses: masgeek/github-action-ghr@v1.3.2
