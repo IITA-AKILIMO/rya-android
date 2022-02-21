@@ -1,0 +1,19 @@
+repos:
+  - repo: 'https://github.com/pre-commit/pre-commit-hooks'
+    rev: v3.4.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  - repo: 'https://github.com/commitizen-tools/commitizen'
+    rev: v2.17.4
+    hooks:
+      - id: commitizen
+        stages:
+          - commit-msg
+
+  - repo: 'https://github.com/jorisroovers/gitlint'
+    rev: bf0df47
+    hooks:
+      - id: gitlint
