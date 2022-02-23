@@ -1,18 +1,19 @@
 package com.akilimo.rya.data
 
+import com.akilimo.rya.enums.PrecisionTypes
 import com.fasterxml.jackson.annotation.JsonProperty
 
 
 data class RyaEstimate(
-    @JsonProperty("field_area")
+    @get:JsonProperty("field_area")
     val fieldArea: Double,
 
-    @JsonProperty("precision_type")
-    val precisionType: String,
+    @get:JsonProperty("precision_type")
+    val precisionType: PrecisionTypes,
 
-    @JsonProperty("plant_counts")
+    @get:JsonProperty("plant_counts")
     val plantCounts: List<Int>,
 
-    @JsonProperty("plant_RMs")
-    val plantRMs: List<Double>,
+    @get:JsonProperty("plant_RMs")
+    val plantRms: List<Double>,
 )
