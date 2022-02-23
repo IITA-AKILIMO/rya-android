@@ -5,6 +5,7 @@ import android.graphics.Matrix
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
 import com.akilimo.rya.adapter.MyStepperAdapter
 import com.akilimo.rya.data.RemoteConfig
@@ -39,6 +40,7 @@ class HomeStepperActivity : AppCompatActivity(), IFragmentCallBack {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
         binding = ActivityHomeStepperBinding.inflate(layoutInflater)
         apiInterface = ApiInterface.create()
         fuelrodApiInterface = FuelrodApiInterface.create()
