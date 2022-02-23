@@ -5,11 +5,12 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/FirstFragment">
 
+
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.akilimo.rya.views.fragments.FirstFragment"
+        android:name="com.akilimo.rya.views.fragments.WelcomeFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_welcome">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
