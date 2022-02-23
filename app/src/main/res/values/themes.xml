@@ -22,6 +22,16 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="SplashThemeCommon" parent="AppTheme.NoActionBar">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@drawable/splash_background_raster</item>
+    </style>
+
+    <style name="SplashTheme" parent="SplashThemeCommon">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

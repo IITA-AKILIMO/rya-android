@@ -1,33 +1,42 @@
 package com.akilimo.rya.views.activities
 
-import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.akilimo.rya.adapter.MyStepperAdapter
 import com.akilimo.rya.data.RemoteConfig
-import com.akilimo.rya.data.RyaPlot
 import com.akilimo.rya.databinding.ActivityHomeStepperBinding
+import com.akilimo.rya.interfaces.IFragmentCallBack
 import com.akilimo.rya.rest.ApiInterface
 import com.akilimo.rya.rest.FuelrodApiInterface
 import com.akilimo.rya.utils.MySharedPreferences
-import com.davemorrissey.labs.subscaleview.ImageSource
-import okhttp3.ResponseBody
+import com.akilimo.rya.views.fragments.WelcomeFragment
+import com.stepstone.stepper.StepperLayout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class HomeStepperActivity : AppCompatActivity() {
+class HomeStepperActivity : AppCompatActivity(), IFragmentCallBack {
     private lateinit var binding: ActivityHomeStepperBinding
     private lateinit var apiInterface: ApiInterface
     private lateinit var fuelrodApiInterface: FuelrodApiInterface
     private lateinit var prefs: MySharedPreferences
 
+    private lateinit var stepperAdapter: MyStepperAdapter
+    private lateinit var mStepperLayout: StepperLayout
 
-    @SuppressLint("ClickableViewAccessibility")
+    private val fragmentArray: MutableList<Fragment> = arrayListOf()
+
+
+    override fun onAttachFragment(fragment: Fragment) {
+        //handle fragment attachment
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeStepperBinding.inflate(layoutInflater)
@@ -36,10 +45,23 @@ class HomeStepperActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
+        mStepperLayout = binding.stepperLayout
+
         prefs = MySharedPreferences(this)
 
         loadConfig()
-//        loadPlots()
+        createFragmentArray()
+        initComponent()
+    }
+
+
+    private fun createFragmentArray() {
+        fragmentArray.add(WelcomeFragment.newInstance())
+    }
+
+    private fun initComponent() {
+        stepperAdapter = MyStepperAdapter(supportFragmentManager, applicationContext, fragmentArray)
+        mStepperLayout.adapter = stepperAdapter
     }
 
     private fun loadConfig() {
@@ -71,33 +93,37 @@ class HomeStepperActivity : AppCompatActivity() {
     }
 
     private fun loadPlots() {
-        val imageView = binding.imageView
-
-
-        val plotReader = apiInterface.readPlots(RyaPlot(fileName = "device_202"))
-
-        plotReader.enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.body() != null) {
-                    val bytes = response.body()!!.bytes()
-                    val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                    imageView.setImage(ImageSource.bitmap(bitmap.rotate(-90f)))
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseBody>, throwable: Throwable) {
-                Toast.makeText(
-                    applicationContext,
-                    "Unable to load plot data",
-                    Toast.LENGTH_SHORT
-                ).show();
-            }
-
-        })
+//        val imageView = binding.imageView
+//
+//
+//        val plotReader = apiInterface.readPlots(RyaPlot(fileName = "device_202"))
+//
+//        plotReader.enqueue(object : Callback<ResponseBody> {
+//            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+//                if (response.body() != null) {
+//                    val bytes = response.body()!!.bytes()
+//                    val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+//                    imageView.setImage(ImageSource.bitmap(bitmap.rotate(-90f)))
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<ResponseBody>, throwable: Throwable) {
+//                Toast.makeText(
+//                    applicationContext,
+//                    "Unable to load plot data",
+//                    Toast.LENGTH_SHORT
+//                ).show();
+//            }
+//
+//        })
     }
 
     fun Bitmap.rotate(degrees: Float): Bitmap {
         val matrix = Matrix().apply { postRotate(degrees) }
         return Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
+    }
+
+    override fun reloadView() {
+        TODO("Not yet implemented")
     }
 }
