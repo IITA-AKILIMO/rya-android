@@ -41,7 +41,7 @@
                 android:layout_height="@dimen/dimen_62"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_akilimo_logo" />
+                android:src="@drawable/ic_metrics" />
 
             <TextView
                 android:id="@+id/txt_file_title"
@@ -87,7 +87,7 @@
                 android:layout_height="@dimen/dimen_62"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_akilimo_logo" />
+                android:src="@drawable/ic_calculator" />
 
         </RelativeLayout>
 
@@ -124,7 +124,7 @@
                 android:layout_height="@dimen/dimen_62"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_akilimo_logo" />
+                android:src="@drawable/ic_interview" />
 
         </RelativeLayout>
 
@@ -161,7 +161,7 @@
                 android:layout_height="@dimen/dimen_62"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_akilimo_logo" />
+                android:src="@drawable/ic_reading_book" />
 
         </RelativeLayout>
 

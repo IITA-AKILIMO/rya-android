@@ -5,6 +5,8 @@
       <map>
         <entry key="..\:/dev/android/rya/app/src/main/res/drawable-v24/splash_background_raster.xml" value="0.2985" />
         <entry key="..\:/dev/android/rya/app/src/main/res/drawable/bg_gradient_hard.xml" value="0.196" />
+        <entry key="..\:/dev/android/rya/app/src/main/res/drawable/bg_gradient_very_soft.xml" value="0.2985" />
+        <entry key="..\:/dev/android/rya/app/src/main/res/drawable/ic_close.xml" value="0.2985" />
         <entry key="..\:/dev/android/rya/app/src/main/res/layout/activity_home_stepper.xml" value="0.15" />
         <entry key="..\:/dev/android/rya/app/src/main/res/layout/activity_main.xml" value="0.5106580166821131" />
         <entry key="..\:/dev/android/rya/app/src/main/res/layout/activity_start_page.xml" value="0.358695652173913" />
