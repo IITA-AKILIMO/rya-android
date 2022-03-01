@@ -10,9 +10,11 @@
         <entry key="..\:/dev/android/rya/app/src/main/res/layout/activity_home_stepper.xml" value="0.15" />
         <entry key="..\:/dev/android/rya/app/src/main/res/layout/activity_main.xml" value="0.5106580166821131" />
         <entry key="..\:/dev/android/rya/app/src/main/res/layout/activity_start_page.xml" value="0.358695652173913" />
+        <entry key="..\:/dev/android/rya/app/src/main/res/layout/card_layout.xml" value="0.358695652173913" />
         <entry key="..\:/dev/android/rya/app/src/main/res/layout/content_main.xml" value="0.358695652173913" />
         <entry key="..\:/dev/android/rya/app/src/main/res/layout/fragment_first.xml" value="0.358695652173913" />
         <entry key="..\:/dev/android/rya/app/src/main/res/layout/fragment_welcome.xml" value="0.358695652173913" />
+        <entry key="..\:/dev/android/rya/app/src/main/res/layout/item_card_recommendation_image.xml" value="0.358695652173913" />
         <entry key="..\:/dev/android/rya/app/src/main/res/menu/menu_main.xml" value="0.36666666666666664" />
         <entry key="..\:/dev/android/rya/app/src/main/res/menu/stepper_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/dev/android/rya/app/src/main/res/xml/network_security_config.xml" value="0.15" />

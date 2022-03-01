@@ -16,13 +16,6 @@ abstract class BaseStepFragment : Fragment(), Step {
 
     protected var verificationError: VerificationError? = null
 
-    private var ctx: Context? = null
-    protected var dataIsValid = false
-
-    override fun onAttach(_ctx: Context) {
-        super.onAttach(_ctx)
-        this.ctx = context
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

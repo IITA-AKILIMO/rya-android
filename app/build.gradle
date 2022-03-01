@@ -82,6 +82,7 @@ dependencies {
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
+    implementation 'com.github.mohammadatif:Animatoo:master'
 
 //    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
 //    implementation 'com.fasterxml.jackson.core:jackson-core:2.13.0'
