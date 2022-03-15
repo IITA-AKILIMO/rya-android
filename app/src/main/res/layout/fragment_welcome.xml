@@ -38,13 +38,15 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rootYieldRecycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dimen_none"
+            android:layout_marginTop="@dimen/dimen_12"
+            app:layout_constrainedHeight="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
             tools:itemCount="5"
-            tools:listitem="@layout/item_card_recommendation_image" />
+            tools:listitem="@layout/yield_card_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

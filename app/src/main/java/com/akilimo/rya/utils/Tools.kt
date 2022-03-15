@@ -3,12 +3,14 @@ package com.akilimo.rya.utils
 import android.content.*
 import android.graphics.Bitmap
 import android.graphics.Matrix
+import android.util.TypedValue
 import com.fasterxml.jackson.annotation.JsonAutoDetect
 import com.fasterxml.jackson.annotation.PropertyAccessor
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import org.json.JSONObject
 import java.util.*
+import kotlin.math.roundToInt
 
 
 object Tools {
@@ -40,5 +42,15 @@ object Tools {
         val matrix = Matrix()
         matrix.postRotate(angle)
         return Bitmap.createBitmap(source, 0, 0, source.width, source.height, matrix, true)
+    }
+
+    @JvmStatic
+    fun dpToPx(c: Context, dp: Int): Int {
+        val r = c.resources
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dp.toFloat(),
+            r.displayMetrics
+        ).roundToInt()
     }
 }
