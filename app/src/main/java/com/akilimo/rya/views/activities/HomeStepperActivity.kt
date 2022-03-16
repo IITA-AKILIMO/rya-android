@@ -14,7 +14,9 @@ import com.akilimo.rya.interfaces.IFragmentCallBack
 import com.akilimo.rya.rest.ApiInterface
 import com.akilimo.rya.rest.FuelrodApiInterface
 import com.akilimo.rya.utils.MySharedPreferences
-import com.akilimo.rya.views.fragments.WelcomeFragment
+import com.akilimo.rya.views.fragments.FieldInfoFragment
+import com.akilimo.rya.views.fragments.PlantingPeriodFragment
+import com.akilimo.rya.views.fragments.YieldClassFragmentFragment
 import com.stepstone.stepper.StepperLayout
 import retrofit2.Call
 import retrofit2.Callback
@@ -58,7 +60,9 @@ class HomeStepperActivity : AppCompatActivity(), IFragmentCallBack {
 
 
     private fun createFragmentArray() {
-        fragmentArray.add(WelcomeFragment.newInstance())
+        fragmentArray.add(YieldClassFragmentFragment.newInstance())
+        fragmentArray.add(FieldInfoFragment.newInstance())
+        fragmentArray.add(PlantingPeriodFragment.newInstance())
     }
 
     private fun initComponent() {

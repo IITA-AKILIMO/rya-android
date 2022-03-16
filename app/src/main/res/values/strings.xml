@@ -37,6 +37,21 @@
     <string name="fcy_somewhat_higher">Somewhat higher</string>
     <string name="fcy_2_3_times_higher">2–3 times higher</string>
     <string name="fcy_more_than_3_times_higher">More than 3 times or higher</string>
+    <string name="lbl_before_starting">Before starting</string>
 
 
+    <string name="field_area_unit_prompt">Choose area unit</string>
+    <string name="selling_price_prompt">Choose selling price</string>
+
+    <string-array name="field_area_unit_array">
+        <item>Hectare</item>
+        <item>Acre</item>
+        <item>Meter squared</item>
+    </string-array>
+
+    <string-array name="selling_unit_array">
+        <item>USD/Tonne</item>
+        <item>NGN/Tonne</item>
+        <item>TZS/Tonne</item>
+    </string-array>
 </resources>

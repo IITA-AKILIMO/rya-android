@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.akilimo.rya.R
 import com.akilimo.rya.adapter.FieldYieldAdapter
 import com.akilimo.rya.data.FieldYield
-import com.akilimo.rya.databinding.FragmentWelcomeBinding
+import com.akilimo.rya.databinding.FragmentYieldClassBinding
 import com.akilimo.rya.utils.TheItemAnimation
 import com.akilimo.rya.utils.Tools
 import com.akilimo.rya.widgets.SpacingItemDecoration
@@ -19,13 +19,13 @@ import com.stepstone.stepper.VerificationError
 
 /**
  * A simple [Fragment] subclass.
- * Use the [WelcomeFragment.newInstance] factory method to
+ * Use the [YieldClassFragmentFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class WelcomeFragment : BaseStepFragment() {
+class YieldClassFragmentFragment : BaseStepFragment() {
 
     private var ctx: Context? = null
-    private var _binding: FragmentWelcomeBinding? = null
+    private var _binding: FragmentYieldClassBinding? = null
 
     private val yieldImages = arrayOf(
         R.drawable.yield_less_than_7point5,
@@ -39,7 +39,7 @@ class WelcomeFragment : BaseStepFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() = WelcomeFragment()
+        fun newInstance() = YieldClassFragmentFragment()
     }
 
 
@@ -61,7 +61,7 @@ class WelcomeFragment : BaseStepFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentWelcomeBinding.inflate(inflater, container, false)
+        _binding = FragmentYieldClassBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -88,8 +88,7 @@ class WelcomeFragment : BaseStepFragment() {
         mAdapter.setOnItemClickListener(object : FieldYieldAdapter.OnItemClickListener {
             override fun onItemClick(view: View, fieldYield: FieldYield, position: Int) {
                 mAdapter.setActiveRowIndex(position,view)
-                val selectedYield = fieldYield
-                Toast.makeText(view.context, selectedYield.fieldYieldDesc, Toast.LENGTH_LONG).show()
+                Toast.makeText(view.context, fieldYield.fieldYieldDesc, Toast.LENGTH_SHORT).show()
             }
 
         })
