@@ -170,7 +170,8 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnStart"
         android:layout_width="0dp"
-        android:layout_height="55dp"
+        android:layout_height="80dp"
+        android:minHeight="60dp"
         android:layout_marginStart="@dimen/dimen_16"
         android:layout_marginEnd="@dimen/dimen_16"
         android:layout_marginBottom="@dimen/dimen_16"
