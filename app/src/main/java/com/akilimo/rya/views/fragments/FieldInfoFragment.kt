@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.databinding.FragmentFieldInfoBinding
+import com.akilimo.rya.entities.FieldInfo
 import com.akilimo.rya.utils.StringToNumberFactory
 import com.skydoves.powerspinner.OnSpinnerItemSelectedListener
 import com.stepstone.stepper.VerificationError
@@ -27,6 +29,8 @@ class FieldInfoFragment : BaseStepFragment() {
     private var selectedSellingPriceUnit: String? = null
     private var sellingPrice: Double = 0.0
 
+    private var database: AppDatabase? = null
+
     private val binding get() = _binding!!
 
     companion object {
@@ -44,6 +48,10 @@ class FieldInfoFragment : BaseStepFragment() {
         this.ctx = context
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        database = AppDatabase.getDatabase(ctx!!)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -108,15 +116,22 @@ class FieldInfoFragment : BaseStepFragment() {
             return VerificationError("Please fill all fields")
         }
 
-        //save to ROOM database
+        //Save to ROOM database
+        val fieldInfo = FieldInfo(
+            fieldAreaUnit = selectedFieldAreaUnit!!,
+            fieldSize = fieldSize,
+            sellingPriceUnit = selectedSellingPriceUnit!!,
+            sellingPrice = sellingPrice
+        )
+
+        database?.fieldInfoDao()?.insert(fieldInfo = fieldInfo)
+
         return null
     }
 
-    override fun onSelected() {
-    }
+    override fun onSelected() {}
 
-    override fun onError(error: VerificationError) {
-    }
+    override fun onError(error: VerificationError) {}
 
     override fun onDestroyView() {
         super.onDestroyView()
