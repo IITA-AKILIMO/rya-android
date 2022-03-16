@@ -27,6 +27,8 @@ class YieldClassFragmentFragment : BaseStepFragment() {
     private var ctx: Context? = null
     private var _binding: FragmentYieldClassBinding? = null
 
+    private var selectedYield:Double = 0.0
+
     private val yieldImages = arrayOf(
         R.drawable.yield_less_than_7point5,
         R.drawable.yield_7point5_to_15,
@@ -88,7 +90,8 @@ class YieldClassFragmentFragment : BaseStepFragment() {
         mAdapter.setOnItemClickListener(object : FieldYieldAdapter.OnItemClickListener {
             override fun onItemClick(view: View, fieldYield: FieldYield, position: Int) {
                 mAdapter.setActiveRowIndex(position,view)
-                Toast.makeText(view.context, fieldYield.fieldYieldDesc, Toast.LENGTH_SHORT).show()
+                selectedYield = fieldYield.yieldAmount;
+//                Toast.makeText(view.context, fieldYield.fieldYieldDesc, Toast.LENGTH_SHORT).show()
             }
 
         })
@@ -100,6 +103,9 @@ class YieldClassFragmentFragment : BaseStepFragment() {
     }
 
     override fun verifyStep(): VerificationError? {
+        if(selectedYield<=0.0){
+            return VerificationError("Please specify field yield")
+        }
         return verificationError
     }
 

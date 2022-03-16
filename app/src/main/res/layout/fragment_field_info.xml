@@ -56,11 +56,11 @@
             app:layout_constraintTop_toBottomOf="@+id/textView4">
 
             <com.skydoves.powerspinner.PowerSpinnerView
-                android:id="@+id/fieldSizePrompt"
+                android:id="@+id/fieldAreaUnitPrompt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/grey_5"
-                android:hint="@string/selling_price_prompt"
+                android:hint="@string/field_area_unit_prompt"
                 android:padding="@dimen/spacing_middle"
                 android:textSize="20sp"
                 app:spinner_divider_color="@color/purple_500"
@@ -101,7 +101,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView5">
 
             <com.skydoves.powerspinner.PowerSpinnerView
-                android:id="@+id/sellingPricePrompt"
+                android:id="@+id/sellingPriceUnitPrompt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/grey_5"

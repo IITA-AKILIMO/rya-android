@@ -5,10 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import com.akilimo.rya.databinding.FragmentFieldInfoBinding
+import com.akilimo.rya.utils.StringToNumberFactory
 import com.skydoves.powerspinner.OnSpinnerItemSelectedListener
 import com.stepstone.stepper.VerificationError
 
@@ -23,8 +22,10 @@ class FieldInfoFragment : BaseStepFragment() {
     private var ctx: Context? = null
     private var _binding: FragmentFieldInfoBinding? = null
 
-    private var selectedFieldUnit: String? = null
-    private var selectedSellingUnit: String? = null
+    private var selectedFieldAreaUnit: String? = null
+    private var fieldSize: Double = 0.0
+    private var selectedSellingPriceUnit: String? = null
+    private var sellingPrice: Double = 0.0
 
     private val binding get() = _binding!!
 
@@ -62,13 +63,53 @@ class FieldInfoFragment : BaseStepFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.fieldSizePrompt.setOnSpinnerItemSelectedListener(OnSpinnerItemSelectedListener<String?> { oldIndex, oldItem, newIndex, newItem ->
-            Toast.makeText(ctx, newItem, Toast.LENGTH_SHORT).show()
+        binding.fieldAreaUnitPrompt.setOnSpinnerItemSelectedListener(OnSpinnerItemSelectedListener<String?> { oldIndex, oldItem, newIndex, newItem ->
+            selectedFieldAreaUnit = newItem
         })
+
+        binding.sellingPriceUnitPrompt.setOnSpinnerItemSelectedListener(
+            OnSpinnerItemSelectedListener<String?> { oldIndex, oldItem, newIndex, newItem ->
+                selectedSellingPriceUnit = newItem
+            })
     }
 
     override fun verifyStep(): VerificationError? {
-        return verificationError
+        var isDataValid: Boolean = true
+
+        binding.txtFieldSize.error = null
+        binding.fieldAreaUnitPrompt.error = null
+        binding.txtSellingPrice.error = null
+        binding.sellingPriceUnitPrompt.error = null
+
+        fieldSize = StringToNumberFactory.stringToDouble(binding.txtFieldSize.text.toString())
+        sellingPrice = StringToNumberFactory.stringToDouble(binding.txtSellingPrice.text.toString())
+
+        if (selectedFieldAreaUnit.isNullOrEmpty()) {
+            binding.fieldAreaUnitPrompt.error = "Select proper field area unit"
+            isDataValid = false
+        }
+
+        if (fieldSize <= 0.0) {
+            binding.txtFieldSize.error = "Provide a valid field size"
+            isDataValid = false
+        }
+
+        if (sellingPrice <= 0.0) {
+            binding.txtSellingPrice.error = "Provide a valid selling price"
+            isDataValid = false
+        }
+
+        if (selectedSellingPriceUnit.isNullOrEmpty()) {
+            binding.sellingPriceUnitPrompt.error = "Select proper selling unit"
+            isDataValid = false
+        }
+
+        if (!isDataValid) {
+            return VerificationError("Please fill all fields")
+        }
+
+        //save to ROOM database
+        return null
     }
 
     override fun onSelected() {
