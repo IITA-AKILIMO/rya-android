@@ -2,14 +2,14 @@ package com.akilimo.rya.views.fragments
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.akilimo.rya.R
-import com.akilimo.rya.databinding.FragmentFieldInfoBinding
+import androidx.fragment.app.Fragment
 import com.akilimo.rya.databinding.FragmentPlantingPeriodBinding
 import com.stepstone.stepper.VerificationError
+import java.text.DateFormatSymbols
+import java.util.*
 
 
 /**
@@ -19,8 +19,12 @@ import com.stepstone.stepper.VerificationError
  */
 class PlantingPeriodFragment : BaseStepFragment() {
 
+    var calendar = Calendar.getInstance()
     private var ctx: Context? = null
     private var _binding: FragmentPlantingPeriodBinding? = null
+
+    var months: Array<String> = DateFormatSymbols().months
+    var yearsArray: List<String>? = null
 
     private val binding get() = _binding!!
 
@@ -53,6 +57,14 @@ class PlantingPeriodFragment : BaseStepFragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        yearsArray = getYearRange(calendar.get(Calendar.YEAR) - 5, calendar.get(Calendar.YEAR))
+
+        binding.plantingMonthPrompt.setItems(months.toList())
+        binding.plantingYearPrompt.setItems(yearsArray!!)
+    }
+
     override fun verifyStep(): VerificationError? {
         return null
     }
@@ -61,5 +73,15 @@ class PlantingPeriodFragment : BaseStepFragment() {
     }
 
     override fun onError(error: VerificationError) {
+    }
+
+    private fun getYearRange(startDate: Int, endDate: Int): MutableList<String> {
+        val list: MutableList<String> = ArrayList()
+        for (i in startDate..endDate) {
+            list.add(i.toString())
+        }
+
+        list.reverse()
+        return list
     }
 }
