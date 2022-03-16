@@ -44,8 +44,8 @@
     <string name="selling_price_prompt">Choose selling price</string>
 
     <string-array name="field_area_unit_array">
-        <item>Hectare</item>
         <item>Acre</item>
+        <item>Hectare</item>
         <item>Meter squared</item>
     </string-array>
 
