@@ -71,14 +71,18 @@ class FieldInfoFragment : BaseStepFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.fieldAreaUnitPrompt.setOnSpinnerItemSelectedListener(OnSpinnerItemSelectedListener<String?> { oldIndex, oldItem, newIndex, newItem ->
-            selectedFieldAreaUnit = newItem
-        })
+        binding.fieldAreaUnitPrompt.setOnSpinnerItemSelectedListener(
+            OnSpinnerItemSelectedListener<String?> { oldIndex, oldItem, newIndex, newItem ->
+                selectedFieldAreaUnit = newItem
+            })
 
         binding.sellingPriceUnitPrompt.setOnSpinnerItemSelectedListener(
             OnSpinnerItemSelectedListener<String?> { oldIndex, oldItem, newIndex, newItem ->
                 selectedSellingPriceUnit = newItem
             })
+
+        binding.fieldAreaUnitPrompt.selectItemByIndex(0)
+        binding.sellingPriceUnitPrompt.selectItemByIndex(0)
     }
 
     override fun verifyStep(): VerificationError? {

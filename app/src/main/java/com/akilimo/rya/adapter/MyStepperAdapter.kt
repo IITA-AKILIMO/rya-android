@@ -35,6 +35,8 @@ class MyStepperAdapter(
         val builder = StepViewModel.Builder(ctx)
         if(position==0){
             builder.setBackButtonLabel("Cancel")
+        }else if(position ==count-1){
+            builder.setEndButtonLabel("Proceed")
         }
         return builder.create()
     }

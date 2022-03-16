@@ -63,6 +63,9 @@ class PlantingPeriodFragment : BaseStepFragment() {
 
         binding.plantingMonthPrompt.setItems(months.toList())
         binding.plantingYearPrompt.setItems(yearsArray!!)
+
+        binding.plantingMonthPrompt.selectItemByIndex(calendar.get(Calendar.MONTH) - 1)
+        binding.plantingYearPrompt.selectItemByIndex(0)
     }
 
     override fun verifyStep(): VerificationError? {
