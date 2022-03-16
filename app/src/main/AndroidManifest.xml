@@ -17,6 +17,11 @@
         android:theme="@style/AppTheme"
         tools:targetApi="n">
         <activity
+            android:name=".views.activities.PlantTrianglesActivity"
+            android:exported="false"
+            android:label="@string/title_activity_plant_triangles"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".views.activities.StartPageActivity"
             android:exported="true">
             <intent-filter>
@@ -25,17 +30,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".views.activities.HomeStepperActivity"
             android:exported="true" />
-
-        <!-- <activity -->
-        <!-- android:name=".views.activities.SplashActivity" -->
-        <!-- android:exported="true" -->
-        <!-- android:theme="@style/SplashTheme"> -->
-        <!--  -->
-        <!-- </activity> -->
     </application>
 
 </manifest>

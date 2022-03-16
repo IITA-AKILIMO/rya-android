@@ -1,8 +1,10 @@
 package com.akilimo.rya.views.activities
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -17,7 +19,9 @@ import com.akilimo.rya.utils.MySharedPreferences
 import com.akilimo.rya.views.fragments.FieldInfoFragment
 import com.akilimo.rya.views.fragments.PlantingPeriodFragment
 import com.akilimo.rya.views.fragments.YieldClassFragmentFragment
+import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.stepstone.stepper.StepperLayout
+import com.stepstone.stepper.VerificationError
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -50,6 +54,25 @@ class HomeStepperActivity : AppCompatActivity(), IFragmentCallBack {
         setContentView(binding.root)
 
         mStepperLayout = binding.stepperLayout
+
+        binding.stepperLayout.setListener(object : StepperLayout.StepperListener {
+            override fun onCompleted(completeButton: View?) {
+                val intent = Intent(this@HomeStepperActivity, PlantTrianglesActivity::class.java)
+                startActivity(intent)
+                Animatoo.animateSwipeLeft(this@HomeStepperActivity)
+            }
+
+            override fun onError(verificationError: VerificationError?) {
+            }
+
+            override fun onStepSelected(newStepPosition: Int) {
+            }
+
+            override fun onReturn() {
+            }
+
+        })
+
 
         prefs = MySharedPreferences(this)
 
