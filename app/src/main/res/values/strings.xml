@@ -57,4 +57,8 @@
     <string name="title_activity_plant_triangles">PlantTrianglesActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+
+    <string name="lbl_low_precision">Low precision\n±30min\nUproot 9 plants</string>
+    <string name="lbl_medium_precision">Moderate precision\n ±45min\nUproot 18 plants</string>
+    <string name="lbl_high_precision">High precision\n ±60min\nUproot 30–45 plants</string>
 </resources>

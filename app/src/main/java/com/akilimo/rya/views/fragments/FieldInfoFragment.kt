@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.databinding.FragmentFieldInfoBinding
-import com.akilimo.rya.entities.FieldInfo
+import com.akilimo.rya.entities.FieldInfoEntity
 import com.akilimo.rya.utils.StringToNumberFactory
 import com.skydoves.powerspinner.OnSpinnerItemSelectedListener
 import com.stepstone.stepper.VerificationError
@@ -121,14 +121,14 @@ class FieldInfoFragment : BaseStepFragment() {
         }
 
         //Save to ROOM database
-        val fieldInfo = FieldInfo(
+        val fieldInfo = FieldInfoEntity(
             fieldAreaUnit = selectedFieldAreaUnit!!,
             fieldSize = fieldSize,
             sellingPriceUnit = selectedSellingPriceUnit!!,
             sellingPrice = sellingPrice
         )
 
-        database?.fieldInfoDao()?.insert(fieldInfo = fieldInfo)
+        database?.fieldInfoDao()?.insert(fieldInfoEntity = fieldInfo)
 
         return null
     }

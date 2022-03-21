@@ -1,20 +1,20 @@
 package com.akilimo.rya.repos
 
 import androidx.room.*
-import com.akilimo.rya.entities.FieldInfo
+import com.akilimo.rya.entities.FieldInfoEntity
 
 @Dao
 interface FieldInfoDao {
 
     @Query("SELECT * from field_info")
-    fun getAll(): List<FieldInfo>
+    fun getAll(): List<FieldInfoEntity>
 
     @Query("SELECT * FROM field_info LIMIT 1")
-    fun findOne(): FieldInfo?
+    fun findOne(): FieldInfoEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(fieldInfo: FieldInfo)
+    fun insert(fieldInfoEntity: FieldInfoEntity)
 
     @Update
-    fun update(fieldInfo: FieldInfo)
+    fun update(fieldInfoEntity: FieldInfoEntity)
 }
