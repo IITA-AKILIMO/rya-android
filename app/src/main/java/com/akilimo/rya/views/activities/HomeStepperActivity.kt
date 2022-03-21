@@ -16,6 +16,7 @@ import com.akilimo.rya.interfaces.IFragmentCallBack
 import com.akilimo.rya.rest.ApiInterface
 import com.akilimo.rya.rest.FuelrodApiInterface
 import com.akilimo.rya.utils.MySharedPreferences
+import com.akilimo.rya.views.fragments.BeforeStartingFragment
 import com.akilimo.rya.views.fragments.FieldInfoFragment
 import com.akilimo.rya.views.fragments.PlantingPeriodFragment
 import com.akilimo.rya.views.fragments.YieldClassFragmentFragment
@@ -86,6 +87,7 @@ class HomeStepperActivity : AppCompatActivity(), IFragmentCallBack {
         fragmentArray.add(YieldClassFragmentFragment.newInstance())
         fragmentArray.add(FieldInfoFragment.newInstance())
         fragmentArray.add(PlantingPeriodFragment.newInstance())
+        fragmentArray.add(BeforeStartingFragment.newInstance())
     }
 
     private fun initComponent() {

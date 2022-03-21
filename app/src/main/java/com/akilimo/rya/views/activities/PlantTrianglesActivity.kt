@@ -1,15 +1,12 @@
 package com.akilimo.rya.views.activities
 
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
-import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
+import androidx.viewpager2.widget.ViewPager2
+import com.akilimo.rya.adapter.SectionsPagerAdapter
 import com.akilimo.rya.databinding.ActivityPlantTrianglesBinding
-import com.akilimo.rya.views.activities.ui.main.SectionsPagerAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 
 
 class PlantTrianglesActivity : AppCompatActivity() {
@@ -22,16 +19,19 @@ class PlantTrianglesActivity : AppCompatActivity() {
         binding = ActivityPlantTrianglesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
-        val viewPager: ViewPager = binding.viewPager
-        viewPager.adapter = sectionsPagerAdapter
-        val tabs: TabLayout = binding.tabs
-        tabs.setupWithViewPager(viewPager)
-        val fab: FloatingActionButton = binding.fab
+        val sectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager, lifecycle)
+        val viewPager: ViewPager2 = binding.viewPager
+        val tabLayout: TabLayout = binding.tabLayout
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+        viewPager.adapter = sectionsPagerAdapter
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = "Triangle $position"
+        }.attach()
+
+
+//        fab.setOnClickListener { view ->
+//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show()
+//        }
     }
 }
