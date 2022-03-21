@@ -4,18 +4,22 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.akilimo.rya.entities.FieldInfo
+import com.akilimo.rya.entities.FieldInfoEntity
+import com.akilimo.rya.entities.YieldPrecisionEntity
 import com.akilimo.rya.repos.FieldInfoDao
+import com.akilimo.rya.repos.YieldPrecisionDao
 
 @Database(
     entities = [
-        FieldInfo::class
+        FieldInfoEntity::class,
+        YieldPrecisionEntity::class,
     ],
     version = 1,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun fieldInfoDao(): FieldInfoDao
+    abstract fun yieldPrecisionDao(): YieldPrecisionDao
 
 
     companion object {
@@ -32,7 +36,7 @@ abstract class AppDatabase : RoomDatabase() {
                     if (database == null) {
                         database = Room.databaseBuilder(
                             context.applicationContext,
-                            AppDatabase::class.java, "RYA_16_MAR_2022"
+                            AppDatabase::class.java, "RYA_21_MAR_2022"
                         )
                             .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()

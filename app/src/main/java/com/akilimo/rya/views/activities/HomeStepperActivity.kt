@@ -16,10 +16,7 @@ import com.akilimo.rya.interfaces.IFragmentCallBack
 import com.akilimo.rya.rest.ApiInterface
 import com.akilimo.rya.rest.FuelrodApiInterface
 import com.akilimo.rya.utils.MySharedPreferences
-import com.akilimo.rya.views.fragments.BeforeStartingFragment
-import com.akilimo.rya.views.fragments.FieldInfoFragment
-import com.akilimo.rya.views.fragments.PlantingPeriodFragment
-import com.akilimo.rya.views.fragments.YieldClassFragmentFragment
+import com.akilimo.rya.views.fragments.*
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.stepstone.stepper.StepperLayout
 import com.stepstone.stepper.VerificationError
@@ -87,6 +84,7 @@ class HomeStepperActivity : AppCompatActivity(), IFragmentCallBack {
         fragmentArray.add(YieldClassFragmentFragment.newInstance())
         fragmentArray.add(FieldInfoFragment.newInstance())
         fragmentArray.add(PlantingPeriodFragment.newInstance())
+        fragmentArray.add(PrecisionFragment.newInstance())
         fragmentArray.add(BeforeStartingFragment.newInstance())
     }
 
