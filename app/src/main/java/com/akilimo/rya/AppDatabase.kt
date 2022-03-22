@@ -5,9 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.akilimo.rya.entities.FieldInfoEntity
+import com.akilimo.rya.entities.FieldYieldEntity
 import com.akilimo.rya.entities.PlantTriangleEntity
 import com.akilimo.rya.entities.YieldPrecisionEntity
 import com.akilimo.rya.repos.FieldInfoDao
+import com.akilimo.rya.repos.FieldYieldDao
 import com.akilimo.rya.repos.PlantTriangleDao
 import com.akilimo.rya.repos.YieldPrecisionDao
 
@@ -15,15 +17,17 @@ import com.akilimo.rya.repos.YieldPrecisionDao
     entities = [
         FieldInfoEntity::class,
         YieldPrecisionEntity::class,
-        PlantTriangleEntity::class
+        PlantTriangleEntity::class,
+        FieldYieldEntity::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun fieldInfoDao(): FieldInfoDao
     abstract fun yieldPrecisionDao(): YieldPrecisionDao
     abstract fun plantTriangleDao(): PlantTriangleDao
+    abstract fun fieldYieldDao(): FieldYieldDao
 
 
     companion object {

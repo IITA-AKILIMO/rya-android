@@ -14,6 +14,10 @@ data class FieldInfoEntity(
     var fieldSize: Double,
     @ColumnInfo(name = "selling_price_unit")
     var sellingPriceUnit: String,
+    @ColumnInfo(name = "currency")
+    var currency: String,
+    @ColumnInfo(name = "area_unit")
+    var areaUnit: String,
     @ColumnInfo(name = "selling_price")
     var sellingPrice: Double
 )

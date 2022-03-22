@@ -19,7 +19,7 @@ import java.util.*
  */
 class PlantingPeriodFragment : BaseStepFragment() {
 
-    var calendar = Calendar.getInstance()
+    private var calendar: Calendar = Calendar.getInstance()
     private var ctx: Context? = null
     private var _binding: FragmentPlantingPeriodBinding? = null
 

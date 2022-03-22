@@ -25,7 +25,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class HomeStepperActivity : AppCompatActivity(), IFragmentCallBack {
+class HomeStepperActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeStepperBinding
     private lateinit var apiInterface: ApiInterface
     private lateinit var fuelrodApiInterface: FuelrodApiInterface
@@ -150,9 +150,5 @@ class HomeStepperActivity : AppCompatActivity(), IFragmentCallBack {
     fun Bitmap.rotate(degrees: Float): Bitmap {
         val matrix = Matrix().apply { postRotate(degrees) }
         return Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
-    }
-
-    override fun reloadView() {
-        TODO("Not yet implemented")
     }
 }

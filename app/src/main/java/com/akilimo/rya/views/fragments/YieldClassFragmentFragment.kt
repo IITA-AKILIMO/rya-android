@@ -8,10 +8,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.room.ColumnInfo
+import androidx.room.PrimaryKey
+import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.R
 import com.akilimo.rya.adapter.FieldYieldAdapter
 import com.akilimo.rya.data.FieldYield
 import com.akilimo.rya.databinding.FragmentYieldClassBinding
+import com.akilimo.rya.entities.FieldYieldEntity
 import com.akilimo.rya.utils.TheItemAnimation
 import com.akilimo.rya.utils.Tools
 import com.akilimo.rya.widgets.SpacingItemDecoration
@@ -27,7 +31,8 @@ class YieldClassFragmentFragment : BaseStepFragment() {
     private var ctx: Context? = null
     private var _binding: FragmentYieldClassBinding? = null
 
-    private var selectedYield:Double = 0.0
+    private var selectedYield: Double = 0.0
+    private var database: AppDatabase? = null
 
     private val yieldImages = arrayOf(
         R.drawable.yield_less_than_7point5,
@@ -50,12 +55,9 @@ class YieldClassFragmentFragment : BaseStepFragment() {
         this.ctx = context
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return loadFragmentLayout(inflater, container, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        database = AppDatabase.getDatabase(ctx!!)
     }
 
     override fun loadFragmentLayout(
@@ -89,9 +91,17 @@ class YieldClassFragmentFragment : BaseStepFragment() {
 
         mAdapter.setOnItemClickListener(object : FieldYieldAdapter.OnItemClickListener {
             override fun onItemClick(view: View, fieldYield: FieldYield, position: Int) {
-                mAdapter.setActiveRowIndex(position,view)
+                mAdapter.setActiveRowIndex(position, view)
                 selectedYield = fieldYield.yieldAmount;
-//                Toast.makeText(view.context, fieldYield.fieldYieldDesc, Toast.LENGTH_SHORT).show()
+                val fieldYieldEntity = FieldYieldEntity(
+                    id = 1,
+                    imageId = fieldYield.imageId,
+                    yieldLabel = fieldYield.yieldLabel,
+                    fieldYieldAmountLabel = fieldYield.fieldYieldAmountLabel,
+                    fieldYieldDesc = fieldYield.fieldYieldDesc,
+                    yieldAmount = fieldYield.yieldAmount
+                )
+                database?.fieldYieldDao()?.insert(fieldYieldEntity)
             }
 
         })
@@ -103,9 +113,10 @@ class YieldClassFragmentFragment : BaseStepFragment() {
     }
 
     override fun verifyStep(): VerificationError? {
-        if(selectedYield<=0.0){
+        if (selectedYield <= 0.0) {
             return VerificationError("Please specify field yield")
         }
+
         return verificationError
     }
 
@@ -113,7 +124,7 @@ class YieldClassFragmentFragment : BaseStepFragment() {
 
     override fun onError(error: VerificationError) {}
 
-    private fun setYieldData(areaUnit: String = "acre"): List<FieldYield> {
+    private fun setYieldData(areaUnit: String = "ha"): List<FieldYield> {
         var rd_3_tonnes: String
         var rd_6_tonnes: String
         var rd_9_tonnes: String
