@@ -89,6 +89,10 @@ class PrecisionFragment : BaseStepFragment() {
 
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
     private fun setPrecisionData(): MutableList<YieldPrecision> {
         val items: MutableList<YieldPrecision> = ArrayList()
         items.add(

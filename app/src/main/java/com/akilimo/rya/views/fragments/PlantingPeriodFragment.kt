@@ -68,6 +68,11 @@ class PlantingPeriodFragment : BaseStepFragment() {
         binding.plantingYearPrompt.selectItemByIndex(0)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     override fun verifyStep(): VerificationError? {
         return null
     }
