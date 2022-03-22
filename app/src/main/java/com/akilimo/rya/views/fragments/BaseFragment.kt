@@ -9,11 +9,7 @@ import com.akilimo.rya.interfaces.IFragmentInflater
 import com.stepstone.stepper.Step
 import com.stepstone.stepper.VerificationError
 
-abstract class BaseStepFragment : BaseFragment(), Step {
-
-    protected var LOG_TAG = this::class.java.simpleName
-
-    protected var verificationError: VerificationError? = null
+abstract class BaseFragment : Fragment(), IFragmentInflater {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

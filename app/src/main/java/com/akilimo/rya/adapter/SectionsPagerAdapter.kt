@@ -7,24 +7,23 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.akilimo.rya.R
 import com.akilimo.rya.views.fragments.PlaceholderFragment
 
-private val TAB_TITLES = arrayOf(
-    R.string.tab_text_1,
-    R.string.tab_text_2,
-    R.string.tab_text_2
-)
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-class SectionsPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
+class SectionsPagerAdapter(
+    fm: FragmentManager,
+    lifecycle: Lifecycle,
+    private val fragmentArray: MutableList<Fragment>
+) :
     FragmentStateAdapter(fm, lifecycle) {
 
     override fun getItemCount(): Int {
-        return 3
+        return fragmentArray.size
     }
 
     override fun createFragment(position: Int): Fragment {
-        return PlaceholderFragment.newInstance()
+        return fragmentArray[position]
     }
 }
