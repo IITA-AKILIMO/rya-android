@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- TODO: Update blank fragment layout -->
         <TextView
             android:id="@+id/textviewLabel"
             android:layout_width="wrap_content"
@@ -28,6 +27,8 @@
             android:id="@+id/lytTextField"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textviewLabel">
 
@@ -36,10 +37,11 @@
                 android:id="@+id/txtRootWeight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Root weight (kg)"
+                android:hint="@string/lbl_root_weight_hint"
                 android:inputType="numberDecimal"
                 android:labelFor="@id/txtRootWeight"
                 android:minHeight="48dp" />
+
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

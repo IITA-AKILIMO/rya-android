@@ -17,6 +17,9 @@
         android:theme="@style/AppTheme"
         tools:targetApi="n">
         <activity
+            android:name=".views.activities.AssessmentActivity"
+            android:exported="false" />
+        <activity
             android:name=".views.activities.PlantTrianglesActivity"
             android:exported="false"
             android:label="@string/title_activity_plant_triangles"
