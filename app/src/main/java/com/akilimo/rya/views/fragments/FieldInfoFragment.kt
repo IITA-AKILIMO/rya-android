@@ -28,8 +28,11 @@ class FieldInfoFragment : BaseStepFragment() {
     private var fieldSize: Double = 0.0
     private var selectedSellingPriceUnit: String? = null
     private var sellingPrice: Double = 0.0
+    private var currency: String = "USD"
+    private var areaUnit: String = "acre"
 
     private var database: AppDatabase? = null
+
 
     private val binding get() = _binding!!
 
@@ -53,13 +56,6 @@ class FieldInfoFragment : BaseStepFragment() {
         database = AppDatabase.getDatabase(ctx!!)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return loadFragmentLayout(inflater, container, savedInstanceState)
-    }
-
     override fun loadFragmentLayout(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -74,11 +70,35 @@ class FieldInfoFragment : BaseStepFragment() {
         binding.fieldAreaUnitPrompt.setOnSpinnerItemSelectedListener(
             OnSpinnerItemSelectedListener<String?> { oldIndex, oldItem, newIndex, newItem ->
                 selectedFieldAreaUnit = newItem
+                when {
+                    newItem.equals("Acre", true) -> {
+                        areaUnit = "acre"
+                    }
+                    newItem.equals("Hectare", true) -> {
+                        areaUnit = "ha"
+                    }
+                    newItem.equals("Meter squared", true) -> {
+                        areaUnit = "m2"
+                    }
+                }
             })
 
         binding.sellingPriceUnitPrompt.setOnSpinnerItemSelectedListener(
             OnSpinnerItemSelectedListener<String?> { oldIndex, oldItem, newIndex, newItem ->
                 selectedSellingPriceUnit = newItem
+
+                when {
+                    newItem.equals("USD/Tonne", true) -> {
+                        currency = "USD"
+                    }
+                    newItem.equals("NGN/Tonne", true) -> {
+                        currency = "NGN"
+                    }
+                    newItem.equals("TZS/Tonne", true) -> {
+                        currency = "TZS"
+                    }
+                }
+
             })
 
         binding.fieldAreaUnitPrompt.selectItemByIndex(0)
@@ -122,9 +142,12 @@ class FieldInfoFragment : BaseStepFragment() {
 
         //Save to ROOM database
         val fieldInfo = FieldInfoEntity(
+            id = 1,
             fieldAreaUnit = selectedFieldAreaUnit!!,
             fieldSize = fieldSize,
+            areaUnit = areaUnit,
             sellingPriceUnit = selectedSellingPriceUnit!!,
+            currency = currency,
             sellingPrice = sellingPrice
         )
 

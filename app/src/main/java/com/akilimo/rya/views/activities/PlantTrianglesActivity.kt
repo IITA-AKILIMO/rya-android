@@ -1,5 +1,6 @@
 package com.akilimo.rya.views.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -8,6 +9,7 @@ import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.adapter.SectionsPagerAdapter
 import com.akilimo.rya.databinding.ActivityPlantTrianglesBinding
 import com.akilimo.rya.views.fragments.ui.TriangleFragment
+import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
@@ -33,10 +35,10 @@ class PlantTrianglesActivity : AppCompatActivity() {
         val yieldClass = database?.yieldPrecisionDao()?.findOne()
 
         if (yieldClass != null) {
-            plantcount = yieldClass.plantCount / 3
-            fragmentArray.add(TriangleFragment.newInstance(plantcount, "one"))
-            fragmentArray.add(TriangleFragment.newInstance(plantcount, "two"))
-            fragmentArray.add(TriangleFragment.newInstance(plantcount, "three"))
+            plantcount = yieldClass.plantCount
+            fragmentArray.add(TriangleFragment.newInstance(plantcount / 3, "one"))
+            fragmentArray.add(TriangleFragment.newInstance(plantcount / 3, "two"))
+            fragmentArray.add(TriangleFragment.newInstance(plantcount / 3, "three"))
         }
 
         val sectionsPagerAdapter =
@@ -67,6 +69,10 @@ class PlantTrianglesActivity : AppCompatActivity() {
                     val allData = database?.plantTriangleDao()?.getAll(plantcount)
                     if (allData?.size!! == plantcount) {
                         //proceed to next activity
+                        val intent =
+                            Intent(this@PlantTrianglesActivity, AssessmentActivity::class.java)
+                        startActivity(intent)
+                        Animatoo.animateSwipeLeft(this@PlantTrianglesActivity)
                     }
                 }
             }
