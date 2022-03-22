@@ -5,14 +5,17 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.akilimo.rya.entities.FieldInfoEntity
+import com.akilimo.rya.entities.PlantTriangleEntity
 import com.akilimo.rya.entities.YieldPrecisionEntity
 import com.akilimo.rya.repos.FieldInfoDao
+import com.akilimo.rya.repos.PlantTriangleDao
 import com.akilimo.rya.repos.YieldPrecisionDao
 
 @Database(
     entities = [
         FieldInfoEntity::class,
         YieldPrecisionEntity::class,
+        PlantTriangleEntity::class
     ],
     version = 1,
     exportSchema = false
@@ -20,6 +23,7 @@ import com.akilimo.rya.repos.YieldPrecisionDao
 abstract class AppDatabase : RoomDatabase() {
     abstract fun fieldInfoDao(): FieldInfoDao
     abstract fun yieldPrecisionDao(): YieldPrecisionDao
+    abstract fun plantTriangleDao(): PlantTriangleDao
 
 
     companion object {
@@ -36,7 +40,7 @@ abstract class AppDatabase : RoomDatabase() {
                     if (database == null) {
                         database = Room.databaseBuilder(
                             context.applicationContext,
-                            AppDatabase::class.java, "RYA_21_MAR_2022"
+                            AppDatabase::class.java, "RYA_22_MAR_2022"
                         )
                             .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()

@@ -1,15 +1,15 @@
 package com.akilimo.rya.views.activities
 
 import android.os.Bundle
-import com.google.android.material.tabs.TabLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.adapter.SectionsPagerAdapter
 import com.akilimo.rya.databinding.ActivityPlantTrianglesBinding
-import com.akilimo.rya.views.fragments.PlaceholderFragment
 import com.akilimo.rya.views.fragments.ui.TriangleFragment
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
 
 
@@ -18,6 +18,8 @@ class PlantTrianglesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPlantTrianglesBinding
     private val fragmentArray: MutableList<Fragment> = arrayListOf()
     private var database: AppDatabase? = null
+    private var tabPosition = 0;
+    private var plantcount = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,9 +33,10 @@ class PlantTrianglesActivity : AppCompatActivity() {
         val yieldClass = database?.yieldPrecisionDao()?.findOne()
 
         if (yieldClass != null) {
-            fragmentArray.add(TriangleFragment.newInstance(yieldClass.triangleCount / 3))
-            fragmentArray.add(TriangleFragment.newInstance(yieldClass.triangleCount / 3))
-            fragmentArray.add(TriangleFragment.newInstance(yieldClass.triangleCount / 3))
+            plantcount = yieldClass.plantCount / 3
+            fragmentArray.add(TriangleFragment.newInstance(plantcount, "one"))
+            fragmentArray.add(TriangleFragment.newInstance(plantcount, "two"))
+            fragmentArray.add(TriangleFragment.newInstance(plantcount, "three"))
         }
 
         val sectionsPagerAdapter =
@@ -45,6 +48,29 @@ class PlantTrianglesActivity : AppCompatActivity() {
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = "Triangle ${position + 1}"
         }.attach()
+
+        tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                tabPosition = tab.position
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
+
+        binding.btnValidate.setOnClickListener {
+            val activeFragment: Fragment = fragmentArray[tabPosition]
+            if (activeFragment is TriangleFragment) {
+                val inputValid = activeFragment.validateInput()
+                //check if all data has been provided
+                if (inputValid) {
+                    val allData = database?.plantTriangleDao()?.getAll(plantcount)
+                    if (allData?.size!! == plantcount) {
+                        //proceed to next activity
+                    }
+                }
+            }
+        }
 
 
 //        fab.setOnClickListener { view ->

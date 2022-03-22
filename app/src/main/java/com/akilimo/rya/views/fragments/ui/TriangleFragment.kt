@@ -2,18 +2,22 @@ package com.akilimo.rya.views.fragments.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.Fragment
 import com.akilimo.rya.AppDatabase
+import com.akilimo.rya.R
 import com.akilimo.rya.databinding.FragmentTriangleBinding
+import com.akilimo.rya.entities.PlantTriangleEntity
+import com.akilimo.rya.utils.StringToNumberFactory
 import com.akilimo.rya.views.fragments.BaseFragment
 
 
-private const val TRIANGLE_COUNT = "triangle_count"
+private const val PLANT_COUNT = "plant_count"
+private const val TRIANGLE_NAME = "triangle_name"
 
 /**
  * A simple [Fragment] subclass.
@@ -22,22 +26,27 @@ private const val TRIANGLE_COUNT = "triangle_count"
  */
 class TriangleFragment : BaseFragment() {
     private var triangleCount: Int = 0
+    private var triangleName: String? = null
+
     private var _binding: FragmentTriangleBinding? = null
     private var ctx: Context? = null
 
     private var database: AppDatabase? = null
     private val binding get() = _binding!!
 
+    private val editTexts: MutableList<AppCompatEditText> = arrayListOf()
+
     companion object {
         /**
-         * @param triangleCount Parameter 1.
+         * @param plantCount Parameter 1.
          * @return A new instance of fragment TriangleFragment.
          */
         @JvmStatic
-        fun newInstance(triangleCount: Int) =
+        fun newInstance(plantCount: Int, triangleName: String) =
             TriangleFragment().apply {
                 arguments = Bundle().apply {
-                    putInt(TRIANGLE_COUNT, triangleCount)
+                    putInt(PLANT_COUNT, plantCount)
+                    putString(TRIANGLE_NAME, triangleName)
                 }
             }
     }
@@ -50,8 +59,10 @@ class TriangleFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            triangleCount = it.getInt(TRIANGLE_COUNT)
+            triangleCount = it.getInt(PLANT_COUNT)
+            triangleName = it.getString(TRIANGLE_NAME)
         }
+        database = AppDatabase.getDatabase(ctx!!)
     }
 
     override fun loadFragmentLayout(
@@ -67,13 +78,68 @@ class TriangleFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         //let us build the inputs
         val lyt = binding.lytTextField
-//        lyt.removeAllViews() //clear all components
-        val editTexts = arrayOfNulls<AppCompatEditText>(triangleCount)
+        lyt.removeAllViews() //clear all components
+        for (i in 0 until triangleCount) {
+            val editText = AppCompatEditText(view.context)
+            editText.id = i
+            editText.width = ViewGroup.LayoutParams.MATCH_PARENT
+            editText.height = ViewGroup.LayoutParams.WRAP_CONTENT
+            editText.minHeight = resources.getDimension(R.dimen.dimen_48).toInt()
+            editText.inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL or InputType.TYPE_CLASS_NUMBER
+
+            editText.hint = getString(R.string.lbl_root_weight_hint)
+            editTexts.add(editText)
+            lyt.addView(editText)
+        }
+
+        //get saved values and add them to text fields
+        var plantNumber = 1
+        for (inputField in editTexts) {
+            val plantTriangle = database?.plantTriangleDao()
+                ?.findOneByTriangleNameAndPlantName(triangleName!!, "plant$plantNumber")
+            if (plantTriangle != null) {
+                inputField.setText(plantTriangle.rootWeight.toString())
+                plantNumber++
+            }
+        }
+
 
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun validateInput(): Boolean {
+        var inputValid = false
+        val plantTrianglesMeasurement: MutableList<PlantTriangleEntity> = arrayListOf()
+        var plantNumber = 1;
+        for (inputField in editTexts) {
+            val rootWeightString = inputField.editableText.toString()
+            val rootWeight = StringToNumberFactory.stringToDouble(rootWeightString)
+            inputValid = rootWeight > 0
+            if (inputValid) {
+                //save this value to the database
+                inputField.error = null
+                plantTrianglesMeasurement.add(
+                    PlantTriangleEntity(
+                        triangleName = triangleName!!,
+                        plantName = "plant$plantNumber",
+                        rootWeight = rootWeight
+                    )
+                )
+                plantNumber++
+            } else {
+                inputField.error = "Provide correct plant root weight"
+                inputField.requestFocus()
+                break //no need to loop all through
+            }
+        }
+
+        if (inputValid) {
+            database?.plantTriangleDao()?.insertAll(plantTrianglesMeasurement)
+        }
+        return inputValid
     }
 }

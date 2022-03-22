@@ -22,8 +22,8 @@ class StartPageActivity : AppCompatActivity() {
 //            val intent = Intent(this, HomeStepperActivity::class.java)
             val intent = Intent(this, PlantTrianglesActivity::class.java)
             startActivity(intent)
-            Animatoo.animateFade(this)
-            finish()
+            Animatoo.animateSlideLeft(this)
+//            finish()
         }
     }
 }
