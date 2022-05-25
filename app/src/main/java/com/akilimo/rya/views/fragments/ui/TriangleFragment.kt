@@ -114,7 +114,7 @@ class TriangleFragment : BaseFragment() {
     fun validateInput(): Boolean {
         var inputValid = false
         val plantTrianglesMeasurement: MutableList<PlantTriangleEntity> = arrayListOf()
-        var plantNumber = 1;
+        var plantNumber = 1
         for (inputField in editTexts) {
             val rootWeightString = inputField.editableText.toString()
             val rootWeight = StringToNumberFactory.stringToDouble(rootWeightString)

@@ -5,11 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.room.ColumnInfo
-import androidx.room.PrimaryKey
 import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.R
 import com.akilimo.rya.adapter.FieldYieldAdapter
@@ -125,40 +122,40 @@ class YieldClassFragmentFragment : BaseStepFragment() {
     override fun onError(error: VerificationError) {}
 
     private fun setYieldData(areaUnit: String = "ha"): List<FieldYield> {
-        var rd_3_tonnes: String
-        var rd_6_tonnes: String
-        var rd_9_tonnes: String
-        var rd_12_tonnes: String
-        var rd_more: String
+        var rd3Tonnes: String
+        var rd6Tonnes: String
+        var rd9Tonnes: String
+        var rd12Tonnes: String
+        var rdMore: String
         when (areaUnit.lowercase()) {
             "acre" -> {
-                rd_3_tonnes = getString(R.string.yield_less_than_3_tonnes_per_acre)
-                rd_6_tonnes = getString(R.string.yield_3_to_6_tonnes_per_acre)
-                rd_9_tonnes = getString(R.string.yield_6_to_9_tonnes_per_acre)
-                rd_12_tonnes = getString(R.string.yield_9_to_12_tonnes_per_acre)
-                rd_more = getString(R.string.yield_more_than_12_tonnes_per_acre)
+                rd3Tonnes = getString(R.string.yield_less_than_3_tonnes_per_acre)
+                rd6Tonnes = getString(R.string.yield_3_to_6_tonnes_per_acre)
+                rd9Tonnes = getString(R.string.yield_6_to_9_tonnes_per_acre)
+                rd12Tonnes = getString(R.string.yield_9_to_12_tonnes_per_acre)
+                rdMore = getString(R.string.yield_more_than_12_tonnes_per_acre)
             }
             "ha" -> {
-                rd_3_tonnes = getString(R.string.yield_less_than_3_tonnes_per_hectare)
-                rd_6_tonnes = getString(R.string.yield_3_to_6_tonnes_per_hectare)
-                rd_9_tonnes = getString(R.string.yield_6_to_9_tonnes_per_hectare)
-                rd_12_tonnes = getString(R.string.yield_9_to_12_tonnes_per_hectare)
-                rd_more = getString(R.string.yield_more_than_12_tonnes_per_hectare)
+                rd3Tonnes = getString(R.string.yield_less_than_3_tonnes_per_hectare)
+                rd6Tonnes = getString(R.string.yield_3_to_6_tonnes_per_hectare)
+                rd9Tonnes = getString(R.string.yield_6_to_9_tonnes_per_hectare)
+                rd12Tonnes = getString(R.string.yield_9_to_12_tonnes_per_hectare)
+                rdMore = getString(R.string.yield_more_than_12_tonnes_per_hectare)
             }
             else -> {
-                rd_3_tonnes = getString(R.string.yield_less_than_3_tonnes_per_acre)
-                rd_6_tonnes = getString(R.string.yield_3_to_6_tonnes_per_acre)
-                rd_9_tonnes = getString(R.string.yield_6_to_9_tonnes_per_acre)
-                rd_12_tonnes = getString(R.string.yield_9_to_12_tonnes_per_acre)
-                rd_more = getString(R.string.yield_more_than_12_tonnes_per_acre)
+                rd3Tonnes = getString(R.string.yield_less_than_3_tonnes_per_acre)
+                rd6Tonnes = getString(R.string.yield_3_to_6_tonnes_per_acre)
+                rd9Tonnes = getString(R.string.yield_6_to_9_tonnes_per_acre)
+                rd12Tonnes = getString(R.string.yield_9_to_12_tonnes_per_acre)
+                rdMore = getString(R.string.yield_more_than_12_tonnes_per_acre)
             }
         }
         val items: MutableList<FieldYield> = ArrayList()
         items.add(
             FieldYield(
                 imageId = yieldImages[0],
-                yieldLabel = getString(R.string.fcy_lower),
-                fieldYieldAmountLabel = rd_3_tonnes,
+                yieldLabel = rd3Tonnes,
+                fieldYieldAmountLabel = getString(R.string.fcy_lower),
                 yieldAmount = 3.75,
                 fieldYieldDesc = getString(R.string.lbl_low_yield)
             )
@@ -167,7 +164,7 @@ class YieldClassFragmentFragment : BaseStepFragment() {
             FieldYield(
                 imageId = yieldImages[1],
                 fieldYieldAmountLabel = getString(R.string.fcy_about_the_same),
-                yieldLabel = rd_6_tonnes,
+                yieldLabel = rd6Tonnes,
                 yieldAmount = 11.25,
                 fieldYieldDesc = getString(R.string.lbl_normal_yield)
             )
@@ -176,7 +173,7 @@ class YieldClassFragmentFragment : BaseStepFragment() {
             FieldYield(
                 imageId = yieldImages[2],
                 fieldYieldAmountLabel = getString(R.string.fcy_somewhat_higher),
-                yieldLabel = rd_9_tonnes,
+                yieldLabel = rd9Tonnes,
                 yieldAmount = 18.75,
                 fieldYieldDesc = getString(R.string.lbl_high_yield)
             )
@@ -185,7 +182,7 @@ class YieldClassFragmentFragment : BaseStepFragment() {
             FieldYield(
                 imageId = yieldImages[3],
                 fieldYieldAmountLabel = getString(R.string.fcy_2_3_times_higher),
-                yieldLabel = rd_12_tonnes,
+                yieldLabel = rd12Tonnes,
                 yieldAmount = 26.25,
                 fieldYieldDesc = getString(R.string.lbl_very_high_yield)
             )
@@ -194,7 +191,7 @@ class YieldClassFragmentFragment : BaseStepFragment() {
             FieldYield(
                 imageId = yieldImages[4],
                 fieldYieldAmountLabel = getString(R.string.fcy_more_than_3_times_higher),
-                yieldLabel = rd_more,
+                yieldLabel = rdMore,
                 yieldAmount = 33.75,
                 fieldYieldDesc = getString(R.string.lbl_very_high_yield)
             )
