@@ -7,6 +7,7 @@
     android:padding="@dimen/spacing_middle"
     tools:context=".views.fragments.ui.TriangleFragment">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
@@ -23,28 +24,33 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/lytTextField"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textviewLabel">
 
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/txtRootWeight"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/lytTextField"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/lbl_root_weight_hint"
-                android:inputType="numberDecimal"
-                android:labelFor="@id/txtRootWeight"
-                android:minHeight="48dp" />
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:orientation="vertical">
 
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/txtRootWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/lbl_root_weight_hint"
+                    android:inputType="numberDecimal"
+                    android:labelFor="@id/txtRootWeight"
+                    android:minHeight="48dp" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </FrameLayout>

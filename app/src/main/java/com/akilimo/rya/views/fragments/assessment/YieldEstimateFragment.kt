@@ -7,12 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.akilimo.rya.AppDatabase
-import com.akilimo.rya.R
-import com.akilimo.rya.databinding.FragmentFieldInfoBinding
 import com.akilimo.rya.databinding.FragmentYieldEstimateBinding
-import com.akilimo.rya.views.fragments.BaseFragment
 import com.akilimo.rya.views.fragments.BaseStepFragment
-import com.stepstone.stepper.BlockingStep
 import com.stepstone.stepper.VerificationError
 
 // TODO: Rename parameter arguments, choose names that match
@@ -60,6 +56,13 @@ class YieldEstimateFragment : BaseStepFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val yieldEntity = database?.fieldYieldDao()?.findOne()
+        if (yieldEntity != null) {
+            binding.txtYieldValue.text = yieldEntity.yieldLabel
+            binding.txtYieldDesc.text = yieldEntity.fieldYieldDesc
+            binding.imgYieldImage.setImageResource(yieldEntity.imageId)
+        }
     }
 
     override fun verifyStep(): VerificationError? {

@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.NonNull
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.akilimo.rya.R
 import com.akilimo.rya.data.FieldYield
+import com.akilimo.rya.databinding.YieldCardLayoutBinding
 import com.akilimo.rya.utils.TheItemAnimation
 
 class FieldYieldAdapter(
@@ -33,11 +35,14 @@ class FieldYieldAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val viewHolder: RecyclerView.ViewHolder
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.yield_card_layout, parent, false)
-        viewHolder = OriginalViewHolder(view)
-        return viewHolder
+//        val viewHolder: RecyclerView.ViewHolder
+//        val view = LayoutInflater.from(parent.context)
+//            .inflate(R.layout.yield_card_layout, parent, false)
+        val binding =
+            YieldCardLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+//        viewHolder = OriginalViewHolder(binding.root)
+//        return viewHolder
+        return OriginalViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -82,9 +87,10 @@ class FieldYieldAdapter(
         }
     }
 
-    inner class OriginalViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var rootYieldImage: ImageView = view.findViewById(R.id.yieldImage)
-        var name: TextView = view.findViewById(R.id.yieldName)
-        var mainCard: CardView = view.findViewById(R.id.yieldCard)
+    inner class OriginalViewHolder(binding: YieldCardLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val rootYieldImage: ImageView = binding.yieldImage //view.findViewById(R.id.yieldImage)
+        val name: TextView = binding.yieldName //view.findViewById(R.id.yieldName)
+        val mainCard: CardView = binding.yieldCard //view.findViewById(R.id.yieldCard)
     }
 }
