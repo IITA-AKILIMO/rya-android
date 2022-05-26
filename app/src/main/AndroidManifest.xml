@@ -21,7 +21,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -33,7 +32,7 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".views.activities.StartPageActivity"
-            android:exported="false">
+            android:exported="true">
 
         </activity>
         <activity

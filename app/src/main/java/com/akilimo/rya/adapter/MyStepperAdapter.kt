@@ -16,7 +16,7 @@ class MyStepperAdapter(
 ) : AbstractFragmentStepAdapter(
     supportFragmentManager!!, ctx
 ) {
-    private val CURRENT_STEP_POSITION_KEY = "CURRENT_STEP_POSITION_KEY"
+    private val positionKey = "CURRENT_STEP_POSITION_KEY"
 
     override fun getCount(): Int {
         return fragmentArray.size
@@ -25,7 +25,7 @@ class MyStepperAdapter(
     override fun createStep(position: Int): Step {
         val step = fragmentArray[position]
         val bundleParams = Bundle()
-        bundleParams.putInt(CURRENT_STEP_POSITION_KEY, position)
+        bundleParams.putInt(positionKey, position)
         step.arguments = bundleParams
         return step as Step
     }

@@ -28,4 +28,11 @@ abstract class BaseStepFragment : BaseFragment(), Step {
     ): View? {
         return loadFragmentLayout(inflater, container, savedInstanceState)
     }
+
+    override fun verifyStep(): VerificationError? {
+        return null
+    }
+
+    override fun onSelected() {}
+    override fun onError(error: VerificationError) {}
 }
