@@ -9,7 +9,10 @@ import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.adapter.SectionsPagerAdapter
 import com.akilimo.rya.databinding.ActivityPlantTrianglesBinding
 import com.akilimo.rya.views.fragments.ui.TriangleFragment
+import com.akilimo.rya.views.fragments.ui.TriangleThreeFragment
+import com.akilimo.rya.views.fragments.ui.TriangleTwoFragment
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
@@ -37,8 +40,8 @@ class PlantTrianglesActivity : AppCompatActivity() {
         if (yieldClass != null) {
             plantcount = yieldClass.plantCount
             fragmentArray.add(TriangleFragment.newInstance(plantcount / 3, "one"))
-            fragmentArray.add(TriangleFragment.newInstance(plantcount / 3, "two"))
-            fragmentArray.add(TriangleFragment.newInstance(plantcount / 3, "three"))
+            fragmentArray.add(TriangleTwoFragment.newInstance(plantcount / 3, "two"))
+            fragmentArray.add(TriangleThreeFragment.newInstance(plantcount / 3, "three"))
         }
 
         val sectionsPagerAdapter =
@@ -61,27 +64,38 @@ class PlantTrianglesActivity : AppCompatActivity() {
         })
 
         binding.btnValidate.setOnClickListener {
-            val activeFragment: Fragment = fragmentArray[tabPosition]
-            if (activeFragment is TriangleFragment) {
-                val inputValid = activeFragment.validateInput()
-                //check if all data has been provided
-                if (inputValid) {
-                    val allData = database?.plantTriangleDao()?.getAll(plantcount)
-                    if (allData?.size!! == plantcount) {
-                        //proceed to next activity
-                        val intent =
-                            Intent(this@PlantTrianglesActivity, AssessmentActivity::class.java)
-                        startActivity(intent)
-                        Animatoo.animateSwipeLeft(this@PlantTrianglesActivity)
-                    }
+            var inputValid = false
+            when (val activeFragment: Fragment = fragmentArray[tabPosition]) {
+                is TriangleFragment -> {
+                    inputValid = activeFragment.validateInput()
                 }
+                is TriangleTwoFragment -> {
+                    inputValid = activeFragment.validateInput()
+                }
+                is TriangleThreeFragment -> {
+                    inputValid = activeFragment.validateInput()
+                }
+            }
+
+            //check if all data has been provided
+            if (inputValid) {
+                val allData = database?.plantTriangleDao()?.getAll(plantcount)
+                if (allData?.size!! == plantcount) {
+                    //proceed to next activity
+                    val intent =
+                        Intent(this@PlantTrianglesActivity, AssessmentActivity::class.java)
+                    startActivity(intent)
+                    Animatoo.animateSwipeLeft(this@PlantTrianglesActivity)
+                }
+            } else {
+                Snackbar.make(
+                    it,
+                    "PLease provide all root weights in all triangles",
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
         }
 
 
-//        fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-//        }
     }
 }

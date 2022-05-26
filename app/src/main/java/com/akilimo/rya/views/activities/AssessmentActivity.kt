@@ -11,6 +11,7 @@ import com.akilimo.rya.databinding.ActivityHomeStepperBinding
 import com.akilimo.rya.rest.ApiInterface
 import com.akilimo.rya.rest.FuelrodApiInterface
 import com.akilimo.rya.utils.MySharedPreferences
+import com.akilimo.rya.views.fragments.assessment.AssessmentResultsFragment
 import com.akilimo.rya.views.fragments.assessment.YieldEstimateFragment
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.stepstone.stepper.StepperLayout
@@ -34,6 +35,7 @@ class AssessmentActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         fragmentArray.add(YieldEstimateFragment.newInstance())
+        fragmentArray.add(AssessmentResultsFragment.newInstance())
 
         mStepperLayout = binding.stepperLayout
         stepperAdapter = MyStepperAdapter(supportFragmentManager, applicationContext, fragmentArray)
