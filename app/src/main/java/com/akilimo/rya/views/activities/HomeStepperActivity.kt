@@ -10,9 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
 import com.akilimo.rya.adapter.MyStepperAdapter
-import com.akilimo.rya.data.RemoteConfig
+import com.akilimo.rya.rest.response.RemoteConfig
 import com.akilimo.rya.databinding.ActivityHomeStepperBinding
-import com.akilimo.rya.interfaces.IFragmentCallBack
 import com.akilimo.rya.rest.ApiInterface
 import com.akilimo.rya.rest.FuelrodApiInterface
 import com.akilimo.rya.utils.MySharedPreferences
@@ -145,10 +144,5 @@ class HomeStepperActivity : AppCompatActivity() {
 //            }
 //
 //        })
-    }
-
-    fun Bitmap.rotate(degrees: Float): Bitmap {
-        val matrix = Matrix().apply { postRotate(degrees) }
-        return Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
     }
 }

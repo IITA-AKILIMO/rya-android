@@ -2,9 +2,8 @@ package com.akilimo.rya.rest
 
 //import retrofit2.converter.gson.GsonConverterFactory
 
-import com.akilimo.rya.data.RemoteConfig
+import com.akilimo.rya.rest.response.RemoteConfig
 import okhttp3.OkHttpClient
-import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
