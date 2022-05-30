@@ -110,7 +110,7 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
                             results[index] = result
                         }
                         val theMedian = median(results)
-                        binding.tonnageResults.text = "Estimated production: $theMedian tonnes"
+                        binding.tonnageResults.text = "Estimated production:\n$theMedian tonnes"
                         //next generate the plots
                         generatePlots(fieldInfo, myResp.result)
                     }
