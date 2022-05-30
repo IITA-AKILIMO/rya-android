@@ -17,4 +17,10 @@ interface FieldInfoDao {
 
     @Update
     fun update(fieldInfoEntity: FieldInfoEntity)
+
+    @Delete
+    fun deleteField(fieldInfoEntity: FieldInfoEntity)
+
+    @Query("DELETE FROM field_yield")
+    fun deleteAll()
 }

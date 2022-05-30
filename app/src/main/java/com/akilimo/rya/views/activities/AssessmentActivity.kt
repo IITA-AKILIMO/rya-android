@@ -10,6 +10,7 @@ import com.akilimo.rya.rest.ApiInterface
 import com.akilimo.rya.rest.FuelrodApiInterface
 import com.akilimo.rya.utils.MySharedPreferences
 import com.akilimo.rya.views.fragments.assessment.AssessmentResultsFragment
+import com.akilimo.rya.views.fragments.assessment.PlotResultsFragment
 import com.akilimo.rya.views.fragments.assessment.YieldEstimateFragment
 import com.stepstone.stepper.StepperLayout
 import com.stepstone.stepper.VerificationError
@@ -33,7 +34,8 @@ class AssessmentActivity : AppCompatActivity() {
         prefs = MySharedPreferences(this)
 
         fragmentArray.add(YieldEstimateFragment.newInstance())
-        fragmentArray.add(AssessmentResultsFragment.newInstance(prefs.loadApiEndpoint()))
+//        fragmentArray.add(AssessmentResultsFragment.newInstance(prefs.loadApiEndpoint()))
+        fragmentArray.add(PlotResultsFragment.newInstance(prefs.loadApiEndpoint()))
 
         mStepperLayout = binding.stepperLayout
         stepperAdapter = MyStepperAdapter(supportFragmentManager, applicationContext, fragmentArray)
