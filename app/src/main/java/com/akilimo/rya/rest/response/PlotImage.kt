@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PlotImage(
     @JsonProperty("file_name_a")
-    val fileNameA: String,
+    val fileNameLean: String,
     @JsonProperty("file_name_b")
-    val fileNameB: String
+    val fileNameFull: String
 )

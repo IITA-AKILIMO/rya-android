@@ -42,7 +42,7 @@ interface ApiInterface {
 
 
     @POST("v1/rya/read-plot")
-    fun readPlots(@Body ryaPlot: RyaPlot): Call<ResponseBody>
+    fun readPlot(@Body ryaPlot: RyaPlot): Call<ResponseBody>
 
     @POST("v1/rya/estimate")
     fun computeEstimate(@Body ryaEstimate: RyaEstimate): Call<YieldEstimate>

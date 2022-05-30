@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.akilimo.rya.interfaces.IFragmentInflater
 import com.stepstone.stepper.Step
 import com.stepstone.stepper.VerificationError
 
@@ -41,5 +39,24 @@ abstract class BaseStepFragment : BaseFragment(), Step {
     fun Bitmap.rotate(degrees: Float): Bitmap {
         val matrix = Matrix().apply { postRotate(degrees) }
         return Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
+    }
+
+    fun Bitmap.resize(w: Float, h: Float): Bitmap {
+        val matrix = Matrix().apply { postScale(w, h) }
+        return Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
+    }
+
+    fun getResizedBitmap(bm: Bitmap, newWidth: Int, newHeight: Int): Bitmap {
+        val width = bm.width
+        val height = bm.height
+        val scaleWidth = newWidth.toFloat() / width
+        val scaleHeight = newHeight.toFloat() / height
+        val matrix = Matrix()
+        matrix.postScale(scaleWidth, scaleHeight)
+        val resizedBitmap = Bitmap.createBitmap(
+            bm, 0, 0, width, height, matrix, false
+        )
+        bm.recycle()
+        return resizedBitmap
     }
 }
