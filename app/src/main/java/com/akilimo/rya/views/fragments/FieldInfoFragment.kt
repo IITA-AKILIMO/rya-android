@@ -29,6 +29,7 @@ class FieldInfoFragment : BaseStepFragment() {
     private var selectedSellingPriceUnit: String? = null
     private var sellingPrice: Double = 0.0
     private var currency: String = "USD"
+    private var currencyName: String = "Dollars"
     private var areaUnit: String = "acre"
 
     private var database: AppDatabase? = null
@@ -86,16 +87,18 @@ class FieldInfoFragment : BaseStepFragment() {
         binding.sellingPriceUnitPrompt.setOnSpinnerItemSelectedListener(
             OnSpinnerItemSelectedListener<String?> { oldIndex, oldItem, newIndex, newItem ->
                 selectedSellingPriceUnit = newItem
-
                 when {
                     newItem.equals("USD/Tonne", true) -> {
                         currency = "USD"
+                        currencyName = "US Dollars"
                     }
                     newItem.equals("NGN/Tonne", true) -> {
                         currency = "NGN"
+                        currencyName = "Naira"
                     }
                     newItem.equals("TZS/Tonne", true) -> {
                         currency = "TZS"
+                        currencyName = "Tanzanian Shillings"
                     }
                 }
 
@@ -148,9 +151,14 @@ class FieldInfoFragment : BaseStepFragment() {
             areaUnit = areaUnit,
             sellingPriceUnit = selectedSellingPriceUnit!!,
             currency = currency,
+            currencyName = currencyName,
             sellingPrice = sellingPrice
         )
 
+        val data = database?.fieldInfoDao()?.findOne()
+        if (data != null) {
+            database?.fieldInfoDao()?.deleteField(data)
+        }
         database?.fieldInfoDao()?.insert(fieldInfoEntity = fieldInfo)
 
         return null

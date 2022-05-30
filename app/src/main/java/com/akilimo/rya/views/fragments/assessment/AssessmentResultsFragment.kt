@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.databinding.FragmentAssessmentResultsBinding
+import com.akilimo.rya.entities.EstimateResultsEntity
 import com.akilimo.rya.entities.FieldInfoEntity
 import com.akilimo.rya.enums.PrecisionTypes
 import com.akilimo.rya.rest.ApiInterface
@@ -19,7 +20,6 @@ import com.akilimo.rya.rest.request.RyaPlot
 import com.akilimo.rya.rest.response.GeneratePlotResp
 import com.akilimo.rya.rest.response.YieldEstimate
 import com.akilimo.rya.views.fragments.BaseStepFragment
-import com.davemorrissey.labs.subscaleview.ImageSource
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,8 +27,6 @@ import retrofit2.Response
 import java.util.*
 import kotlin.math.roundToInt
 
-
-private const val END_POINT = "rya_endpoint"
 
 /**
  * A simple [Fragment] subclass.
@@ -73,7 +71,6 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
     }
 
     override fun onSelected() {
@@ -112,7 +109,16 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
                         val theMedian = median(results)
                         binding.tonnageResults.text = "Estimated production:\n$theMedian tonnes"
                         //next generate the plots
-                        generatePlots(fieldInfo, myResp.result)
+                        val estimateResults = EstimateResultsEntity(
+                            currency = fieldInfo.currency,
+                            tonnagePrice = fieldInfo.sellingPrice,
+                            tonnageEstimate = theMedian.toDouble(),
+                            fieldArea = fieldInfo.fieldSize,
+                            fileNameFull = "",
+                            fileNameLean = ""
+                        )
+
+                        generatePlots(fieldInfo, myResp.result, estimateResults)
                     }
                 }
             }
@@ -124,13 +130,23 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
         })
     }
 
-    private fun generatePlots(fieldInfo: FieldInfoEntity, result: List<Double>) {
+    private fun generatePlots(
+        fieldInfo: FieldInfoEntity,
+        result: List<Double>,
+        estimateResults: EstimateResultsEntity
+    ) {
         val generatePlot = GeneratePlot(
             results = result,
             fieldArea = fieldInfo.fieldSize,
             areaUnit = fieldInfo.areaUnit,
             fileName = guid.toString()
         )
+        if (!binding.shimmerViewContainer.isShimmerStarted) {
+            binding.shimmerViewContainer.startShimmer()
+        }
+        binding.shimmerViewContainer.visibility = View.VISIBLE
+        binding.widgetGroup.visibility = View.GONE
+
         val plots = apiInterface?.generatePlots(generatePlot)
         plots?.enqueue(object : Callback<GeneratePlotResp> {
             override fun onResponse(
@@ -142,6 +158,14 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
                     if (plotBody != null) {
                         val plotImages = plotBody.plotImages[0]
                         //Save to the database
+                        estimateResults.fileNameFull = plotImages.fileNameFull
+                        estimateResults.fileNameLean = plotImages.fileNameLean
+                        //save the data
+                        val data = database?.estimateResultsDao()?.findOne()
+                        if (data != null) {
+                            database?.estimateResultsDao()?.deleteEstimate(data)
+                        }
+                        database?.estimateResultsDao()?.insert(estimateResults)
                         renderPlot(RyaPlot(plotImages.fileNameFull))
                     }
                 }
@@ -169,7 +193,7 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
                 if (response.body() != null) {
                     val bytes = response.body()!!.bytes()
                     val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-//                    imageView.setImage(ImageSource.bitmap(bitmap))
+//                  imageView.setImage(ImageSource.bitmap(bitmap))
                     imageView.setImageBitmap(bitmap)
                     binding.shimmerViewContainer.stopShimmer()
                     binding.shimmerViewContainer.visibility = View.GONE
@@ -215,7 +239,6 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
             // calculate average of middle elements
             sumOfMiddleElements / 2
         } else {
-            // get the middle element
             results[totalElements / 2]
         }
         return median.roundToInt()

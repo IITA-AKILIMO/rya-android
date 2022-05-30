@@ -4,23 +4,18 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.akilimo.rya.entities.FieldInfoEntity
-import com.akilimo.rya.entities.FieldYieldEntity
-import com.akilimo.rya.entities.PlantTriangleEntity
-import com.akilimo.rya.entities.YieldPrecisionEntity
-import com.akilimo.rya.repos.FieldInfoDao
-import com.akilimo.rya.repos.FieldYieldDao
-import com.akilimo.rya.repos.PlantTriangleDao
-import com.akilimo.rya.repos.YieldPrecisionDao
+import com.akilimo.rya.entities.*
+import com.akilimo.rya.repos.*
 
 @Database(
     entities = [
         FieldInfoEntity::class,
         YieldPrecisionEntity::class,
         PlantTriangleEntity::class,
-        FieldYieldEntity::class
+        FieldYieldEntity::class,
+        EstimateResultsEntity::class
     ],
-    version = 2,
+    version = 1,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -28,6 +23,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun yieldPrecisionDao(): YieldPrecisionDao
     abstract fun plantTriangleDao(): PlantTriangleDao
     abstract fun fieldYieldDao(): FieldYieldDao
+    abstract fun estimateResultsDao(): EstimateResultsDao
 
 
     companion object {
@@ -44,7 +40,7 @@ abstract class AppDatabase : RoomDatabase() {
                     if (database == null) {
                         database = Room.databaseBuilder(
                             context.applicationContext,
-                            AppDatabase::class.java, "RYA_25_MAY_2022"
+                            AppDatabase::class.java, "RYA_30_MAY_2022"
                         )
                             .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()

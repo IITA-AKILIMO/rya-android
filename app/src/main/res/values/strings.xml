@@ -54,7 +54,7 @@
         <item>NGN/Tonne</item>
         <item>TZS/Tonne</item>
     </string-array>
-    <string name="title_activity_plant_triangles">PlantTrianglesActivity</string>
+    <string name="title_activity_plant_triangles">Plant Triangles</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
 
