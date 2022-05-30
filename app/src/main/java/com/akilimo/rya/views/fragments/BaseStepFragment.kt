@@ -1,5 +1,7 @@
 package com.akilimo.rya.views.fragments
 
+import android.graphics.Bitmap
+import android.graphics.Matrix
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -35,4 +37,9 @@ abstract class BaseStepFragment : BaseFragment(), Step {
 
     override fun onSelected() {}
     override fun onError(error: VerificationError) {}
+
+    fun Bitmap.rotate(degrees: Float): Bitmap {
+        val matrix = Matrix().apply { postRotate(degrees) }
+        return Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
+    }
 }

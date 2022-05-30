@@ -21,7 +21,7 @@ class MySharedPreferences(context: Context) {
         editor.commit()
     }
 
-    fun loadApiEndpoint(): String? {
-        return pref.getString("endpoint", "")
+    fun loadApiEndpoint(): String {
+        return pref.getString("endpoint", "http://157.245.26.55:3000/api/")!!
     }
 }

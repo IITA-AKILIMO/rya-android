@@ -2,8 +2,11 @@ package com.akilimo.rya.rest
 
 //import retrofit2.converter.gson.GsonConverterFactory
 
-import com.akilimo.rya.data.RyaEstimate
-import com.akilimo.rya.data.RyaPlot
+import com.akilimo.rya.rest.request.GeneratePlot
+import com.akilimo.rya.rest.request.RyaEstimate
+import com.akilimo.rya.rest.request.RyaPlot
+import com.akilimo.rya.rest.response.GeneratePlotResp
+import com.akilimo.rya.rest.response.YieldEstimate
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
@@ -42,5 +45,9 @@ interface ApiInterface {
     fun readPlots(@Body ryaPlot: RyaPlot): Call<ResponseBody>
 
     @POST("v1/rya/estimate")
-    fun computeEstimate(@Body ryaEstimate: RyaEstimate): Call<RyaEstimate>
+    fun computeEstimate(@Body ryaEstimate: RyaEstimate): Call<YieldEstimate>
+
+    @POST("v1/rya/plot")
+    fun generatePlots(@Body ryaPlot: GeneratePlot): Call<GeneratePlotResp>
+
 }
