@@ -1,6 +1,7 @@
 package com.akilimo.rya.views.fragments.assessment
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,13 +15,15 @@ import com.akilimo.rya.enums.PrecisionTypes
 import com.akilimo.rya.rest.ApiInterface
 import com.akilimo.rya.rest.request.GeneratePlot
 import com.akilimo.rya.rest.request.RyaEstimate
+import com.akilimo.rya.rest.request.RyaPlot
 import com.akilimo.rya.rest.response.GeneratePlotResp
 import com.akilimo.rya.rest.response.YieldEstimate
 import com.akilimo.rya.views.fragments.BaseStepFragment
+import com.davemorrissey.labs.subscaleview.ImageSource
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.math.BigInteger
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -32,7 +35,7 @@ private const val END_POINT = "rya_endpoint"
  * Use the [AssessmentResultsFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AssessmentResultsFragment(val ryaEndpoint: String) : BaseStepFragment() {
+class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragment() {
 
     private var ctx: Context? = null
     private var _binding: FragmentAssessmentResultsBinding? = null
@@ -135,7 +138,12 @@ class AssessmentResultsFragment(val ryaEndpoint: String) : BaseStepFragment() {
                 response: Response<GeneratePlotResp>
             ) {
                 if (response.isSuccessful) {
-                    val k = response.body()
+                    val plotBody = response.body()
+                    if (plotBody != null) {
+                        val plotImages = plotBody.plotImages[0]
+                        //Save to the database
+                        renderPlot(RyaPlot(plotImages.fileNameFull))
+                    }
                 }
             }
 
@@ -144,10 +152,50 @@ class AssessmentResultsFragment(val ryaEndpoint: String) : BaseStepFragment() {
                     ctx,
                     "Unable to load the plots, please try again",
                     Toast.LENGTH_SHORT
+                ).show()
+            }
+
+        })
+    }
+
+    private fun renderPlot(ryaPlot: RyaPlot) {
+        val imageView = binding.yieldPlotImage
+
+
+        val plotReader = apiInterface?.readPlot(ryaPlot)
+
+        plotReader?.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.body() != null) {
+                    val bytes = response.body()!!.bytes()
+                    val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+//                    imageView.setImage(ImageSource.bitmap(bitmap))
+                    imageView.setImageBitmap(bitmap)
+                    binding.shimmerViewContainer.stopShimmer()
+                    binding.shimmerViewContainer.visibility = View.GONE
+                    binding.widgetGroup.visibility = View.VISIBLE
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, throwable: Throwable) {
+                Toast.makeText(
+                    ctx,
+                    "Unable to load plot data",
+                    Toast.LENGTH_SHORT
                 ).show();
             }
 
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.shimmerViewContainer.startShimmer()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.shimmerViewContainer.stopShimmer()
     }
 
     override fun onDestroyView() {
