@@ -34,7 +34,7 @@ class AssessmentActivity : AppCompatActivity() {
         prefs = MySharedPreferences(this)
 
         fragmentArray.add(YieldEstimateFragment.newInstance())
-//        fragmentArray.add(AssessmentResultsFragment.newInstance(prefs.loadApiEndpoint()))
+        fragmentArray.add(AssessmentResultsFragment.newInstance(prefs.loadApiEndpoint()))
         fragmentArray.add(PlotResultsFragment.newInstance(prefs.loadApiEndpoint()))
 
         mStepperLayout = binding.stepperLayout
