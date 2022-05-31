@@ -74,9 +74,10 @@ class PlotResultsFragment(private val ryaEndpoint: String) : BaseStepFragment() 
         if (estimateResults != null) {
             val totalEstimate = estimateResults.tonnageEstimate * estimateResults.tonnagePrice
             binding.tonnageResults.text =
-                "Estimated value: ${totalEstimate} ${estimateResults.currency}"
+                "Estimated value: $totalEstimate ${estimateResults.currency}"
             binding.tonnageResultsSub.text =
                 "(With a price of ${estimateResults.tonnagePrice} ${estimateResults.currency} per tonne)"
+
             renderPlot(RyaPlot(fileName = estimateResults.fileNameLean))
         }
     }
