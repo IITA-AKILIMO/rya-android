@@ -19,9 +19,9 @@ interface FuelrodApiInterface {
         fun create(BASE_URL: String = "https://api.tsobu.co.ke/"): FuelrodApiInterface {
 
             val builder = OkHttpClient.Builder()
-            val httpLoggingInterceptor = HttpLoggingInterceptor()
-            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY;
-            builder.networkInterceptors().add(httpLoggingInterceptor);
+//            val httpLoggingInterceptor = HttpLoggingInterceptor()
+//            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY;
+//            builder.networkInterceptors().add(httpLoggingInterceptor);
             val client = builder.build();
 
             val retrofit = Retrofit.Builder()
