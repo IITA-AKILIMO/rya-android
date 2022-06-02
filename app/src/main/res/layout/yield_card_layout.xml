@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/yieldCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardElevation="@dimen/dimen_16"
+    app:cardMaxElevation="@dimen/dimen_12">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_12"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/yieldImage"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:contentDescription="@string/app_name"
+            app:srcCompat="@drawable/yield_more_than_30" />
+
+        <TextView
+            android:id="@+id/yieldName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
