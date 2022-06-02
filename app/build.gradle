@@ -1,3 +1,5 @@
+import java.time.LocalDateTime
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
@@ -7,14 +9,17 @@ plugins {
 }
 
 android {
+    def releaseVersionName = computeBuildNumber()
+    def appVersionCode = computeVersionCode()
+
     compileSdk 31
 
     defaultConfig {
         applicationId "com.akilimo.rya"
         minSdk 21
         targetSdk 31
-        versionCode 1
-        versionName "1.0.0"
+        versionCode appVersionCode
+        versionName releaseVersionName
         multiDexEnabled true
         vectorDrawables.useSupportLibrary true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -55,6 +60,49 @@ android {
         exclude 'META-INF/LICENSE'
     }
 
+}
+
+static def computeVersionName() {
+    def versionMajor = 1
+    def versionMinor = LocalDateTime.now().getMonthValue()
+    def buildNumber = LocalDateTime.now().getDayOfMonth()
+
+    return String.format('%d.%d.%d', Integer.valueOf(System.env.VERSION_MAJOR ?: versionMajor),
+            Integer.valueOf(System.env.VERSION_MINOR ?: versionMinor),
+            Integer.valueOf(System.env.BUILD_NUMBER ?: buildNumber))
+}
+
+static def computeBuildNumber() {
+    def newFile = new File("nextrelease.txt")
+    newFile.createNewFile()
+
+    def gitVersionTag = System.env.RELEASE_VERSION ?: computeVersionName()
+    def branch = System.env.BRANCH_NAME ?: "not-beta"
+    def buildNumber = System.env.BUILD_NUMBER ?: LocalDateTime.now().getDayOfMonth()
+
+    if (branch == "beta") {
+        def splitMe = gitVersionTag.split('\\.')
+        def versionMajor = splitMe[0]
+        def versionMinor = splitMe[1]
+        def versionPatchRaw = splitMe[2].split('-')
+        def versionPatch = versionPatchRaw[0].toInteger()
+        gitVersionTag = String.format('%d.%d.%d_beta_%d',
+                Integer.valueOf(versionMajor),
+                Integer.valueOf(versionMinor),
+                Integer.valueOf(versionPatch),
+                Integer.valueOf(buildNumber))
+
+    }
+
+    println("This build tag is:" + gitVersionTag)
+    newFile.write(gitVersionTag)
+    return gitVersionTag
+}
+
+def computeVersionCode() {
+    long unixTimestamp = Instant.now().getEpochSecond()
+    def versionCode = System.env.RELEASE_VERSION ? unixTimestamp.intValue() : 1613040938
+    return versionCode
 }
 
 dependencies {

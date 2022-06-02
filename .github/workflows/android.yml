@@ -17,7 +17,6 @@ jobs:
       REPO_NAME: ${{ secrets.REPO_NAME }}
       LATEST_TAG_FILE: ${{ secrets.LATEST_TAG_FILE }}
       RELEASE_VERSION: ${{ secrets.GITHUB_RUN_ID }}
-      MAPBOX_DOWNLOADS_TOKEN: ${{ secrets.MAPBOX_DOWNLOADS_TOKEN }}
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
@@ -52,7 +51,6 @@ jobs:
       BRANCH_NAME: ${{ github.head_ref }}
       LATEST_TAG_FILE: ${{ secrets.LATEST_TAG_FILE }}
       RELEASE_VERSION: ${{ secrets.GITHUB_RUN_ID }}
-      MAPBOX_DOWNLOADS_TOKEN: ${{ secrets.MAPBOX_DOWNLOADS_TOKEN }}
       PACKAGE_NAME: ${{ secrets.APP_PACKAGE }}
     steps:
       - name: Checkout the code
