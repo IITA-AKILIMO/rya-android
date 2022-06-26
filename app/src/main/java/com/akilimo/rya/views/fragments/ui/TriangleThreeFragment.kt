@@ -28,8 +28,8 @@ private const val TRIANGLE_NAME = "triangle_name"
  * create an instance of this fragment.
  */
 class TriangleThreeFragment : BaseStepFragment() {
-    private var triangleCount: Int = 0
-    private var triangleName: String? = null
+    var triangleCount: Int = 0
+    var triangleName: String? = null
 
     private var _binding: FragmentTriangleBinding? = null
     private var ctx: Context? = null
@@ -40,6 +40,9 @@ class TriangleThreeFragment : BaseStepFragment() {
     private val editTexts: MutableList<AppCompatEditText> = arrayListOf()
 
     companion object {
+        @JvmStatic
+        fun newInstance() = TriangleThreeFragment().apply { }
+
         /**
          * @param plantCount Parameter 1.
          * @return A new instance of fragment TriangleFragment.
@@ -77,13 +80,13 @@ class TriangleThreeFragment : BaseStepFragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onSelected() {
+        super.onSelected()
         //let us build the inputs
         val lyt = binding.lytTextField
         lyt.removeAllViews() //clear all components
         for (i in 0 until triangleCount) {
-            val editText = AppCompatEditText(view.context)
+            val editText = AppCompatEditText(requireView().context)
             editText.id = i
             editText.width = ViewGroup.LayoutParams.MATCH_PARENT
             editText.height = ViewGroup.LayoutParams.WRAP_CONTENT
@@ -149,8 +152,10 @@ class TriangleThreeFragment : BaseStepFragment() {
     }
 
     override fun onError(error: VerificationError) {
-        val snackBar = Snackbar.make(binding.constraintLayout,error.errorMessage,
-            Snackbar.LENGTH_SHORT)
+        val snackBar = Snackbar.make(
+            binding.constraintLayout, error.errorMessage,
+            Snackbar.LENGTH_SHORT
+        )
 
         snackBar.setAction("RETRY") {
             snackBar.dismiss()

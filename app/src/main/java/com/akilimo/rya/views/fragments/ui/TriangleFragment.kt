@@ -28,8 +28,8 @@ private const val TRIANGLE_NAME = "triangle_name"
  * create an instance of this fragment.
  */
 class TriangleFragment : BaseStepFragment() {
-    private var triangleCount: Int = 0
-    private var triangleName: String? = null
+    var triangleCount: Int = 0
+    var triangleName: String? = null
 
     private var _binding: FragmentTriangleBinding? = null
     private var ctx: Context? = null
@@ -52,6 +52,9 @@ class TriangleFragment : BaseStepFragment() {
                     putString(TRIANGLE_NAME, triangleName)
                 }
             }
+
+        @JvmStatic
+        fun newInstance() = TriangleFragment().apply{}
     }
 
     override fun onAttach(context: Context) {
@@ -77,13 +80,13 @@ class TriangleFragment : BaseStepFragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onSelected() {
+        super.onSelected()
         //let us build the inputs
         val lyt = binding.lytTextField
         lyt.removeAllViews() //clear all components
         for (i in 0 until triangleCount) {
-            val editText = AppCompatEditText(view.context)
+            val editText = AppCompatEditText(requireView().context)
             editText.id = i
             editText.width = ViewGroup.LayoutParams.MATCH_PARENT
             editText.height = ViewGroup.LayoutParams.WRAP_CONTENT
@@ -106,7 +109,9 @@ class TriangleFragment : BaseStepFragment() {
             }
         }
 
-
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onDestroyView() {
@@ -141,7 +146,7 @@ class TriangleFragment : BaseStepFragment() {
         }
 
         if (!inputValid) {
-            return VerificationError("Please specify field yield")
+            return VerificationError( "Provide correct plant root weight for all inputs")
         }
 
         database?.plantTriangleDao()?.insertAll(plantTrianglesMeasurement)
