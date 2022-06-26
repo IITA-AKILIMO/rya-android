@@ -14,7 +14,7 @@ jobs:
 
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      REPO_NAME: "IITA-AKILIMO/rya-android"
+      REPO_NAME: ${{ secrets.REPO_NAME }}
       LATEST_TAG_FILE: ${{ secrets.LATEST_TAG_FILE }}
       RELEASE_VERSION: ${{ secrets.GITHUB_RUN_ID }}
     steps:
@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      REPO_NAME: "IITA-AKILIMO/rya-android"
+      REPO_NAME: ${{ secrets.REPO_NAME }}
       BRANCH_NAME: ${{ github.head_ref }}
       LATEST_TAG_FILE: ${{ secrets.LATEST_TAG_FILE }}
       RELEASE_VERSION: ${{ secrets.GITHUB_RUN_ID }}
