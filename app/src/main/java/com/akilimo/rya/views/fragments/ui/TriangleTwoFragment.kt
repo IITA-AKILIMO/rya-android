@@ -14,6 +14,9 @@ import com.akilimo.rya.databinding.FragmentTriangleBinding
 import com.akilimo.rya.entities.PlantTriangleEntity
 import com.akilimo.rya.utils.StringToNumberFactory
 import com.akilimo.rya.views.fragments.BaseFragment
+import com.akilimo.rya.views.fragments.BaseStepFragment
+import com.google.android.material.snackbar.Snackbar
+import com.stepstone.stepper.VerificationError
 
 
 private const val PLANT_COUNT = "plant_count"
@@ -24,7 +27,7 @@ private const val TRIANGLE_NAME = "triangle_name"
  * Use the [TriangleFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class TriangleTwoFragment : BaseFragment() {
+class TriangleTwoFragment : BaseStepFragment() {
     private var triangleCount: Int = 0
     private var triangleName: String? = null
 
@@ -111,7 +114,8 @@ class TriangleTwoFragment : BaseFragment() {
         _binding = null
     }
 
-    fun validateInput(): Boolean {
+
+    override fun verifyStep(): VerificationError? {
         var inputValid = false
         val plantTrianglesMeasurement: MutableList<PlantTriangleEntity> = arrayListOf()
         var plantNumber = 1
@@ -137,9 +141,26 @@ class TriangleTwoFragment : BaseFragment() {
             }
         }
 
-        if (inputValid) {
-            database?.plantTriangleDao()?.insertAll(plantTrianglesMeasurement)
+        if (!inputValid) {
+            return VerificationError("Provide correct plant root weight")
         }
-        return inputValid
+
+        database?.plantTriangleDao()?.insertAll(plantTrianglesMeasurement)
+        return verificationError
+    }
+
+    override fun onError(error: VerificationError) {
+        val snackBar = Snackbar.make(binding.constraintLayout,error.errorMessage,
+            Snackbar.LENGTH_SHORT)
+
+        snackBar.setAction("RETRY") {
+            snackBar.dismiss()
+        }
+        snackBar.show()
+    }
+
+    @Deprecated("To be removed")
+    fun validateInput(): Boolean {
+        return false
     }
 }

@@ -18,6 +18,7 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
 
 
+@Deprecated("Will be removed in next release")
 class PlantTrianglesActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPlantTrianglesBinding
