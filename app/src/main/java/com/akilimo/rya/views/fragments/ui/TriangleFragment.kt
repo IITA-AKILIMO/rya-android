@@ -14,6 +14,9 @@ import com.akilimo.rya.databinding.FragmentTriangleBinding
 import com.akilimo.rya.entities.PlantTriangleEntity
 import com.akilimo.rya.utils.StringToNumberFactory
 import com.akilimo.rya.views.fragments.BaseFragment
+import com.akilimo.rya.views.fragments.BaseStepFragment
+import com.google.android.material.snackbar.Snackbar
+import com.stepstone.stepper.VerificationError
 
 
 private const val PLANT_COUNT = "plant_count"
@@ -24,9 +27,9 @@ private const val TRIANGLE_NAME = "triangle_name"
  * Use the [TriangleFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class TriangleFragment : BaseFragment() {
-    private var triangleCount: Int = 0
-    private var triangleName: String? = null
+class TriangleFragment : BaseStepFragment() {
+    var triangleCount: Int = 0
+    var triangleName: String? = null
 
     private var _binding: FragmentTriangleBinding? = null
     private var ctx: Context? = null
@@ -49,6 +52,9 @@ class TriangleFragment : BaseFragment() {
                     putString(TRIANGLE_NAME, triangleName)
                 }
             }
+
+        @JvmStatic
+        fun newInstance() = TriangleFragment().apply{}
     }
 
     override fun onAttach(context: Context) {
@@ -74,13 +80,13 @@ class TriangleFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onSelected() {
+        super.onSelected()
         //let us build the inputs
         val lyt = binding.lytTextField
         lyt.removeAllViews() //clear all components
         for (i in 0 until triangleCount) {
-            val editText = AppCompatEditText(view.context)
+            val editText = AppCompatEditText(requireView().context)
             editText.id = i
             editText.width = ViewGroup.LayoutParams.MATCH_PARENT
             editText.height = ViewGroup.LayoutParams.WRAP_CONTENT
@@ -103,7 +109,9 @@ class TriangleFragment : BaseFragment() {
             }
         }
 
-
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onDestroyView() {
@@ -111,7 +119,7 @@ class TriangleFragment : BaseFragment() {
         _binding = null
     }
 
-    fun validateInput(): Boolean {
+    override fun verifyStep(): VerificationError? {
         var inputValid = false
         val plantTrianglesMeasurement: MutableList<PlantTriangleEntity> = arrayListOf()
         var plantNumber = 1
@@ -137,9 +145,25 @@ class TriangleFragment : BaseFragment() {
             }
         }
 
-        if (inputValid) {
-            database?.plantTriangleDao()?.insertAll(plantTrianglesMeasurement)
+        if (!inputValid) {
+            return VerificationError( "Provide correct plant root weight for all inputs")
         }
-        return inputValid
+
+        database?.plantTriangleDao()?.insertAll(plantTrianglesMeasurement)
+        return verificationError
+    }
+
+    override fun onError(error: VerificationError) {
+        val snackBar = Snackbar.make(binding.constraintLayout,error.errorMessage,
+            Snackbar.LENGTH_SHORT)
+
+        snackBar.setAction("RETRY") {
+            snackBar.dismiss()
+        }
+        snackBar.show()
+    }
+    @Deprecated("To be removed")
+    fun validateInput(): Boolean {
+        return false
     }
 }
