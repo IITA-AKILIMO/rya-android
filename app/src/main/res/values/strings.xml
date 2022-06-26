@@ -1,12 +1,66 @@
 <resources>
-    <string name="app_name">Rapid yield assessment tool</string>
+    <string name="app_name">Rapid yield assessment</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
+
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="finish">Finish</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lbl_start">Start</string>
+
+    <string name="lbl_low_yield">This is a low yield</string>
+    <string name="lbl_normal_yield">This is a normal yield</string>
+    <string name="lbl_high_yield">This is a high yield</string>
+    <string name="lbl_very_high_yield">This is a very high yield</string>
+
+    <string name="yield_less_than_3_tonnes_per_acre">Less than 3 tonnes per acre</string>
+    <string name="yield_3_to_6_tonnes_per_acre">3 to 6 tonnes per acre</string>
+    <string name="yield_6_to_9_tonnes_per_acre">6 to 9 tonnes per acre</string>
+    <string name="yield_9_to_12_tonnes_per_acre">9 to 12 tonnes per acre</string>
+    <string name="yield_more_than_12_tonnes_per_acre">More than 12 tonnes per acre</string>
+
+    <string name="yield_less_than_3_tonnes_per_hectare">Less than 7.5 tonnes per hectare</string>
+    <string name="yield_3_to_6_tonnes_per_hectare">7.5 to 15 tonnes per hectare</string>
+    <string name="yield_6_to_9_tonnes_per_hectare">15 to 22.5 tonnes per hectare</string>
+    <string name="yield_9_to_12_tonnes_per_hectare">22.5 to 30 tonnes per hectare</string>
+    <string name="yield_more_than_12_tonnes_per_hectare">More than 30 tonnes per hectare</string>
+
+    <string name="fcy_lower">Lower</string>
+    <string name="fcy_about_the_same">About the same</string>
+    <string name="fcy_somewhat_higher">Somewhat higher</string>
+    <string name="fcy_2_3_times_higher">2–3 times higher</string>
+    <string name="fcy_more_than_3_times_higher">More than 3 times or higher</string>
+    <string name="lbl_before_starting">Before starting</string>
+
+
+    <string name="field_area_unit_prompt">Choose area unit</string>
+    <string name="selling_price_prompt">Choose selling price</string>
+
+    <string-array name="field_area_unit_array">
+        <item>Acre</item>
+        <item>Hectare</item>
+        <item>Meter squared</item>
+    </string-array>
+
+    <string-array name="selling_unit_array">
+        <item>USD/Tonne</item>
+        <item>NGN/Tonne</item>
+        <item>TZS/Tonne</item>
+    </string-array>
+    <string name="title_activity_plant_triangles">Plant Triangles</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+
+    <string name="lbl_low_precision">Low precision\n±30min\nUproot 9 plants</string>
+    <string name="lbl_medium_precision">Moderate precision\n ±45min\nUproot 18 plants</string>
+    <string name="lbl_high_precision">High precision\n ±60min\nUproot 30–45 plants</string>
+    <string name="lbl_root_weight_hint">Root weight (kg)</string>
+    <string name="lbl_yield_estimate">Yield estimate</string>
 </resources>

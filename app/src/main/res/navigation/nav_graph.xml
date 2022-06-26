@@ -5,24 +5,23 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/FirstFragment">
 
+    <activity
+        android:id="@+id/homeStepperActivity"
+        android:name="com.akilimo.rya.views.activities.HomeStepperActivity"
+        android:label="activity_home_stepper"
+        tools:layout="@layout/activity_home_stepper" />
+
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.akilimo.rya.FirstFragment"
+        android:name="com.akilimo.rya.views.fragments.YieldClassFragmentFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+        tools:layout="@layout/fragment_yield_class">
     </fragment>
+
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.akilimo.rya.SecondFragment"
+        android:name="com.akilimo.rya.views.fragments.YieldClassFragmentFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_yield_class"/>
 
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
 </navigation>
