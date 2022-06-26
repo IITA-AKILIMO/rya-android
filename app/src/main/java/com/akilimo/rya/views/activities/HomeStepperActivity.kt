@@ -38,7 +38,6 @@ class HomeStepperActivity : AppCompatActivity() {
 
     override fun onAttachFragment(fragment: Fragment) {
         //handle fragment attachment
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +53,7 @@ class HomeStepperActivity : AppCompatActivity() {
 
         binding.stepperLayout.setListener(object : StepperLayout.StepperListener {
             override fun onCompleted(completeButton: View?) {
-                val intent = Intent(this@HomeStepperActivity, PlantTrianglesActivity::class.java)
+                val intent = Intent(this@HomeStepperActivity, PlantTriangleStepperActivity::class.java)
                 startActivity(intent)
                 Animatoo.animateSwipeLeft(this@HomeStepperActivity)
             }
