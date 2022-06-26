@@ -9,6 +9,7 @@ import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.R
 import com.akilimo.rya.adapter.MyStepperAdapter
 import com.akilimo.rya.databinding.ActivityHomeStepperBinding
+import com.akilimo.rya.databinding.MyStepperLayoutBinding
 import com.akilimo.rya.views.fragments.*
 import com.akilimo.rya.views.fragments.ui.TriangleFragment
 import com.akilimo.rya.views.fragments.ui.TriangleThreeFragment
@@ -18,7 +19,7 @@ import com.stepstone.stepper.StepperLayout
 import com.stepstone.stepper.VerificationError
 
 class PlantTriangleStepperActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityHomeStepperBinding
+    private lateinit var binding: MyStepperLayoutBinding
     private lateinit var stepperAdapter: MyStepperAdapter
     private lateinit var mStepperLayout: StepperLayout
     private var database: AppDatabase? = null
@@ -28,7 +29,7 @@ class PlantTriangleStepperActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityHomeStepperBinding.inflate(layoutInflater)
+        binding = MyStepperLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         database = AppDatabase.getDatabase(this)
@@ -37,7 +38,8 @@ class PlantTriangleStepperActivity : AppCompatActivity() {
 
         binding.stepperLayout.setListener(object : StepperLayout.StepperListener {
             override fun onCompleted(completeButton: View?) {
-                val intent = Intent(this@PlantTriangleStepperActivity, AssessmentActivity::class.java)
+                val intent =
+                    Intent(this@PlantTriangleStepperActivity, AssessmentActivity::class.java)
                 startActivity(intent)
                 Animatoo.animateSwipeLeft(this@PlantTriangleStepperActivity)
             }
@@ -48,15 +50,15 @@ class PlantTriangleStepperActivity : AppCompatActivity() {
             override fun onStepSelected(newStepPosition: Int) {
                 when (val fragment = fragmentArray[newStepPosition]) {
                     is TriangleFragment -> {
-                        fragment.triangleCount = plantcount/3
+                        fragment.triangleCount = plantcount / 3
                         fragment.triangleName = "one"
                     }
                     is TriangleTwoFragment -> {
-                        fragment.triangleCount = plantcount/3
+                        fragment.triangleCount = plantcount / 3
                         fragment.triangleName = "two"
                     }
                     is TriangleThreeFragment -> {
-                        fragment.triangleCount = plantcount/3
+                        fragment.triangleCount = plantcount / 3
                         fragment.triangleName = "three"
                     }
                 }
