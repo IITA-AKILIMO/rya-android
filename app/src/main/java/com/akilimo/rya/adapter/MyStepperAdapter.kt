@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentManager
 import com.stepstone.stepper.Step
 import com.stepstone.stepper.viewmodel.StepViewModel
 
-class MyStepperAdapter(
+open class MyStepperAdapter(
     supportFragmentManager: FragmentManager?,
     private val ctx: Context,
     private val fragmentArray: List<Fragment>
