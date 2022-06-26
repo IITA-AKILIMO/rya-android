@@ -10,6 +10,7 @@ import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.databinding.FragmentFieldInfoBinding
 import com.akilimo.rya.entities.FieldInfoEntity
 import com.akilimo.rya.utils.StringToNumberFactory
+import com.google.android.material.snackbar.Snackbar
 import com.skydoves.powerspinner.OnSpinnerItemSelectedListener
 import com.stepstone.stepper.VerificationError
 
@@ -119,27 +120,39 @@ class FieldInfoFragment : BaseStepFragment() {
         fieldSize = StringToNumberFactory.stringToDouble(binding.txtFieldSize.text.toString())
         sellingPrice = StringToNumberFactory.stringToDouble(binding.txtSellingPrice.text.toString())
 
+        var errMessage:String = ""
         if (selectedFieldAreaUnit.isNullOrEmpty()) {
-            binding.fieldAreaUnitPrompt.error = "Select proper field area unit"
+            errMessage = "Select proper field area unit"
+            binding.fieldAreaUnitPrompt.error = errMessage
             isDataValid = false
         }
 
         if (fieldSize <= 0.0) {
-            binding.txtFieldSize.error = "Provide a valid field size"
+            errMessage = "Provide a valid field size"
+            binding.txtFieldSize.error = errMessage
             isDataValid = false
         }
 
         if (sellingPrice <= 0.0) {
-            binding.txtSellingPrice.error = "Provide a valid selling price"
+            errMessage = "Provide a valid selling price"
+            binding.txtSellingPrice.error = errMessage
             isDataValid = false
         }
 
         if (selectedSellingPriceUnit.isNullOrEmpty()) {
-            binding.sellingPriceUnitPrompt.error = "Select proper selling unit"
+           errMessage = "Select proper selling unit"
+            binding.sellingPriceUnitPrompt.error = errMessage
             isDataValid = false
         }
 
         if (!isDataValid) {
+            val snackBar = Snackbar.make(binding.lytFieldSize,errMessage,
+                Snackbar.LENGTH_SHORT)
+
+            snackBar.setAction("OK") {
+                snackBar.dismiss()
+            }
+            snackBar.show()
             return VerificationError("Please fill all fields")
         }
 

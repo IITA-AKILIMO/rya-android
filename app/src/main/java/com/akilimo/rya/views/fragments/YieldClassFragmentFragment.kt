@@ -16,6 +16,7 @@ import com.akilimo.rya.entities.FieldYieldEntity
 import com.akilimo.rya.utils.TheItemAnimation
 import com.akilimo.rya.utils.Tools
 import com.akilimo.rya.widgets.SpacingItemDecoration
+import com.google.android.material.snackbar.Snackbar
 import com.stepstone.stepper.VerificationError
 
 /**
@@ -111,6 +112,13 @@ class YieldClassFragmentFragment : BaseStepFragment() {
 
     override fun verifyStep(): VerificationError? {
         if (selectedYield <= 0.0) {
+            val snackBar = Snackbar.make(binding.rootYieldRecycler,"Please specify field yield to continue",
+                Snackbar.LENGTH_SHORT)
+
+            snackBar.setAction("OK") {
+                snackBar.dismiss()
+            }
+            snackBar.show()
             return VerificationError("Please specify field yield")
         }
 
@@ -122,11 +130,11 @@ class YieldClassFragmentFragment : BaseStepFragment() {
     override fun onError(error: VerificationError) {}
 
     private fun setYieldData(areaUnit: String = "ha"): List<FieldYield> {
-        var rd3Tonnes: String
-        var rd6Tonnes: String
-        var rd9Tonnes: String
-        var rd12Tonnes: String
-        var rdMore: String
+        val rd3Tonnes: String
+        val rd6Tonnes: String
+        val rd9Tonnes: String
+        val rd12Tonnes: String
+        val rdMore: String
         when (areaUnit.lowercase()) {
             "acre" -> {
                 rd3Tonnes = getString(R.string.yield_less_than_3_tonnes_per_acre)
