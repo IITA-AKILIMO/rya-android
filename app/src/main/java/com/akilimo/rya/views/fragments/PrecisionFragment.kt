@@ -19,6 +19,7 @@ import com.akilimo.rya.entities.YieldPrecisionEntity
 import com.akilimo.rya.utils.TheItemAnimation
 import com.akilimo.rya.utils.Tools
 import com.akilimo.rya.widgets.SpacingItemDecoration
+import com.google.android.material.snackbar.Snackbar
 import com.stepstone.stepper.VerificationError
 
 
@@ -121,6 +122,13 @@ class PrecisionFragment : BaseStepFragment() {
 
     override fun verifyStep(): VerificationError? {
         if (selectedPrecision.isNullOrEmpty()) {
+            val snackBar = Snackbar.make(binding.precisionRecycler,"Please select a yield class to continue",
+                Snackbar.LENGTH_SHORT)
+
+            snackBar.setAction("OK") {
+                snackBar.dismiss()
+            }
+            snackBar.show()
             return VerificationError("Please select a yield class")
         }
         var fieldInfo = database!!.yieldPrecisionDao().findOne()
