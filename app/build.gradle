@@ -55,10 +55,13 @@ android {
     buildFeatures {
         viewBinding true
     }
-
     packagingOptions {
-        exclude 'META-INF/LICENSE'
+        resources {
+            excludes += ['META-INF/LICENSE']
+        }
     }
+
+    namespace 'com.akilimo.rya'
 
 }
 
