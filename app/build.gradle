@@ -3,10 +3,10 @@ import java.time.LocalDateTime
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
     id 'com.google.devtools.ksp'
     id 'com.vanniktech.android.junit.jacoco'
-    id "org.sonarqube"
+    id 'org.sonarqube'
+    id 'kotlin-kapt'
 }
 
 sonarqube {
@@ -71,11 +71,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
     buildFeatures {
         viewBinding true
@@ -91,7 +91,7 @@ android {
 }
 
 static def computeVersionName() {
-    def versionMajor = 1
+    def versionMajor = 2
     def versionMinor = LocalDateTime.now().getMonthValue()
     def buildNumber = LocalDateTime.now().getDayOfMonth()
 
@@ -147,10 +147,10 @@ dependencies {
 
     //ROOM db
     implementation 'androidx.room:room-runtime:2.4.3'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
-//    kapt 'androidx.room:room-compiler:2.4.2'
-    ksp 'androidx.room:room-compiler:2.4.3'
+//    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+//    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+    kapt 'androidx.room:room-compiler:2.4.3'
+//    ksp 'androidx.room:room-compiler:2.4.3'
 
     //androidx
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
