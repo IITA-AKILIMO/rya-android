@@ -36,10 +36,6 @@ class HomeStepperActivity : AppCompatActivity() {
     private val fragmentArray: MutableList<Fragment> = arrayListOf()
 
 
-    override fun onAttachFragment(fragment: Fragment) {
-        //handle fragment attachment
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        installSplashScreen()
