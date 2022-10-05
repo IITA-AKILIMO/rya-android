@@ -60,28 +60,34 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView4">
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtFieldSize"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_12"
+                    android:hint="Enter field size"
+                    app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:padding="@dimen/dimen_18" />
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <com.skydoves.powerspinner.PowerSpinnerView
                     android:id="@+id/fieldAreaUnitPrompt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/grey_5"
                     android:hint="@string/field_area_unit_prompt"
                     android:padding="@dimen/spacing_middle"
                     android:textSize="20sp"
-                    app:spinner_divider_color="@color/purple_500"
+                    app:spinner_divider_color="@color/akilimoDarkGreen"
                     app:spinner_divider_show="true"
                     app:spinner_divider_size="0.5dp"
                     app:spinner_item_array="@array/field_area_unit_array"
                     app:spinner_popup_animation="bounce" />
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txtFieldSize"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_large"
-                    android:hint="Enter field size"
-                    android:inputType="numberDecimal"
-                    android:minHeight="50dp" />
 
             </LinearLayout>
 
