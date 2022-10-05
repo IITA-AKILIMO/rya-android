@@ -21,11 +21,9 @@ class StartPageActivity : AppCompatActivity() {
         binding = ActivityStartPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //clear the database
-        clearDatabase()
+//        clearDatabase()
         binding.btnStart.setOnClickListener {
             val intent = Intent(this, HomeStepperActivity::class.java)
-//            val intent = Intent(this, AssessmentActivity::class.java)
             startActivity(intent)
             Animatoo.animateSlideLeft(this)
             finish()
