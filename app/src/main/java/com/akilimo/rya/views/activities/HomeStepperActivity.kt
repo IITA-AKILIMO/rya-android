@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
+import com.akilimo.rya.adapter.HomeStepperAdapter
 import com.akilimo.rya.adapter.MyStepperAdapter
 import com.akilimo.rya.rest.response.RemoteConfig
 import com.akilimo.rya.databinding.ActivityHomeStepperBinding
@@ -30,7 +31,7 @@ class HomeStepperActivity : AppCompatActivity() {
     private lateinit var fuelrodApiInterface: FuelrodApiInterface
     private lateinit var prefs: MySharedPreferences
 
-    private lateinit var stepperAdapter: MyStepperAdapter
+    private lateinit var stepperAdapter: HomeStepperAdapter
     private lateinit var mStepperLayout: StepperLayout
 
     private val fragmentArray: MutableList<Fragment> = arrayListOf()
@@ -49,7 +50,8 @@ class HomeStepperActivity : AppCompatActivity() {
 
         binding.stepperLayout.setListener(object : StepperLayout.StepperListener {
             override fun onCompleted(completeButton: View?) {
-                val intent = Intent(this@HomeStepperActivity, PlantTriangleStepperActivity::class.java)
+                val intent =
+                    Intent(this@HomeStepperActivity, PlantTriangleStepperActivity::class.java)
                 startActivity(intent)
                 Animatoo.animateSwipeLeft(this@HomeStepperActivity)
             }
@@ -58,6 +60,7 @@ class HomeStepperActivity : AppCompatActivity() {
             }
 
             override fun onStepSelected(newStepPosition: Int) {
+                //evaluate last step and change the finish label
             }
 
             override fun onReturn() {
@@ -83,7 +86,8 @@ class HomeStepperActivity : AppCompatActivity() {
     }
 
     private fun initComponent() {
-        stepperAdapter = MyStepperAdapter(supportFragmentManager, applicationContext, fragmentArray)
+        stepperAdapter =
+            HomeStepperAdapter(supportFragmentManager, applicationContext, fragmentArray)
         mStepperLayout.adapter = stepperAdapter
     }
 
