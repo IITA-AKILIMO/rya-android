@@ -48,6 +48,9 @@ class PlantTriangleStepperActivity : AppCompatActivity() {
             }
 
             override fun onStepSelected(newStepPosition: Int) {
+                if (fragmentArray.size <= 0) {
+                    return
+                }
                 when (val fragment = fragmentArray[newStepPosition]) {
                     is TriangleFragment -> {
                         fragment.triangleCount = plantcount / 3
