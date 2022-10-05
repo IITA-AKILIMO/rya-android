@@ -13,6 +13,7 @@ import com.akilimo.rya.adapter.HomeStepperAdapter
 import com.akilimo.rya.adapter.MyStepperAdapter
 import com.akilimo.rya.rest.response.RemoteConfig
 import com.akilimo.rya.databinding.ActivityHomeStepperBinding
+import com.akilimo.rya.entities.FieldInfoEntity
 import com.akilimo.rya.rest.ApiInterface
 import com.akilimo.rya.rest.FuelrodApiInterface
 import com.akilimo.rya.utils.MySharedPreferences
@@ -33,6 +34,7 @@ class HomeStepperActivity : AppCompatActivity() {
 
     private lateinit var stepperAdapter: HomeStepperAdapter
     private lateinit var mStepperLayout: StepperLayout
+
 
     private val fragmentArray: MutableList<Fragment> = arrayListOf()
 
@@ -78,10 +80,10 @@ class HomeStepperActivity : AppCompatActivity() {
 
 
     private fun createFragmentArray() {
-//        fragmentArray.add(YieldClassFragmentFragment.newInstance())
-//        fragmentArray.add(FieldInfoFragment.newInstance())
-//        fragmentArray.add(PlantingPeriodFragment.newInstance())
-//        fragmentArray.add(PrecisionFragment.newInstance())
+        fragmentArray.add(YieldClassFragmentFragment.newInstance())
+        fragmentArray.add(FieldInfoFragment.newInstance())
+        fragmentArray.add(PlantingPeriodFragment.newInstance())
+        fragmentArray.add(PrecisionFragment.newInstance())
         fragmentArray.add(PlantsInTriangleFragment.newInstance())
     }
 

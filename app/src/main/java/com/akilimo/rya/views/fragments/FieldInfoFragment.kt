@@ -34,6 +34,7 @@ class FieldInfoFragment : BaseStepFragment() {
     private var areaUnit: String = "acre"
 
     private var database: AppDatabase? = null
+    private var fieldInfoEntity: FieldInfoEntity? = null
 
 
     private val binding get() = _binding!!
@@ -69,6 +70,12 @@ class FieldInfoFragment : BaseStepFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        fieldInfoEntity = database?.fieldInfoDao()?.findOne()
+
+        if (fieldInfoEntity != null) {
+
+        }
         binding.fieldAreaUnitPrompt.setOnSpinnerItemSelectedListener(
             OnSpinnerItemSelectedListener<String?> { oldIndex, oldItem, newIndex, newItem ->
                 selectedFieldAreaUnit = newItem
@@ -120,7 +127,7 @@ class FieldInfoFragment : BaseStepFragment() {
         fieldSize = StringToNumberFactory.stringToDouble(binding.txtFieldSize.text.toString())
         sellingPrice = StringToNumberFactory.stringToDouble(binding.txtSellingPrice.text.toString())
 
-        var errMessage:String = ""
+        var errMessage: String = ""
         if (selectedFieldAreaUnit.isNullOrEmpty()) {
             errMessage = "Select proper field area unit"
             binding.fieldAreaUnitPrompt.error = errMessage
@@ -140,14 +147,16 @@ class FieldInfoFragment : BaseStepFragment() {
         }
 
         if (selectedSellingPriceUnit.isNullOrEmpty()) {
-           errMessage = "Select proper selling unit"
+            errMessage = "Select proper selling unit"
             binding.sellingPriceUnitPrompt.error = errMessage
             isDataValid = false
         }
 
         if (!isDataValid) {
-            val snackBar = Snackbar.make(binding.lytFieldSize,errMessage,
-                Snackbar.LENGTH_SHORT)
+            val snackBar = Snackbar.make(
+                binding.lytFieldSize, errMessage,
+                Snackbar.LENGTH_SHORT
+            )
 
             snackBar.setAction("OK") {
                 snackBar.dismiss()
