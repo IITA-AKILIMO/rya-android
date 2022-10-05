@@ -6,6 +6,31 @@ plugins {
     id 'kotlin-kapt'
     id 'com.google.devtools.ksp'
     id 'com.vanniktech.android.junit.jacoco'
+    id "org.sonarqube"
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "AKILIMO RYA"
+        property "sonar.projectKey", "RYA"
+        property "sonar.login", "sqp_dae104ac3c0f8a1af88643c5ef8ebcc5f81986f4"
+//        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.sources", "src"
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.tests", ["src/test/java"]
+        property "sonar.test.inclusions", "**/*Test*/**"
+        property "sonar.exclusions", '**/.gradle/**,' +
+                "**/androidTest/**," +
+                "**/R.class," +
+                "**/BuildConfig.*," +
+                "**/Manifest*.*," +
+                "**/android/databinding/*," +
+                "**/androidx/databinding/*," +
+                "**/*MapperImpl*.*," +
+                "**/BuildConfig.*," +
+                "**/Manifest*.*," +
+                "**/google-services.json"
+    }
 }
 
 android {
