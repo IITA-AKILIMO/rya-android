@@ -9,7 +9,7 @@ import com.stepstone.stepper.viewmodel.StepViewModel
 class HomeStepperAdapter(
     supportFragmentManager: FragmentManager?,
     private val ctx: Context,
-    private val fragmentArray: List<Fragment>
+    fragmentArray: List<Fragment>
 ) : MyStepperAdapter(supportFragmentManager, ctx, fragmentArray) {
 
     override fun getViewModel(@IntRange(from = 0) position: Int): StepViewModel {
