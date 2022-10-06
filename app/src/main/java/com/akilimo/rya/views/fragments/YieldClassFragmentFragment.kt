@@ -32,6 +32,9 @@ class YieldClassFragmentFragment : BaseStepFragment() {
     private var selectedYield: Double = 0.0
     private var database: AppDatabase? = null
 
+    private var fieldYieldEntity: FieldYieldEntity? = null
+    private var selectedYieldIndex = -1
+
     private val yieldImages = arrayOf(
         R.drawable.yield_less_than_7point5,
         R.drawable.yield_7point5_to_15,
@@ -59,9 +62,7 @@ class YieldClassFragmentFragment : BaseStepFragment() {
     }
 
     override fun loadFragmentLayout(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentYieldClassBinding.inflate(inflater, container, false)
         return binding.root
@@ -69,17 +70,25 @@ class YieldClassFragmentFragment : BaseStepFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mAdapter = FieldYieldAdapter(view.context, setYieldData(), TheItemAnimation.FADE_IN)
+
+        fieldYieldEntity = database?.fieldYieldDao()?.findOne()
+
+        if (fieldYieldEntity != null) {
+            selectedYield = fieldYieldEntity?.yieldAmount!!
+            selectedYieldIndex = fieldYieldEntity?.rowIndex!!
+        }
+
+        val mAdapter = FieldYieldAdapter(
+            _context = view.context,
+            items = setYieldData(),
+            animationType = TheItemAnimation.FADE_IN,
+            selectedIndex = selectedYieldIndex
+        )
 
         val recyclerView = binding.rootYieldRecycler
-//        val mLayoutManager = LinearLayoutManager(view.context)
-//        recyclerView.layoutManager = mLayoutManager
-//        recyclerView.setHasFixedSize(true)
-//        recyclerView.adapter = mAdapter
 
         recyclerView.apply {
             adapter = mAdapter
-//            layoutManager = LinearLayoutManager(view.context)
             layoutManager = GridLayoutManager(view.context, 2, GridLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
         }
@@ -91,15 +100,15 @@ class YieldClassFragmentFragment : BaseStepFragment() {
             override fun onItemClick(view: View, fieldYield: FieldYield, position: Int) {
                 mAdapter.setActiveRowIndex(position, view)
                 selectedYield = fieldYield.yieldAmount;
-                val fieldYieldEntity = FieldYieldEntity(
+                fieldYieldEntity = FieldYieldEntity(
                     id = 1,
                     imageId = fieldYield.imageId,
                     yieldLabel = fieldYield.yieldLabel,
                     fieldYieldAmountLabel = fieldYield.fieldYieldAmountLabel,
                     fieldYieldDesc = fieldYield.fieldYieldDesc,
-                    yieldAmount = fieldYield.yieldAmount
+                    yieldAmount = fieldYield.yieldAmount,
+                    rowIndex = position
                 )
-                database?.fieldYieldDao()?.insert(fieldYieldEntity)
             }
 
         })
@@ -112,8 +121,11 @@ class YieldClassFragmentFragment : BaseStepFragment() {
 
     override fun verifyStep(): VerificationError? {
         if (selectedYield <= 0.0) {
-            val snackBar = Snackbar.make(binding.rootYieldRecycler,"Please specify field yield to continue",
-                Snackbar.LENGTH_SHORT)
+            val snackBar = Snackbar.make(
+                binding.rootYieldRecycler,
+                "Please specify field yield to continue",
+                Snackbar.LENGTH_SHORT
+            )
 
             snackBar.setAction("OK") {
                 snackBar.dismiss()
@@ -121,6 +133,8 @@ class YieldClassFragmentFragment : BaseStepFragment() {
             snackBar.show()
             return VerificationError("Please specify field yield")
         }
+
+        database?.fieldYieldDao()?.insert(fieldYieldEntity!!)
 
         return verificationError
     }
