@@ -2,7 +2,7 @@ name: Build
 on:
   push:
     branches:
-      - feat/chore-ui # or the name of your main branch
+      - todo # or the name of your main branch
 
 jobs:
   build:
