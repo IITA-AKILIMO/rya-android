@@ -69,6 +69,7 @@ class PlantsInTriangleFragment : BaseStepFragment() {
                 txtPlantCountTri1.editText?.setText(fieldInfoEntity?.triangle1PlantCount.toString())
                 txtPlantCountTri2.editText?.setText(fieldInfoEntity?.triangle2PlantCount.toString())
                 txtPlantCountTri3.editText?.setText(fieldInfoEntity?.triangle3PlantCount.toString())
+                hasError = false
             }
             txtPlantCountTri1.editText?.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {

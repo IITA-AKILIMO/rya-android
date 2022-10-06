@@ -15,6 +15,11 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <item name="customTextInputStyle">
+            @style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense
+        </item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -50,4 +55,5 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

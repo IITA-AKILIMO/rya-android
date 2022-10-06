@@ -52,13 +52,15 @@ class HomeStepperActivity : AppCompatActivity() {
 
         binding.stepperLayout.setListener(object : StepperLayout.StepperListener {
             override fun onCompleted(completeButton: View?) {
-                val intent =
-                    Intent(this@HomeStepperActivity, PlantTriangleStepperActivity::class.java)
+                val intent = Intent(
+                    this@HomeStepperActivity, PlantTriangleStepperActivity::class.java
+                )
                 startActivity(intent)
                 Animatoo.animateSwipeLeft(this@HomeStepperActivity)
             }
 
             override fun onError(verificationError: VerificationError?) {
+                //evaluate last step and change the finish label
             }
 
             override fun onStepSelected(newStepPosition: Int) {
@@ -66,6 +68,7 @@ class HomeStepperActivity : AppCompatActivity() {
             }
 
             override fun onReturn() {
+                //evaluate last step and change the finish label
             }
 
         })
@@ -80,9 +83,9 @@ class HomeStepperActivity : AppCompatActivity() {
 
 
     private fun createFragmentArray() {
-//        fragmentArray.add(YieldClassFragmentFragment.newInstance())
-//        fragmentArray.add(FieldInfoFragment.newInstance())
-//        fragmentArray.add(PlantingPeriodFragment.newInstance())
+        fragmentArray.add(YieldClassFragmentFragment.newInstance())
+        fragmentArray.add(FieldInfoFragment.newInstance())
+        fragmentArray.add(PlantingPeriodFragment.newInstance())
         fragmentArray.add(PrecisionFragment.newInstance())
         fragmentArray.add(PlantsInTriangleFragment.newInstance())
     }
@@ -99,8 +102,7 @@ class HomeStepperActivity : AppCompatActivity() {
 
         configReader.enqueue(object : Callback<List<RemoteConfig>> {
             override fun onResponse(
-                call: Call<List<RemoteConfig>>,
-                response: Response<List<RemoteConfig>>
+                call: Call<List<RemoteConfig>>, response: Response<List<RemoteConfig>>
             ) {
                 val configList = response.body()
                 if (configList != null) {
@@ -113,9 +115,7 @@ class HomeStepperActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<List<RemoteConfig>>, t: Throwable) {
                 Toast.makeText(
-                    applicationContext,
-                    "Unable to load remote configurations",
-                    Toast.LENGTH_SHORT
+                    applicationContext, "Unable to load remote configurations", Toast.LENGTH_SHORT
                 ).show();
             }
         })
