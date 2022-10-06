@@ -30,10 +30,10 @@ class PlantsInTriangleFragment : BaseStepFragment() {
 
     private var database: AppDatabase? = null
 
-    private var triangle1PlantCount: Int = 0
-    private var triangle2PlantCount: Int = 0
-    private var triangle3PlantCount: Int = 0
-    private var hasError = false
+    private var triangle1PlantCount: Int = -1
+    private var triangle2PlantCount: Int = -1
+    private var triangle3PlantCount: Int = -1
+    private var hasError = true
     private var fieldInfoEntity: FieldInfoEntity? = null
 
     companion object {

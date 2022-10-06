@@ -80,9 +80,9 @@ class HomeStepperActivity : AppCompatActivity() {
 
 
     private fun createFragmentArray() {
-        fragmentArray.add(YieldClassFragmentFragment.newInstance())
-        fragmentArray.add(FieldInfoFragment.newInstance())
-        fragmentArray.add(PlantingPeriodFragment.newInstance())
+//        fragmentArray.add(YieldClassFragmentFragment.newInstance())
+//        fragmentArray.add(FieldInfoFragment.newInstance())
+//        fragmentArray.add(PlantingPeriodFragment.newInstance())
         fragmentArray.add(PrecisionFragment.newInstance())
         fragmentArray.add(PlantsInTriangleFragment.newInstance())
     }
