@@ -40,8 +40,8 @@
     <string name="lbl_before_starting">Before starting</string>
 
 
-    <string name="field_area_unit_prompt">Area unit</string>
-    <string name="selling_price_prompt">Selling price</string>
+    <string name="field_area_unit_prompt">Select field area unit</string>
+    <string name="selling_price_prompt">Select cassava selling price</string>
 
     <string-array name="field_area_unit_array">
         <item>Acre</item>
