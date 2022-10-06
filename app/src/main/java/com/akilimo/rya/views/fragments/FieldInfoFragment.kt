@@ -2,6 +2,8 @@ package com.akilimo.rya.views.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +29,7 @@ class FieldInfoFragment : BaseStepFragment() {
 
     private var selectedFieldAreaUnit: String? = null
     private var fieldSize: Double = 0.0
-    private var selectedSellingPriceUnit: String? = null
+    private var selectedCurrencyUnit: String? = null
     private var sellingPrice: Double = 0.0
     private var currency: String = "USD"
     private var currencyName: String = "Dollars"
@@ -36,6 +38,7 @@ class FieldInfoFragment : BaseStepFragment() {
     private var database: AppDatabase? = null
     private var fieldInfoEntity: FieldInfoEntity? = null
 
+    var hasError: Boolean = true
 
     private val binding get() = _binding!!
 
@@ -60,9 +63,7 @@ class FieldInfoFragment : BaseStepFragment() {
     }
 
     override fun loadFragmentLayout(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFieldInfoBinding.inflate(inflater, container, false)
         return binding.root
@@ -72,12 +73,18 @@ class FieldInfoFragment : BaseStepFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         fieldInfoEntity = database?.fieldInfoDao()?.findOne()
+        with(binding) {
+            if (fieldInfoEntity != null) {
+                areaUnitPrompt.selectItemByIndex(fieldInfoEntity!!.areaUnitIndex)
+                currencyUnitPrompt.selectItemByIndex(fieldInfoEntity!!.sellingPriceUnitIndex)
+                txtFieldSize.editText?.setText(fieldInfoEntity?.fieldSize.toString())
+                txtSellingPrice.editText?.setText(fieldInfoEntity?.sellingPrice.toString())
+            } else {
+                areaUnitPrompt.selectItemByIndex(0)
+                currencyUnitPrompt.selectItemByIndex(0)
+            }
 
-        if (fieldInfoEntity != null) {
-
-        }
-        binding.fieldAreaUnitPrompt.setOnSpinnerItemSelectedListener(
-            OnSpinnerItemSelectedListener<String?> { oldIndex, oldItem, newIndex, newItem ->
+            areaUnitPrompt.setOnSpinnerItemSelectedListener(OnSpinnerItemSelectedListener<String?> { oldIndex, oldItem, newIndex, newItem ->
                 selectedFieldAreaUnit = newItem
                 when {
                     newItem.equals("Acre", true) -> {
@@ -92,9 +99,8 @@ class FieldInfoFragment : BaseStepFragment() {
                 }
             })
 
-        binding.sellingPriceUnitPrompt.setOnSpinnerItemSelectedListener(
-            OnSpinnerItemSelectedListener<String?> { oldIndex, oldItem, newIndex, newItem ->
-                selectedSellingPriceUnit = newItem
+            currencyUnitPrompt.setOnSpinnerItemSelectedListener(OnSpinnerItemSelectedListener<String?> { oldIndex, oldItem, newIndex, newItem ->
+                selectedCurrencyUnit = newItem
                 when {
                     newItem.equals("USD/Tonne", true) -> {
                         currency = "USD"
@@ -112,81 +118,98 @@ class FieldInfoFragment : BaseStepFragment() {
 
             })
 
-        binding.fieldAreaUnitPrompt.selectItemByIndex(0)
-        binding.sellingPriceUnitPrompt.selectItemByIndex(0)
+
+            txtFieldSize.editText?.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    txtFieldSize.error = null
+                }
+
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    //TODO "Will not be implemented"
+                }
+
+                override fun afterTextChanged(editable: Editable?) {
+                    fieldSize = StringToNumberFactory.stringToDouble(editable.toString())
+                }
+
+            })
+
+            txtSellingPrice.editText?.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    txtSellingPrice.error = null
+                }
+
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    //TODO "Will not be implemented"
+                }
+
+                override fun afterTextChanged(editable: Editable?) {
+                    sellingPrice = StringToNumberFactory.stringToDouble(editable.toString())
+                }
+
+            })
+        }
+
     }
 
     override fun verifyStep(): VerificationError? {
-        var isDataValid: Boolean = true
 
-        binding.txtFieldSize.error = null
-        binding.fieldAreaUnitPrompt.error = null
-        binding.txtSellingPrice.error = null
-        binding.sellingPriceUnitPrompt.error = null
 
-        fieldSize = StringToNumberFactory.stringToDouble(binding.txtFieldSize.text.toString())
-        sellingPrice = StringToNumberFactory.stringToDouble(binding.txtSellingPrice.text.toString())
+        binding.areaUnitPrompt.error = null
+        binding.currencyUnitPrompt.error = null
+
 
         var errMessage: String = ""
         if (selectedFieldAreaUnit.isNullOrEmpty()) {
             errMessage = "Select proper field area unit"
-            binding.fieldAreaUnitPrompt.error = errMessage
-            isDataValid = false
+            binding.areaUnitPrompt.error = errMessage
+        }
+
+        if (selectedCurrencyUnit.isNullOrEmpty()) {
+            errMessage = "Select proper selling unit"
+            binding.currencyUnitPrompt.error = errMessage
         }
 
         if (fieldSize <= 0.0) {
             errMessage = "Provide a valid field size"
             binding.txtFieldSize.error = errMessage
-            isDataValid = false
         }
 
         if (sellingPrice <= 0.0) {
             errMessage = "Provide a valid selling price"
             binding.txtSellingPrice.error = errMessage
-            isDataValid = false
         }
 
-        if (selectedSellingPriceUnit.isNullOrEmpty()) {
-            errMessage = "Select proper selling unit"
-            binding.sellingPriceUnitPrompt.error = errMessage
-            isDataValid = false
-        }
 
-        if (!isDataValid) {
+        if (errMessage.isNotEmpty()) {
             val snackBar = Snackbar.make(
-                binding.lytFieldSize, errMessage,
-                Snackbar.LENGTH_SHORT
+                binding.lytFieldSize, errMessage, Snackbar.LENGTH_SHORT
             )
-
             snackBar.setAction("OK") {
                 snackBar.dismiss()
             }
             snackBar.show()
-            return VerificationError("Please fill all fields")
+            return VerificationError(errMessage)
         }
 
         //Save to ROOM database
-        val fieldInfo = FieldInfoEntity(
-            id = 1,
-            fieldAreaUnit = selectedFieldAreaUnit!!,
-            fieldSize = fieldSize,
-            areaUnit = areaUnit,
-            sellingPriceUnit = selectedSellingPriceUnit!!,
-            currency = currency,
-            currencyName = currencyName,
-            sellingPrice = sellingPrice
-        )
-
-        val data = database?.fieldInfoDao()?.findOne()
-        if (data != null) {
-            database?.fieldInfoDao()?.deleteField(data)
+        if (fieldInfoEntity == null) {
+            fieldInfoEntity = FieldInfoEntity(id = 1)
         }
-        database?.fieldInfoDao()?.insert(fieldInfoEntity = fieldInfo)
+
+        fieldInfoEntity?.fieldAreaUnit = selectedFieldAreaUnit!!
+        fieldInfoEntity?.fieldSize = fieldSize
+        fieldInfoEntity?.areaUnit = areaUnit
+        fieldInfoEntity?.sellingPriceUnit = selectedCurrencyUnit!!
+        fieldInfoEntity?.currency = currency
+        fieldInfoEntity?.currencyName = currencyName
+        fieldInfoEntity?.sellingPrice = sellingPrice
+
+
+        database?.fieldInfoDao()?.insert(fieldInfoEntity = fieldInfoEntity!!)
 
         return null
     }
-
-    override fun onSelected() {}
 
     override fun onError(error: VerificationError) {}
 

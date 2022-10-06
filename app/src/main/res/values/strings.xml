@@ -49,7 +49,7 @@
         <item>Meter squared</item>
     </string-array>
 
-    <string-array name="selling_unit_array">
+    <string-array name="currency_unit_array">
         <item>USD/Tonne</item>
         <item>NGN/Tonne</item>
         <item>TZS/Tonne</item>

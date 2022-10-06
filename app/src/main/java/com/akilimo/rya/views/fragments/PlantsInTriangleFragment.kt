@@ -71,15 +71,11 @@ class PlantsInTriangleFragment : BaseStepFragment() {
                 txtPlantCountTri3.editText?.setText(fieldInfoEntity?.triangle3PlantCount.toString())
             }
             txtPlantCountTri1.editText?.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    charSequence: CharSequence?, p1: Int, p2: Int, p3: Int
-                ) {
+                override fun beforeTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     txtPlantCountTri1.error = null
                 }
 
-                override fun onTextChanged(
-                    charSequence: CharSequence?, p1: Int, p2: Int, p3: Int
-                ) {
+                override fun onTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     //this will not be implemented
                 }
 
@@ -90,15 +86,11 @@ class PlantsInTriangleFragment : BaseStepFragment() {
             })
 
             txtPlantCountTri2.editText?.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    charSequence: CharSequence?, p1: Int, p2: Int, p3: Int
-                ) {
+                override fun beforeTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     txtPlantCountTri2.error = null
                 }
 
-                override fun onTextChanged(
-                    charSequence: CharSequence?, p1: Int, p2: Int, p3: Int
-                ) {
+                override fun onTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     //this will not be implemented
                 }
 
@@ -115,9 +107,7 @@ class PlantsInTriangleFragment : BaseStepFragment() {
                     txtPlantCountTri3.error = null
                 }
 
-                override fun onTextChanged(
-                    charSequence: CharSequence?, p1: Int, p2: Int, p3: Int
-                ) {
+                override fun onTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     //this will not be implemented
                 }
 
