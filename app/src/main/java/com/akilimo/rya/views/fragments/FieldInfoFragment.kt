@@ -27,18 +27,19 @@ class FieldInfoFragment : BaseStepFragment() {
     private var ctx: Context? = null
     private var _binding: FragmentFieldInfoBinding? = null
 
-    private var selectedFieldAreaUnit: String? = null
-    private var fieldSize: Double = 0.0
-    private var selectedCurrencyUnit: String? = null
-    private var sellingPrice: Double = 0.0
-    private var currency: String = "USD"
-    private var currencyName: String = "Dollars"
-    private var areaUnit: String = "acre"
+    private var _selectedFieldAreaUnit: String? = null
+    private var _areaUnitIndex = 0
+    private var _currencyUnitIndex = 0
+    private var _fieldSize: Double = 0.0
+    private var _selectedCurrencyUnit: String? = null
+    private var _sellingPrice: Double = 0.0
+    private var _currency: String = "USD"
+    private var _currencyName: String = "Dollars"
+    private var _areaUnit: String = "acre"
 
     private var database: AppDatabase? = null
     private var fieldInfoEntity: FieldInfoEntity? = null
 
-    var hasError: Boolean = true
 
     private val binding get() = _binding!!
 
@@ -75,44 +76,58 @@ class FieldInfoFragment : BaseStepFragment() {
         fieldInfoEntity = database?.fieldInfoDao()?.findOne()
         with(binding) {
             if (fieldInfoEntity != null) {
+
+                with(fieldInfoEntity!!) {
+                    _sellingPrice = sellingPrice
+                    _fieldSize = fieldSize
+                    _selectedFieldAreaUnit = fieldAreaUnit
+                    _areaUnit = areaUnit
+                    _areaUnitIndex = areaUnitIndex
+                    _selectedCurrencyUnit = currencyUnit
+                    _currency = currency
+                    _currencyName = currencyName
+                    _currencyUnitIndex = currencyUnitIndex
+                }
                 areaUnitPrompt.selectItemByIndex(fieldInfoEntity!!.areaUnitIndex)
-                currencyUnitPrompt.selectItemByIndex(fieldInfoEntity!!.sellingPriceUnitIndex)
-                txtFieldSize.editText?.setText(fieldInfoEntity?.fieldSize.toString())
-                txtSellingPrice.editText?.setText(fieldInfoEntity?.sellingPrice.toString())
+                currencyUnitPrompt.selectItemByIndex(fieldInfoEntity!!.currencyUnitIndex)
+                txtFieldSize.editText?.setText(_fieldSize.toString())
+                txtSellingPrice.editText?.setText(_sellingPrice.toString())
             } else {
                 areaUnitPrompt.selectItemByIndex(0)
                 currencyUnitPrompt.selectItemByIndex(0)
             }
 
             areaUnitPrompt.setOnSpinnerItemSelectedListener(OnSpinnerItemSelectedListener<String?> { oldIndex, oldItem, newIndex, newItem ->
-                selectedFieldAreaUnit = newItem
+                _selectedFieldAreaUnit = newItem
+                _areaUnitIndex = newIndex
                 when {
                     newItem.equals("Acre", true) -> {
-                        areaUnit = "acre"
+                        _areaUnit = "acre"
                     }
                     newItem.equals("Hectare", true) -> {
-                        areaUnit = "ha"
+                        _areaUnit = "ha"
                     }
                     newItem.equals("Meter squared", true) -> {
-                        areaUnit = "m2"
+                        _areaUnit = "m2"
                     }
                 }
             })
 
             currencyUnitPrompt.setOnSpinnerItemSelectedListener(OnSpinnerItemSelectedListener<String?> { oldIndex, oldItem, newIndex, newItem ->
-                selectedCurrencyUnit = newItem
+                _selectedCurrencyUnit = newItem
+                _currencyUnitIndex = newIndex
                 when {
                     newItem.equals("USD/Tonne", true) -> {
-                        currency = "USD"
-                        currencyName = "US Dollars"
+                        _currency = "USD"
+                        _currencyName = "US Dollars"
                     }
                     newItem.equals("NGN/Tonne", true) -> {
-                        currency = "NGN"
-                        currencyName = "Naira"
+                        _currency = "NGN"
+                        _currencyName = "Naira"
                     }
                     newItem.equals("TZS/Tonne", true) -> {
-                        currency = "TZS"
-                        currencyName = "Tanzanian Shillings"
+                        _currency = "TZS"
+                        _currencyName = "Tanzanian Shillings"
                     }
                 }
 
@@ -129,7 +144,7 @@ class FieldInfoFragment : BaseStepFragment() {
                 }
 
                 override fun afterTextChanged(editable: Editable?) {
-                    fieldSize = StringToNumberFactory.stringToDouble(editable.toString())
+                    _fieldSize = StringToNumberFactory.stringToDouble(editable.toString())
                 }
 
             })
@@ -144,7 +159,7 @@ class FieldInfoFragment : BaseStepFragment() {
                 }
 
                 override fun afterTextChanged(editable: Editable?) {
-                    sellingPrice = StringToNumberFactory.stringToDouble(editable.toString())
+                    _sellingPrice = StringToNumberFactory.stringToDouble(editable.toString())
                 }
 
             })
@@ -160,22 +175,22 @@ class FieldInfoFragment : BaseStepFragment() {
 
 
         var errMessage: String = ""
-        if (selectedFieldAreaUnit.isNullOrEmpty()) {
+        if (_selectedFieldAreaUnit.isNullOrEmpty()) {
             errMessage = "Select proper field area unit"
             binding.areaUnitPrompt.error = errMessage
         }
 
-        if (selectedCurrencyUnit.isNullOrEmpty()) {
+        if (_selectedCurrencyUnit.isNullOrEmpty()) {
             errMessage = "Select proper selling unit"
             binding.currencyUnitPrompt.error = errMessage
         }
 
-        if (fieldSize <= 0.0) {
+        if (_fieldSize <= 0.0) {
             errMessage = "Provide a valid field size"
             binding.txtFieldSize.error = errMessage
         }
 
-        if (sellingPrice <= 0.0) {
+        if (_sellingPrice <= 0.0) {
             errMessage = "Provide a valid selling price"
             binding.txtSellingPrice.error = errMessage
         }
@@ -192,18 +207,19 @@ class FieldInfoFragment : BaseStepFragment() {
             return VerificationError(errMessage)
         }
 
-        //Save to ROOM database
         if (fieldInfoEntity == null) {
             fieldInfoEntity = FieldInfoEntity(id = 1)
         }
 
-        fieldInfoEntity?.fieldAreaUnit = selectedFieldAreaUnit!!
-        fieldInfoEntity?.fieldSize = fieldSize
-        fieldInfoEntity?.areaUnit = areaUnit
-        fieldInfoEntity?.sellingPriceUnit = selectedCurrencyUnit!!
-        fieldInfoEntity?.currency = currency
-        fieldInfoEntity?.currencyName = currencyName
-        fieldInfoEntity?.sellingPrice = sellingPrice
+        fieldInfoEntity?.fieldAreaUnit = _selectedFieldAreaUnit!!
+        fieldInfoEntity?.fieldSize = _fieldSize
+        fieldInfoEntity?.areaUnit = _areaUnit
+        fieldInfoEntity?.currencyUnit = _selectedCurrencyUnit!!
+        fieldInfoEntity?.currency = _currency
+        fieldInfoEntity?.currencyName = _currencyName
+        fieldInfoEntity?.sellingPrice = _sellingPrice
+        fieldInfoEntity?.currencyUnitIndex = _currencyUnitIndex
+        fieldInfoEntity?.areaUnitIndex = _areaUnitIndex
 
 
         database?.fieldInfoDao()?.insert(fieldInfoEntity = fieldInfoEntity!!)
