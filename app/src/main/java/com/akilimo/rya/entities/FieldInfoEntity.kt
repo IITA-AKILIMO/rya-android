@@ -8,9 +8,9 @@ import androidx.room.PrimaryKey
 data class FieldInfoEntity(
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
     @ColumnInfo(name = "field_area_unit") var fieldAreaUnit: String = "acre",
-    @ColumnInfo(name = "field_area_unit_index") var areaUnitIndex: Int = 0,
-    @ColumnInfo(name = "selling_price_unit") var sellingPriceUnit: String = "tonne",
-    @ColumnInfo(name = "selling_price_unit_index") var sellingPriceUnitIndex: Int = 0,
+    @ColumnInfo(name = "area_unit_index") var areaUnitIndex: Int = 0,
+    @ColumnInfo(name = "selling_currency_unit") var currencyUnit: String = "tonne",
+    @ColumnInfo(name = "currency_unit_index") var currencyUnitIndex: Int = 0,
     @ColumnInfo(name = "field_size") var fieldSize: Double = 1.0,
     @ColumnInfo(name = "currency") var currency: String = "USD",
     @ColumnInfo(name = "currency_name") var currencyName: String = "USD",
