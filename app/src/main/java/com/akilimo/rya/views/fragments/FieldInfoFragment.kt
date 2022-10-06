@@ -92,9 +92,6 @@ class FieldInfoFragment : BaseStepFragment() {
                 currencyUnitPrompt.selectItemByIndex(fieldInfoEntity!!.currencyUnitIndex)
                 txtFieldSize.editText?.setText(_fieldSize.toString())
                 txtSellingPrice.editText?.setText(_sellingPrice.toString())
-            } else {
-                areaUnitPrompt.selectItemByIndex(0)
-                currencyUnitPrompt.selectItemByIndex(0)
             }
 
             areaUnitPrompt.setOnSpinnerItemSelectedListener(OnSpinnerItemSelectedListener<String?> { oldIndex, oldItem, newIndex, newItem ->
