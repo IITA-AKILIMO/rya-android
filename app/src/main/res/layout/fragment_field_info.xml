@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_16"
-                android:text="What is the area of the plot?"
+                android:text="What is the area of your field?"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -66,7 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dimen_12"
-                    android:hint="Enter field size"
+                    android:hint="Field size"
                     app:endIconMode="clear_text">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -77,12 +77,13 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.skydoves.powerspinner.PowerSpinnerView
-                    android:id="@+id/fieldAreaUnitPrompt"
+                    android:id="@+id/areaUnitPrompt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/field_area_unit_prompt"
                     android:padding="@dimen/spacing_middle"
                     android:textSize="20sp"
+                    android:background="@color/grey_3"
                     app:spinner_divider_color="@color/akilimoDarkGreen"
                     app:spinner_divider_show="true"
                     app:spinner_divider_size="0.5dp"
@@ -111,8 +112,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView5">
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtSellingPrice"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_12"
+                    android:hint="Cassava selling price"
+                    app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_large"
+                        android:inputType="numberDecimal"
+                        android:minHeight="50dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <com.skydoves.powerspinner.PowerSpinnerView
-                    android:id="@+id/sellingPriceUnitPrompt"
+                    android:id="@+id/currencyUnitPrompt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/grey_5"
@@ -122,17 +140,8 @@
                     app:spinner_divider_color="@color/purple_500"
                     app:spinner_divider_show="true"
                     app:spinner_divider_size="0.5dp"
-                    app:spinner_item_array="@array/selling_unit_array"
+                    app:spinner_item_array="@array/currency_unit_array"
                     app:spinner_popup_animation="bounce" />
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txtSellingPrice"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_large"
-                    android:hint="Enter selling price"
-                    android:inputType="numberDecimal"
-                    android:minHeight="50dp" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
