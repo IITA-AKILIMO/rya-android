@@ -102,9 +102,4 @@ class TriangleFragment : BasePlantTriangle() {
         }
         snackBar.show()
     }
-
-    @Deprecated("To be removed", ReplaceWith("false"))
-    fun validateInput(): Boolean {
-        return false
-    }
 }
