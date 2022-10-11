@@ -40,8 +40,8 @@
     <string name="lbl_before_starting">Before starting</string>
 
 
-    <string name="field_area_unit_prompt">Choose area unit</string>
-    <string name="selling_price_prompt">Choose selling price</string>
+    <string name="field_area_unit_prompt">Select field area unit</string>
+    <string name="selling_price_prompt">Select cassava selling price</string>
 
     <string-array name="field_area_unit_array">
         <item>Acre</item>
@@ -49,7 +49,7 @@
         <item>Meter squared</item>
     </string-array>
 
-    <string-array name="selling_unit_array">
+    <string-array name="currency_unit_array">
         <item>USD/Tonne</item>
         <item>NGN/Tonne</item>
         <item>TZS/Tonne</item>
@@ -63,4 +63,8 @@
     <string name="lbl_high_precision">High precision\n ±60min\nUproot 30–45 plants</string>
     <string name="lbl_root_weight_hint">Root weight (kg)</string>
     <string name="lbl_yield_estimate">Yield estimate</string>
+    <string name="lbl_root_weight">How much do the roots weigh for each uprooted plant?</string>
+    <string name="lbl_triangle_one">Triangle one</string>
+    <string name="lbl_triangle_two">Triangle two</string>
+    <string name="lbl_triangle_three">Triangle three</string>
 </resources>

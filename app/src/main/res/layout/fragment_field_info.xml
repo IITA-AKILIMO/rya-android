@@ -22,33 +22,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_medium"
-                android:text="@string/lbl_before_starting"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:text="To estimate yield and value of your crop, we need some information first."
                 android:textColor="@color/black"
-                android:textSize="24sp"
+                android:textSize="@dimen/font_size_18"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_large"
-                android:text="To estimate yield and value of your crop, we need some information first."
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_16"
-                android:text="What is the area of the plot?"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
             <LinearLayout
                 android:id="@+id/lytFieldSize"
@@ -58,75 +38,99 @@
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4">
+                app:layout_constraintTop_toBottomOf="@+id/textView2">
 
-                <com.skydoves.powerspinner.PowerSpinnerView
-                    android:id="@+id/fieldAreaUnitPrompt"
+                <TextView
+                    android:id="@+id/textView4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/grey_5"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:layout_marginBottom="@dimen/spacing_medium"
+                    android:text="What is the area of your field?" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtFieldSize"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_medium"
+                    android:hint="Field area"
+                    app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:padding="@dimen/dimen_12" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.skydoves.powerspinner.PowerSpinnerView
+                    android:id="@+id/areaUnitPrompt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/grey_3"
                     android:hint="@string/field_area_unit_prompt"
-                    android:padding="@dimen/spacing_middle"
+                    android:padding="@dimen/dimen_12"
                     android:textSize="20sp"
-                    app:spinner_divider_color="@color/purple_500"
+                    app:spinner_arrow_tint="@color/akilimoDarkGreen"
+                    app:spinner_divider_color="@color/akilimoDarkGreen"
                     app:spinner_divider_show="true"
                     app:spinner_divider_size="0.5dp"
                     app:spinner_item_array="@array/field_area_unit_array"
-                    app:spinner_popup_animation="bounce" />
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txtFieldSize"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_large"
-                    android:hint="Enter field size"
-                    android:inputType="numberDecimal"
-                    android:minHeight="50dp" />
+                    app:spinner_popup_animation="dropdown" />
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_22"
-                android:text="At which price do you sell your cassava?"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lytFieldSize" />
 
             <LinearLayout
                 android:id="@+id/lytSellingPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_22"
+                android:layout_marginTop="@dimen/spacing_large"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5">
+                app:layout_constraintTop_toBottomOf="@+id/lytFieldSize">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:layout_marginBottom="@dimen/spacing_medium"
+                    android:text="At which price do you sell your cassava?" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtSellingPrice"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_medium"
+                    android:hint="Cassava selling price"
+                    app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:minHeight="50dp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.skydoves.powerspinner.PowerSpinnerView
-                    android:id="@+id/sellingPriceUnitPrompt"
+                    android:id="@+id/currencyUnitPrompt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/grey_5"
                     android:hint="@string/selling_price_prompt"
-                    android:padding="@dimen/spacing_middle"
+                    android:padding="@dimen/dimen_12"
                     android:textSize="20sp"
-                    app:spinner_divider_color="@color/purple_500"
+                    app:spinner_arrow_tint="@color/akilimoDarkGreen"
+                    app:spinner_divider_color="@color/akilimoDarkGreen"
                     app:spinner_divider_show="true"
                     app:spinner_divider_size="0.5dp"
-                    app:spinner_item_array="@array/selling_unit_array"
-                    app:spinner_popup_animation="bounce" />
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txtSellingPrice"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_large"
-                    android:hint="Enter selling price"
-                    android:inputType="numberDecimal"
-                    android:minHeight="50dp" />
+                    app:spinner_item_array="@array/currency_unit_array"
+                    app:spinner_popup_animation="dropdown" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

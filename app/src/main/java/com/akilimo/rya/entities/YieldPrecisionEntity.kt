@@ -9,9 +9,13 @@ data class YieldPrecisionEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
     @ColumnInfo(name = "yield_precision")
-    var yieldPrecision: String,
+    var yieldPrecision: String = "",
     @ColumnInfo(name = "triangle_count")
-    var triangleCount: Int,
+    var triangleCount: Int = -1,
     @ColumnInfo(name = "plant_count")
-    var plantCount: Int,
+    var plantCount: Int = -1,
+    @ColumnInfo(name = "precision_image")
+    var precisionImage: Int = -1,
+    @ColumnInfo(name = "precision_index")
+    var selectedPrecisionIndex: Int = -1
 )

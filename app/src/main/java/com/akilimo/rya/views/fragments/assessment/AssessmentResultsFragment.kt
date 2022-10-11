@@ -46,8 +46,7 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
 
     companion object {
         @JvmStatic
-        fun newInstance(ryaEndpoint: String) =
-            AssessmentResultsFragment(ryaEndpoint)
+        fun newInstance(ryaEndpoint: String) = AssessmentResultsFragment(ryaEndpoint)
     }
 
     override fun onAttach(context: Context) {
@@ -61,9 +60,7 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
     }
 
     override fun loadFragmentLayout(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAssessmentResultsBinding.inflate(inflater, container, false)
         return binding.root
@@ -71,11 +68,6 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onSelected() {
-        super.onSelected()
-        //load database data
 
         apiInterface = ApiInterface.create(ryaEndpoint)
 
@@ -83,19 +75,37 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
         val yieldPrecision = database?.yieldPrecisionDao()?.findOne()
 
         val plantCount = yieldPrecision?.plantCount
-        val plantPerTriangle = database?.plantTriangleDao()?.findPlantsPerTriangle()
-        val plantRootMass = database?.plantTriangleDao()?.findPlantRootMass(limit = plantCount!!)
+
+        val triangleOneRootMass =
+            database?.plantTriangleDao()?.findPlantRootMass("one", limit = plantCount!!)
+        val triangleTwoRootMass =
+            database?.plantTriangleDao()?.findPlantRootMass("two", limit = plantCount!!)
+        val triangleThreeRootMass =
+            database?.plantTriangleDao()?.findPlantRootMass("three", limit = plantCount!!)
+
+
+        val plantRootMass: MutableList<Double> = ArrayList()
+        plantRootMass.addAll(triangleOneRootMass!!)
+        plantRootMass.addAll(triangleTwoRootMass!!)
+        plantRootMass.addAll(triangleThreeRootMass!!)
 
         val estimates = RyaEstimate(
             fieldArea = fieldInfo?.fieldSize!!,
             areaUnit = fieldInfo.areaUnit,
             precisionType = PrecisionTypes.valueOf(yieldPrecision?.yieldPrecision!!),
-            plantCounts = plantPerTriangle!!,
-            plantRms = plantRootMass!!,
+            plantCounts = listOf(
+                fieldInfo.triangle1PlantCount,
+                fieldInfo.triangle2PlantCount,
+                fieldInfo.triangle3PlantCount
+            ),
+            plantRms = plantRootMass,
         )
 
+        computeYieldEstimate(yieldEstimate = estimates, fieldInfo = fieldInfo)
+    }
 
-        val estimate = apiInterface?.computeEstimate(estimates)
+    private fun computeYieldEstimate(yieldEstimate: RyaEstimate, fieldInfo: FieldInfoEntity) {
+        val estimate = apiInterface?.computeEstimate(yieldEstimate)
         estimate?.enqueue(object : Callback<YieldEstimate> {
             override fun onResponse(call: Call<YieldEstimate>, response: Response<YieldEstimate>) {
                 if (response.isSuccessful) {
@@ -130,9 +140,9 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
         })
     }
 
+
     private fun generatePlots(
-        fieldInfo: FieldInfoEntity,
-        result: List<Double>,
+        fieldInfo: FieldInfoEntity, result: List<Double>,
         estimateResults: EstimateResultsEntity
     ) {
         val generatePlot = GeneratePlot(
@@ -150,8 +160,7 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
         val plots = apiInterface?.generatePlots(generatePlot)
         plots?.enqueue(object : Callback<GeneratePlotResp> {
             override fun onResponse(
-                call: Call<GeneratePlotResp>,
-                response: Response<GeneratePlotResp>
+                call: Call<GeneratePlotResp>, response: Response<GeneratePlotResp>
             ) {
                 if (response.isSuccessful) {
                     val plotBody = response.body()
@@ -173,9 +182,7 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
 
             override fun onFailure(call: Call<GeneratePlotResp>, t: Throwable) {
                 Toast.makeText(
-                    ctx,
-                    "Unable to load the plots, please try again",
-                    Toast.LENGTH_SHORT
+                    ctx, "Unable to load the plots, please try again", Toast.LENGTH_SHORT
                 ).show()
             }
 
@@ -203,9 +210,7 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
 
             override fun onFailure(call: Call<ResponseBody>, throwable: Throwable) {
                 Toast.makeText(
-                    ctx,
-                    "Unable to load plot data",
-                    Toast.LENGTH_SHORT
+                    ctx, "Unable to load plot data", Toast.LENGTH_SHORT
                 ).show();
             }
 

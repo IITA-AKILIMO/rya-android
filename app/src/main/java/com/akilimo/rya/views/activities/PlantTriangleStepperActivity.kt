@@ -6,11 +6,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.akilimo.rya.AppDatabase
-import com.akilimo.rya.R
 import com.akilimo.rya.adapter.MyStepperAdapter
-import com.akilimo.rya.databinding.ActivityHomeStepperBinding
 import com.akilimo.rya.databinding.MyStepperLayoutBinding
-import com.akilimo.rya.views.fragments.*
 import com.akilimo.rya.views.fragments.ui.TriangleFragment
 import com.akilimo.rya.views.fragments.ui.TriangleThreeFragment
 import com.akilimo.rya.views.fragments.ui.TriangleTwoFragment
@@ -23,7 +20,8 @@ class PlantTriangleStepperActivity : AppCompatActivity() {
     private lateinit var stepperAdapter: MyStepperAdapter
     private lateinit var mStepperLayout: StepperLayout
     private var database: AppDatabase? = null
-    private var plantcount = 0
+    private var plantCount = 0
+    private var triangleCount = 0
 
     private val fragmentArray: MutableList<Fragment> = arrayListOf()
 
@@ -48,20 +46,23 @@ class PlantTriangleStepperActivity : AppCompatActivity() {
             }
 
             override fun onStepSelected(newStepPosition: Int) {
-                when (val fragment = fragmentArray[newStepPosition]) {
-                    is TriangleFragment -> {
-                        fragment.triangleCount = plantcount / 3
-                        fragment.triangleName = "one"
-                    }
-                    is TriangleTwoFragment -> {
-                        fragment.triangleCount = plantcount / 3
-                        fragment.triangleName = "two"
-                    }
-                    is TriangleThreeFragment -> {
-                        fragment.triangleCount = plantcount / 3
-                        fragment.triangleName = "three"
-                    }
+                if (fragmentArray.size <= 0) {
+                    return
                 }
+//                when (val fragment = fragmentArray[newStepPosition]) {
+//                    is TriangleFragment -> {
+//                        fragment.triangleCount = plantCount / 3
+//                        fragment.triangleName = "one"
+//                    }
+//                    is TriangleTwoFragment -> {
+//                        fragment.triangleCount = plantCount / 3
+//                        fragment.triangleName = "two"
+//                    }
+//                    is TriangleThreeFragment -> {
+//                        fragment.triangleCount = plantCount / 3
+//                        fragment.triangleName = "three"
+//                    }
+//                }
             }
 
             override fun onReturn() {
@@ -71,10 +72,10 @@ class PlantTriangleStepperActivity : AppCompatActivity() {
 
 
         if (yieldClass != null) {
-            plantcount = yieldClass.plantCount
-            fragmentArray.add(TriangleFragment.newInstance())
-            fragmentArray.add(TriangleTwoFragment.newInstance())
-            fragmentArray.add(TriangleThreeFragment.newInstance())
+            plantCount = yieldClass.plantCount
+            fragmentArray.add(TriangleFragment.newInstance(plantCount / 3, "one"))
+            fragmentArray.add(TriangleTwoFragment.newInstance(plantCount / 3, "two"))
+            fragmentArray.add(TriangleThreeFragment.newInstance(plantCount / 3, "three"))
         }
         stepperAdapter = MyStepperAdapter(supportFragmentManager, applicationContext, fragmentArray)
         mStepperLayout.adapter = stepperAdapter
