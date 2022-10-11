@@ -70,7 +70,15 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
         super.onViewCreated(view, savedInstanceState)
 
         apiInterface = ApiInterface.create(ryaEndpoint)
+        refreshEstimateData()
+    }
 
+    override fun onSelected() {
+        super.onSelected()
+        refreshEstimateData()
+    }
+
+    private fun refreshEstimateData() {
         val fieldInfo = database?.fieldInfoDao()?.findOne()
         val yieldPrecision = database?.yieldPrecisionDao()?.findOne()
 

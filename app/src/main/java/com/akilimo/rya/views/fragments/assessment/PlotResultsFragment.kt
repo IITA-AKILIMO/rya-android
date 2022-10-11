@@ -54,13 +54,24 @@ class PlotResultsFragment(private val ryaEndpoint: String) : BaseStepFragment() 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val estimateResults = database?.estimateResultsDao()?.findOne()
+        refreshPlotData()
+    }
+
+    override fun onSelected() {
+        super.onSelected()
+        refreshPlotData()
+    }
+
+    private fun refreshPlotData() {
 
         if (!binding.shimmerViewContainer.isShimmerStarted) {
             binding.shimmerViewContainer.startShimmer()
         }
         binding.shimmerViewContainer.visibility = View.VISIBLE
         binding.widgetGroup.visibility = View.GONE
+
+
+        val estimateResults = database?.estimateResultsDao()?.findOne()
 
         if (estimateResults != null) {
             val totalEstimate = estimateResults.tonnageEstimate * estimateResults.tonnagePrice
@@ -74,9 +85,7 @@ class PlotResultsFragment(private val ryaEndpoint: String) : BaseStepFragment() 
     }
 
     override fun loadFragmentLayout(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPlotResultsBinding.inflate(inflater, container, false)
         return binding.root
@@ -103,9 +112,7 @@ class PlotResultsFragment(private val ryaEndpoint: String) : BaseStepFragment() 
 
             override fun onFailure(call: Call<ResponseBody>, throwable: Throwable) {
                 Toast.makeText(
-                    ctx,
-                    "Unable to load plot data",
-                    Toast.LENGTH_SHORT
+                    ctx, "Unable to load plot data", Toast.LENGTH_SHORT
                 ).show();
             }
 
