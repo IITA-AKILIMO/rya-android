@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.aemerse.onboard.OnboardAdvanced
 import com.aemerse.onboard.OnboardFragment
 import com.akilimo.rya.AppDatabase.Companion.getDatabase
+import com.akilimo.rya.BuildConfig
 import com.akilimo.rya.R
 import com.akilimo.rya.databinding.ActivityStartPageBinding
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
@@ -66,6 +67,9 @@ class StartPageActivity : OnboardAdvanced() {
             )
         )
 
+        if (!BuildConfig.DEBUG) {
+            clearDatabase()
+        }
     }
 
     override fun onDonePressed(currentFragment: Fragment?) {
