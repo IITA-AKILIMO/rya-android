@@ -102,4 +102,10 @@ abstract class BasePlantTriangle : BaseStepFragment() {
         return verificationError
     }
 
+
+    @Deprecated("To be removed completely", ReplaceWith("false"))
+    fun validateInput(): Boolean {
+        return false
+    }
+
 }
