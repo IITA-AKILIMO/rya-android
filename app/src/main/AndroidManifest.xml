@@ -24,7 +24,7 @@
             android:name=".views.activities.AssessmentActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
-        
+
         <activity
             android:name=".views.activities.StartPageActivity"
             android:exported="true"
