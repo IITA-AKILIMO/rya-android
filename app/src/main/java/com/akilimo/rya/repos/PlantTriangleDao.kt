@@ -18,15 +18,13 @@ interface PlantTriangleDao {
 
     @Query("SELECT * FROM plant_triangle WHERE triangle_name=:triangleName AND plant_name=:plantName LIMIT 1")
     fun findOneByTriangleNameAndPlantName(
-        triangleName: String,
-        plantName: String
+        triangleName: String, plantName: String
     ): PlantTriangleEntity?
 
 
     @Query("SELECT * FROM plant_triangle WHERE triangle_name=:triangleName LIMIT :limit")
     fun findAllByTriangleName(
-        triangleName: String,
-        limit: Int = 50
+        triangleName: String, limit: Int = 50
     ): List<PlantTriangleEntity>
 
     @Query("SELECT * FROM plant_triangle LIMIT :limit")
@@ -35,8 +33,8 @@ interface PlantTriangleDao {
     @Query("SELECT count(triangle_name) FROM plant_triangle GROUP BY triangle_name")
     fun findPlantsPerTriangle(): List<Int>
 
-    @Query("SELECT root_weight FROM plant_triangle LIMIT :limit")
-    fun findPlantRootMass(limit: Int = 9): List<Double>
+    @Query("SELECT root_weight FROM plant_triangle where triangle_name=:triangleName LIMIT :limit")
+    fun findPlantRootMass(triangleName: String, limit: Int = 9): List<Double>
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

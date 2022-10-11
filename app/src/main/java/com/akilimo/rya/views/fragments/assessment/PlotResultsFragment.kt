@@ -52,17 +52,8 @@ class PlotResultsFragment(private val ryaEndpoint: String) : BaseStepFragment() 
         apiInterface = ApiInterface.create(ryaEndpoint)
     }
 
-    override fun loadFragmentLayout(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentPlotResultsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onSelected() {
-        super.onSelected()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val estimateResults = database?.estimateResultsDao()?.findOne()
 
         if (!binding.shimmerViewContainer.isShimmerStarted) {
@@ -80,6 +71,15 @@ class PlotResultsFragment(private val ryaEndpoint: String) : BaseStepFragment() 
 
             renderPlot(RyaPlot(fileName = estimateResults.fileNameLean))
         }
+    }
+
+    override fun loadFragmentLayout(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentPlotResultsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     private fun renderPlot(ryaPlot: RyaPlot) {
