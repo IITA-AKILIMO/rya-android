@@ -63,14 +63,9 @@ class PlantsInTriangleFragment : BaseStepFragment() {
 
         fieldInfoEntity = database?.fieldInfoDao()?.findOne()
 
-        with(binding) {
+        refreshPlantTriangleCountData(fieldInfoEntity)
 
-            if (fieldInfoEntity != null) {
-                txtPlantCountTri1.editText?.setText(fieldInfoEntity?.triangle1PlantCount.toString())
-                txtPlantCountTri2.editText?.setText(fieldInfoEntity?.triangle2PlantCount.toString())
-                txtPlantCountTri3.editText?.setText(fieldInfoEntity?.triangle3PlantCount.toString())
-                hasError = false
-            }
+        with(binding) {
             txtPlantCountTri1.editText?.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     txtPlantCountTri1.error = null
@@ -117,6 +112,27 @@ class PlantsInTriangleFragment : BaseStepFragment() {
                     validateInput(triangle3PlantCount, txtPlantCountTri3)
                 }
             })
+        }
+    }
+
+    private fun refreshPlantTriangleCountData(fieldInfoEntity: FieldInfoEntity?) {
+        with(binding) {
+            if (fieldInfoEntity != null) {
+                with(fieldInfoEntity) {
+                    if (triangle1PlantCount > 0) {
+                        txtPlantCountTri1.editText?.setText(triangle1PlantCount.toString())
+                    }
+
+                    if (triangle2PlantCount > 0) {
+                        txtPlantCountTri2.editText?.setText(triangle2PlantCount.toString())
+                    }
+
+                    if (triangle3PlantCount > 0) {
+                        txtPlantCountTri3.editText?.setText(triangle3PlantCount.toString())
+                    }
+                }
+                hasError = false
+            }
         }
     }
 
