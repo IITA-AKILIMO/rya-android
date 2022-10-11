@@ -22,8 +22,6 @@ abstract class BasePlantTriangle : BaseStepFragment() {
     protected var database: AppDatabase? = null
 
 
-    protected val inputLayouts: MutableList<TextInputLayout> = arrayListOf()
-
     protected fun addTextInputLayout(identifier: Int, context: Context): TextInputLayout {
 
         val layoutParams = LinearLayout.LayoutParams(
@@ -68,40 +66,12 @@ abstract class BasePlantTriangle : BaseStepFragment() {
         return editText
     }
 
-    override fun verifyStep(): VerificationError? {
-        var inputValid = false
-        val plantTrianglesMeasurement: MutableList<PlantTriangleEntity> = arrayListOf()
-        var plantNumber = 1
-        for (inputLayout in inputLayouts) {
-            val rootWeightString = inputLayout.editText?.editableText.toString()
-            val rootWeight = StringToNumberFactory.stringToDouble(rootWeightString)
-            inputValid = rootWeight > 0
-            if (inputValid) {
-                //save this value to the database
-                inputLayout.error = null
-                plantTrianglesMeasurement.add(
-                    PlantTriangleEntity(
-                        triangleName = triangleName!!,
-                        plantName = "plant$plantNumber",
-                        rootWeight = rootWeight
-                    )
-                )
-                plantNumber++
-            } else {
-                inputLayout.error = "Provide correct plant root weight"
-                inputLayout.requestFocus()
-                break //no need to loop all through
-            }
-        }
-
-        if (!inputValid) {
-            return VerificationError("Provide correct plant root weight for all inputs")
-        }
-
-        database?.plantTriangleDao()?.insertAll(plantTrianglesMeasurement)
-        return verificationError
+    override fun onSelected() {
+        super.onSelected()
+        loadTriangleData()
     }
 
+    abstract fun loadTriangleData()
 
     @Deprecated("To be removed completely", ReplaceWith("false"))
     fun validateInput(): Boolean {

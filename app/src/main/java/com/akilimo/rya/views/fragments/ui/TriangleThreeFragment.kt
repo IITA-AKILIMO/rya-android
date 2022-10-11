@@ -15,6 +15,7 @@ import com.akilimo.rya.entities.PlantTriangleEntity
 import com.akilimo.rya.utils.StringToNumberFactory
 import com.akilimo.rya.views.fragments.BaseStepFragment
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputLayout
 import com.stepstone.stepper.VerificationError
 
 
@@ -30,6 +31,9 @@ class TriangleThreeFragment : BasePlantTriangle() {
 
     private var _binding: FragmentTriangleBinding? = null
     private var ctx: Context? = null
+
+
+    private val inputLayouts: MutableList<TextInputLayout> = arrayListOf()
 
     private val binding get() = _binding!!
 
@@ -52,10 +56,6 @@ class TriangleThreeFragment : BasePlantTriangle() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            triangleCount = it.getInt(PLANT_COUNT)
-            triangleName = it.getString(TRIANGLE_NAME)
-        }
         database = AppDatabase.getDatabase(ctx!!)
     }
 
@@ -70,13 +70,15 @@ class TriangleThreeFragment : BasePlantTriangle() {
         super.onViewCreated(view, savedInstanceState)
         val lyt = binding.lytTextField
         lyt.removeAllViews() //clear all components
+        inputLayouts.clear()
         for (i in 0 until triangleCount) {
             val textInputLayout = addTextInputLayout(i, requireView().context)
             lyt.addView(textInputLayout)
             inputLayouts.add(textInputLayout)
         }
+    }
 
-        //get saved values and add them to text fields
+    override fun loadTriangleData() {
         var plantNumber = 1
         for (inputLayout in inputLayouts) {
             val plantTriangle = database?.plantTriangleDao()
@@ -88,11 +90,45 @@ class TriangleThreeFragment : BasePlantTriangle() {
         }
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+    override fun verifyStep(): VerificationError? {
+        var inputValid = false
+        val plantTrianglesMeasurement: MutableList<PlantTriangleEntity> = arrayListOf()
+        var plantNumber = 1
+        for (inputLayout in inputLayouts) {
+            val rootWeightString = inputLayout.editText?.editableText.toString()
+            val rootWeight = StringToNumberFactory.stringToDouble(rootWeightString)
+            inputValid = rootWeight > 0
+            if (inputValid) {
+                //save this value to the database
+                inputLayout.error = null
+                plantTrianglesMeasurement.add(
+                    PlantTriangleEntity(
+                        triangleName = triangleName!!,
+                        plantName = "plant$plantNumber",
+                        rootWeight = rootWeight
+                    )
+                )
+                plantNumber++
+            } else {
+                inputLayout.error = "Provide correct plant root weight"
+                inputLayout.requestFocus()
+                break //no need to loop all through
+            }
+        }
+
+        if (!inputValid) {
+            return VerificationError("Provide correct plant root weight for all inputs")
+        }
+
+        database?.plantTriangleDao()?.insertAll(plantTrianglesMeasurement)
+        return verificationError
+    }
+
 
     override fun onError(error: VerificationError) {
         val snackBar = Snackbar.make(
