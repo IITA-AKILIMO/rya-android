@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.akilimo.rya">
+    tools:ignore="LockedOrientationActivity">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
@@ -18,19 +18,17 @@
         tools:targetApi="n">
         <activity
             android:name=".views.activities.PlantTriangleStepperActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".views.activities.AssessmentActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name=".views.activities.PlantTrianglesActivity"
-            android:exported="false"
-            android:label="@string/title_activity_plant_triangles"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".views.activities.StartPageActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,6 +38,7 @@
         <activity
             android:name=".views.activities.HomeStepperActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
     </application>
 

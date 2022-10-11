@@ -33,10 +33,14 @@ class PrecisionFragment : BaseStepFragment() {
     private var _binding: FragmentPrecisionBinding? = null
     private var ctx: Context? = null
     private var selectedPrecision: String? = null
-    private var triangleCount: Int = 0;
-    private var plantCount: Int = 0;
+    private var triangleCount: Int = -1
+    private var plantCount: Int = -1
+    private var selectedPrecisionIndex: Int = -1
+    private var selectedPrecisionImage: Int = R.drawable.ic_akilimo_logo_black
 
     private var database: AppDatabase? = null
+    private var fieldInfo: YieldPrecisionEntity? = null
+
     private val binding get() = _binding!!
 
     companion object {
@@ -55,9 +59,7 @@ class PrecisionFragment : BaseStepFragment() {
     }
 
     override fun loadFragmentLayout(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPrecisionBinding.inflate(inflater, container, false)
         return binding.root
@@ -65,18 +67,30 @@ class PrecisionFragment : BaseStepFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mAdapter =
-            YieldPrecisionAdapter(view.context, setPrecisionData(), TheItemAnimation.FADE_IN)
+
+        fieldInfo = database?.yieldPrecisionDao()?.findOne()
+
+        if (fieldInfo != null) {
+            selectedPrecision = fieldInfo!!.yieldPrecision
+            triangleCount = fieldInfo!!.triangleCount
+            plantCount = fieldInfo!!.plantCount
+            selectedPrecisionIndex = fieldInfo!!.selectedPrecisionIndex
+            selectedPrecisionImage = fieldInfo!!.precisionImage
+
+            binding.precisionImage.setImageResource(selectedPrecisionImage)
+        }
+        val mAdapter = YieldPrecisionAdapter(
+            _context = view.context,
+            items = setPrecisionData(),
+            animationType = TheItemAnimation.FADE_IN,
+            selectedIndex = selectedPrecisionIndex
+        )
         val recyclerView = binding.precisionRecycler
         recyclerView.apply {
             adapter = mAdapter
             layoutManager = LinearLayoutManager(view.context)
-//            layoutManager = GridLayoutManager(view.context, 2, GridLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
         }
-//        recyclerView.addItemDecoration(
-//            SpacingItemDecoration(2, Tools.dpToPx(view.context, 3), true)
-//        )
 
         mAdapter.setOnItemClickListener(object : YieldPrecisionAdapter.OnItemClickListener {
             override fun onItemClick(view: View, yieldPrecision: YieldPrecision, position: Int) {
@@ -84,6 +98,10 @@ class PrecisionFragment : BaseStepFragment() {
                 selectedPrecision = yieldPrecision.precisionType
                 triangleCount = yieldPrecision.triangleCount
                 plantCount = yieldPrecision.plantCount
+                selectedPrecisionIndex = position
+                selectedPrecisionImage = yieldPrecision.imageId
+
+                binding.precisionImage.setImageResource(selectedPrecisionImage)
             }
 
         })
@@ -94,27 +112,31 @@ class PrecisionFragment : BaseStepFragment() {
         super.onDestroyView()
         _binding = null
     }
+
     private fun setPrecisionData(): MutableList<YieldPrecision> {
         val items: MutableList<YieldPrecision> = ArrayList()
         items.add(
             YieldPrecision(
                 precisionString = getString(R.string.lbl_low_precision),
                 precisionType = "low",
-                plantCount = 9
+                plantCount = 9,
+                imageId = R.drawable.triangle_low_precision
             )
         )
         items.add(
             YieldPrecision(
                 precisionString = getString(R.string.lbl_medium_precision),
                 precisionType = "medium",
-                plantCount = 18
+                plantCount = 18,
+                imageId = R.drawable.triangle_moderate_precision
             )
         )
         items.add(
             YieldPrecision(
                 precisionString = getString(R.string.lbl_high_precision),
                 precisionType = "high",
-                plantCount = 30
+                plantCount = 30,
+                imageId = R.drawable.triangle_high_precision
             )
         )
         return items
@@ -122,8 +144,11 @@ class PrecisionFragment : BaseStepFragment() {
 
     override fun verifyStep(): VerificationError? {
         if (selectedPrecision.isNullOrEmpty()) {
-            val snackBar = Snackbar.make(binding.precisionRecycler,"Please select a yield class to continue",
-                Snackbar.LENGTH_SHORT)
+            val snackBar = Snackbar.make(
+                binding.precisionRecycler,
+                "Please select a yield class to continue",
+                Snackbar.LENGTH_SHORT
+            )
 
             snackBar.setAction("OK") {
                 snackBar.dismiss()
@@ -131,21 +156,17 @@ class PrecisionFragment : BaseStepFragment() {
             snackBar.show()
             return VerificationError("Please select a yield class")
         }
-        var fieldInfo = database!!.yieldPrecisionDao().findOne()
         if (fieldInfo == null) {
-            fieldInfo = YieldPrecisionEntity(
-                yieldPrecision = selectedPrecision!!,
-                triangleCount = triangleCount,
-                plantCount = plantCount
-            )
-            database!!.yieldPrecisionDao().insert(fieldInfo)
-        } else {
-            fieldInfo.yieldPrecision = selectedPrecision!!
-            fieldInfo.triangleCount = triangleCount
-            fieldInfo.plantCount = plantCount
-            database!!.yieldPrecisionDao().update(fieldInfo)
+            fieldInfo = YieldPrecisionEntity(id = 1)
         }
+        fieldInfo?.yieldPrecision = selectedPrecision!!
+        fieldInfo?.triangleCount = triangleCount
+        fieldInfo?.plantCount = plantCount
+        fieldInfo?.selectedPrecisionIndex = selectedPrecisionIndex
+        fieldInfo?.precisionImage = selectedPrecisionImage
 
+
+        database!!.yieldPrecisionDao().insert(fieldInfo!!)
         return null
     }
 

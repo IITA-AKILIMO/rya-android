@@ -17,13 +17,18 @@ import com.akilimo.rya.utils.TheItemAnimation
 class YieldPrecisionAdapter(
     private val _context: Context,
     private val items: MutableList<YieldPrecision>,
-    private val animationType: Int
+    private val animationType: Int,
+    private val selectedIndex: Int
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var rowIndex = -1
     private var lastPosition = -1
     private val onAttach = true
     private var mOnItemClickListener: OnItemClickListener? = null
+
+    init {
+        rowIndex = selectedIndex
+    }
 
     interface OnItemClickListener {
         fun onItemClick(view: View, yieldPrecision: YieldPrecision, position: Int)

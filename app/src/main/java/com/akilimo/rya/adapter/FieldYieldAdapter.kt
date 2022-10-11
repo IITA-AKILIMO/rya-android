@@ -18,13 +18,18 @@ import com.akilimo.rya.utils.TheItemAnimation
 class FieldYieldAdapter(
     private val _context: Context,
     private val items: List<FieldYield>,
-    private val animationType: Int
+    private val animationType: Int,
+    private val selectedIndex: Int = -1
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var rowIndex = -1
     private var lastPosition = -1
     private val onAttach = true
     private var mOnItemClickListener: OnItemClickListener? = null
+
+    init {
+        rowIndex = selectedIndex
+    }
 
     interface OnItemClickListener {
         fun onItemClick(view: View, fieldYield: FieldYield, position: Int)
@@ -35,13 +40,8 @@ class FieldYieldAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-//        val viewHolder: RecyclerView.ViewHolder
-//        val view = LayoutInflater.from(parent.context)
-//            .inflate(R.layout.yield_card_layout, parent, false)
         val binding =
             YieldCardLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-//        viewHolder = OriginalViewHolder(binding.root)
-//        return viewHolder
         return OriginalViewHolder(binding)
     }
 
@@ -62,7 +62,7 @@ class FieldYieldAdapter(
             }
             var color = ContextCompat.getColor(_context, R.color.grey_5)
             if (rowIndex == position) {
-                color = ContextCompat.getColor(_context, R.color.blue_A100)
+                color = ContextCompat.getColor(_context, R.color.akilimoLightGreen)
             }
 
             holder.mainCard.setCardBackgroundColor(color)

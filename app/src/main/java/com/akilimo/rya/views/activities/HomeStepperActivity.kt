@@ -9,9 +9,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
+import com.akilimo.rya.adapter.HomeStepperAdapter
 import com.akilimo.rya.adapter.MyStepperAdapter
 import com.akilimo.rya.rest.response.RemoteConfig
 import com.akilimo.rya.databinding.ActivityHomeStepperBinding
+import com.akilimo.rya.entities.FieldInfoEntity
 import com.akilimo.rya.rest.ApiInterface
 import com.akilimo.rya.rest.FuelrodApiInterface
 import com.akilimo.rya.utils.MySharedPreferences
@@ -30,15 +32,12 @@ class HomeStepperActivity : AppCompatActivity() {
     private lateinit var fuelrodApiInterface: FuelrodApiInterface
     private lateinit var prefs: MySharedPreferences
 
-    private lateinit var stepperAdapter: MyStepperAdapter
+    private lateinit var stepperAdapter: HomeStepperAdapter
     private lateinit var mStepperLayout: StepperLayout
+
 
     private val fragmentArray: MutableList<Fragment> = arrayListOf()
 
-
-    override fun onAttachFragment(fragment: Fragment) {
-        //handle fragment attachment
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,18 +52,23 @@ class HomeStepperActivity : AppCompatActivity() {
 
         binding.stepperLayout.setListener(object : StepperLayout.StepperListener {
             override fun onCompleted(completeButton: View?) {
-                val intent = Intent(this@HomeStepperActivity, PlantTriangleStepperActivity::class.java)
+                val intent = Intent(
+                    this@HomeStepperActivity, PlantTriangleStepperActivity::class.java
+                )
                 startActivity(intent)
                 Animatoo.animateSwipeLeft(this@HomeStepperActivity)
             }
 
             override fun onError(verificationError: VerificationError?) {
+                //evaluate last step and change the finish label
             }
 
             override fun onStepSelected(newStepPosition: Int) {
+                //evaluate last step and change the finish label
             }
 
             override fun onReturn() {
+                //evaluate last step and change the finish label
             }
 
         })
@@ -77,18 +81,19 @@ class HomeStepperActivity : AppCompatActivity() {
         initComponent()
     }
 
+    private fun initComponent() {
+        stepperAdapter =
+            HomeStepperAdapter(supportFragmentManager, applicationContext, fragmentArray)
+        mStepperLayout.adapter = stepperAdapter
+    }
+
 
     private fun createFragmentArray() {
         fragmentArray.add(YieldClassFragmentFragment.newInstance())
         fragmentArray.add(FieldInfoFragment.newInstance())
         fragmentArray.add(PlantingPeriodFragment.newInstance())
         fragmentArray.add(PrecisionFragment.newInstance())
-        fragmentArray.add(BeforeStartingFragment.newInstance())
-    }
-
-    private fun initComponent() {
-        stepperAdapter = MyStepperAdapter(supportFragmentManager, applicationContext, fragmentArray)
-        mStepperLayout.adapter = stepperAdapter
+        fragmentArray.add(PlantsInTriangleFragment.newInstance())
     }
 
     private fun loadConfig() {
@@ -97,8 +102,7 @@ class HomeStepperActivity : AppCompatActivity() {
 
         configReader.enqueue(object : Callback<List<RemoteConfig>> {
             override fun onResponse(
-                call: Call<List<RemoteConfig>>,
-                response: Response<List<RemoteConfig>>
+                call: Call<List<RemoteConfig>>, response: Response<List<RemoteConfig>>
             ) {
                 val configList = response.body()
                 if (configList != null) {
@@ -111,9 +115,7 @@ class HomeStepperActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<List<RemoteConfig>>, t: Throwable) {
                 Toast.makeText(
-                    applicationContext,
-                    "Unable to load remote configurations",
-                    Toast.LENGTH_SHORT
+                    applicationContext, "Unable to load remote configurations", Toast.LENGTH_SHORT
                 ).show();
             }
         })

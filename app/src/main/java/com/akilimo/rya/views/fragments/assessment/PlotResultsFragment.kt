@@ -52,24 +52,26 @@ class PlotResultsFragment(private val ryaEndpoint: String) : BaseStepFragment() 
         apiInterface = ApiInterface.create(ryaEndpoint)
     }
 
-    override fun loadFragmentLayout(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentPlotResultsBinding.inflate(inflater, container, false)
-        return binding.root
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        refreshPlotData()
     }
 
     override fun onSelected() {
         super.onSelected()
-        val estimateResults = database?.estimateResultsDao()?.findOne()
+        refreshPlotData()
+    }
+
+    private fun refreshPlotData() {
 
         if (!binding.shimmerViewContainer.isShimmerStarted) {
             binding.shimmerViewContainer.startShimmer()
         }
         binding.shimmerViewContainer.visibility = View.VISIBLE
         binding.widgetGroup.visibility = View.GONE
+
+
+        val estimateResults = database?.estimateResultsDao()?.findOne()
 
         if (estimateResults != null) {
             val totalEstimate = estimateResults.tonnageEstimate * estimateResults.tonnagePrice
@@ -80,6 +82,13 @@ class PlotResultsFragment(private val ryaEndpoint: String) : BaseStepFragment() 
 
             renderPlot(RyaPlot(fileName = estimateResults.fileNameLean))
         }
+    }
+
+    override fun loadFragmentLayout(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentPlotResultsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     private fun renderPlot(ryaPlot: RyaPlot) {
@@ -103,9 +112,7 @@ class PlotResultsFragment(private val ryaEndpoint: String) : BaseStepFragment() 
 
             override fun onFailure(call: Call<ResponseBody>, throwable: Throwable) {
                 Toast.makeText(
-                    ctx,
-                    "Unable to load plot data",
-                    Toast.LENGTH_SHORT
+                    ctx, "Unable to load plot data", Toast.LENGTH_SHORT
                 ).show();
             }
 
