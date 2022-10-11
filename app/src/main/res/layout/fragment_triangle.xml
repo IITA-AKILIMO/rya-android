@@ -17,17 +17,32 @@
             android:id="@+id/textviewLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:text="How much do the roots weigh for each plant?"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_marginTop="@dimen/spacing_mxlarge"
+            android:text="@string/lbl_root_weight"
+            android:textAlignment="center"
+            android:textSize="@dimen/font_size_18"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/lblTriangleNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:text="@string/lbl_triangle_one"
+            android:textAlignment="center"
+            android:textSize="@dimen/font_size_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textviewLabel" />
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/textviewLabel">
+            android:layout_marginTop="@dimen/spacing_medium"
+            app:layout_constraintTop_toBottomOf="@+id/lblTriangleNumber"
+            tools:layout_editor_absoluteX="0dp">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/lytTextField"
