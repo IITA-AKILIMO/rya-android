@@ -76,6 +76,7 @@ class TriangleThreeFragment : BasePlantTriangle() {
             lyt.addView(textInputLayout)
             inputLayouts.add(textInputLayout)
         }
+        binding.lblTriangleNumber.text = resources.getString(R.string.lbl_triangle_three)
     }
 
     override fun loadTriangleData() {
