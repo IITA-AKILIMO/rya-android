@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.aemerse.onboard.OnboardAdvanced
 import com.aemerse.onboard.OnboardFragment
 import com.akilimo.rya.AppDatabase.Companion.getDatabase
@@ -65,11 +66,14 @@ class StartPageActivity : OnboardAdvanced() {
             )
         )
 
-//        val intent = Intent(this, HomeStepperActivity::class.java)
-//        startActivity(intent)
-//        Animatoo.animateSlideLeft(this)
+    }
 
+    override fun onDonePressed(currentFragment: Fragment?) {
+        super.onDonePressed(currentFragment)
 
+        val intent = Intent(this, HomeStepperActivity::class.java)
+        startActivity(intent)
+        Animatoo.animateSlideLeft(this@StartPageActivity)
     }
 
     private fun clearDatabase() {
