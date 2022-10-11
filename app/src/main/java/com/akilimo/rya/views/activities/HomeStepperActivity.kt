@@ -81,6 +81,12 @@ class HomeStepperActivity : AppCompatActivity() {
         initComponent()
     }
 
+    private fun initComponent() {
+        stepperAdapter =
+            HomeStepperAdapter(supportFragmentManager, applicationContext, fragmentArray)
+        mStepperLayout.adapter = stepperAdapter
+    }
+
 
     private fun createFragmentArray() {
         fragmentArray.add(YieldClassFragmentFragment.newInstance())
@@ -88,12 +94,6 @@ class HomeStepperActivity : AppCompatActivity() {
         fragmentArray.add(PlantingPeriodFragment.newInstance())
         fragmentArray.add(PrecisionFragment.newInstance())
         fragmentArray.add(PlantsInTriangleFragment.newInstance())
-    }
-
-    private fun initComponent() {
-        stepperAdapter =
-            HomeStepperAdapter(supportFragmentManager, applicationContext, fragmentArray)
-        mStepperLayout.adapter = stepperAdapter
     }
 
     private fun loadConfig() {

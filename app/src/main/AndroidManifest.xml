@@ -24,14 +24,7 @@
             android:name=".views.activities.AssessmentActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".views.activities.PlantTrianglesActivity"
-            android:exported="false"
-            android:label="@string/title_activity_plant_triangles"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+        
         <activity
             android:name=".views.activities.StartPageActivity"
             android:exported="true"
