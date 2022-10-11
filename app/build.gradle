@@ -160,7 +160,6 @@ dependencies {
 
     //other libraries
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-//    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:converter-jackson:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.7'
     implementation 'com.stepstone.stepper:material-stepper:4.3.1'
@@ -175,8 +174,7 @@ dependencies {
 
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
-    //walk-through
-//    implementation 'com.github.Shashank02051997:FancyWalkthrough-Android:2.3'
+    //onboarding
     implementation 'com.github.akshaaatt:Onboarding:1.0.4'
 
     implementation 'com.airbnb.android:lottie:5.2.0'
