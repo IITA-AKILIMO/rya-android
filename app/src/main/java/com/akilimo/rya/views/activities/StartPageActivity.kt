@@ -23,11 +23,11 @@ class StartPageActivity : AppCompatActivity() {
 
 //        clearDatabase()
         binding.btnStart.setOnClickListener {
-//            val intent = Intent(this, HomeStepperActivity::class.java)
-            val intent = Intent(
-                this@StartPageActivity,
-                AssessmentActivity::class.java
-            )
+            val intent = Intent(this, HomeStepperActivity::class.java)
+//            val intent = Intent(
+//                this@StartPageActivity,
+//                AssessmentActivity::class.java
+//            )
             startActivity(intent)
             Animatoo.animateSlideLeft(this)
             finish()
