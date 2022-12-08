@@ -59,7 +59,7 @@ class PlantingPeriodFragment : BaseStepFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        yearsArray = getYearRange(calendar.get(Calendar.YEAR) - 5, calendar.get(Calendar.YEAR))
+        yearsArray = getYearRange(calendar.get(Calendar.YEAR) - 1, calendar.get(Calendar.YEAR))
 
         binding.plantingMonthPrompt.setItems(months.toList())
         binding.plantingYearPrompt.setItems(yearsArray!!)
