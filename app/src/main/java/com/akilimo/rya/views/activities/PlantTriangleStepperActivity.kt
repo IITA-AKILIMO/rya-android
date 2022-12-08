@@ -22,6 +22,9 @@ class PlantTriangleStepperActivity : AppCompatActivity() {
     private var database: AppDatabase? = null
     private var plantCount = 0
     private var triangleCount = 0
+    private var triangleOnePlantCount = 0
+    private var triangleTwoPlantCount = 0
+    private var triangleThreePlantCount = 0
 
     private val fragmentArray: MutableList<Fragment> = arrayListOf()
 
@@ -32,6 +35,7 @@ class PlantTriangleStepperActivity : AppCompatActivity() {
 
         database = AppDatabase.getDatabase(this)
         val yieldClass = database?.yieldPrecisionDao()?.findOne()
+        val fieldInfoEntity = database?.fieldInfoDao()?.findOne()
         mStepperLayout = binding.stepperLayout
 
         binding.stepperLayout.setListener(object : StepperLayout.StepperListener {
@@ -70,12 +74,35 @@ class PlantTriangleStepperActivity : AppCompatActivity() {
 
         })
 
+        if (fieldInfoEntity != null) {
+            triangleOnePlantCount = fieldInfoEntity.triangle1PlantCount
+            triangleTwoPlantCount = fieldInfoEntity.triangle2PlantCount
+            triangleThreePlantCount = fieldInfoEntity.triangle3PlantCount
+        }
 
         if (yieldClass != null) {
             plantCount = yieldClass.plantCount
-            fragmentArray.add(TriangleFragment.newInstance(plantCount / 3, "one"))
-            fragmentArray.add(TriangleTwoFragment.newInstance(plantCount / 3, "two"))
-            fragmentArray.add(TriangleThreeFragment.newInstance(plantCount / 3, "three"))
+            fragmentArray.add(
+                TriangleFragment.newInstance(
+                    triangleCount = plantCount / 3,
+                    triangleName = "one",
+                    plantCount = "$triangleOnePlantCount plants"
+                )
+            )
+            fragmentArray.add(
+                TriangleTwoFragment.newInstance(
+                    triangleCount = plantCount / 3,
+                    triangleName = "two",
+                    plantCount = "$triangleTwoPlantCount plants"
+                )
+            )
+            fragmentArray.add(
+                TriangleThreeFragment.newInstance(
+                    triangleCount = plantCount / 3,
+                    triangleName = "three",
+                    plantCount = "$triangleThreePlantCount plants"
+                )
+            )
         }
         stepperAdapter = MyStepperAdapter(supportFragmentManager, applicationContext, fragmentArray)
         mStepperLayout.adapter = stepperAdapter

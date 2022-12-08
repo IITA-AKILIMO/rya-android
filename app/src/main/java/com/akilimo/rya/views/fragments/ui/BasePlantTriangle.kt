@@ -18,6 +18,7 @@ abstract class BasePlantTriangle : BaseStepFragment() {
 
     protected var triangleCount: Int = -1
     protected var triangleName: String? = null
+    protected var plantCount: String? = null
 
     protected var database: AppDatabase? = null
 

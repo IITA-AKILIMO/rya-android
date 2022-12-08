@@ -2,18 +2,15 @@ package com.akilimo.rya.views.fragments.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.Fragment
 import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.R
 import com.akilimo.rya.databinding.FragmentTriangleBinding
 import com.akilimo.rya.entities.PlantTriangleEntity
 import com.akilimo.rya.utils.StringToNumberFactory
-import com.akilimo.rya.views.fragments.BaseStepFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.stepstone.stepper.VerificationError
@@ -43,9 +40,10 @@ class TriangleThreeFragment : BasePlantTriangle() {
          * @return A new instance of fragment TriangleFragment.
          */
         @JvmStatic
-        fun newInstance(triangleCount: Int, triangleName: String) = TriangleThreeFragment().apply {
+        fun newInstance(triangleCount: Int, triangleName: String, plantCount: String) = TriangleThreeFragment().apply {
             this.triangleName = triangleName
             this.triangleCount = triangleCount
+            this.plantCount = plantCount
         }
     }
 
@@ -77,6 +75,7 @@ class TriangleThreeFragment : BasePlantTriangle() {
             inputLayouts.add(textInputLayout)
         }
         binding.lblTriangleNumber.text = resources.getString(R.string.lbl_triangle_three)
+        binding.lblTrianglePlantCount.text = plantCount
     }
 
     override fun loadTriangleData() {

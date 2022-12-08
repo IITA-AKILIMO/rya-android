@@ -24,9 +24,13 @@
             android:name=".views.activities.AssessmentActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".views.activities.StartPageActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".views.activities.StartPageStepperActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -35,11 +39,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".views.activities.HomeStepperActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
+
+
     </application>
 
 </manifest>
