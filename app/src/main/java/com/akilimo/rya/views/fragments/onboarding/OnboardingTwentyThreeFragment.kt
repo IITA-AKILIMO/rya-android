@@ -1,13 +1,16 @@
 package com.akilimo.rya.views.fragments.onboarding
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.akilimo.rya.databinding.*
+import com.akilimo.rya.views.activities.HomeStepperActivity
 import com.akilimo.rya.views.fragments.BaseStepFragment
+import com.blogspot.atifsoftwares.animatoolib.Animatoo
 
 /**
  * A simple [Fragment] subclass.
@@ -46,4 +49,15 @@ class OnboardingTwentyThreeFragment : BaseStepFragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.btnSkip.setOnClickListener { _ ->
+            val intent = Intent(
+                activity, HomeStepperActivity::class.java
+            )
+            startActivity(intent)
+            Animatoo.animateSlideLeft(activity)
+        }
+    }
 }
