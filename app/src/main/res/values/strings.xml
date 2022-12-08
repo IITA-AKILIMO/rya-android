@@ -95,4 +95,39 @@
     <string name="txt_measure_steps_13">Clean any soil from the roots. Only retain roots of marketable size and quality. Discard roots that you would not carry home to process or sell.</string>
     <string name="txt_measure_steps_14">Cut off the tips of the roots with a cutlass.</string>
 
+    <!-- computing know how -->
+    <string name="txt_compute_root_yield">Yield is calculated by multiplying plant density (number of cassava plants per m\u00B2) and the root mass (in kg) per plant.</string>
+    <string name="txt_compute_root_yield_formula">Y = n ÷ t × w × 10</string>
+    <string name="txt_compute_root_yield_formula_variables">Y = cassava fresh root yield (t ha-1)\n
+n = number of plants in a triangle\n
+t = area of the triangle (m\u00B2): 10.8 m\u00B2 for an equilateral triangle with sides of 5m\n
+w = weight of roots of 1 plant (kg)
+</string>
+    <string name="txt_compute_root_yield_desc">Yield is the amount of roots produced per unit area of land.\n
+It provides a measure of how efficiently your farm land is used to grow cassava.
+If yield is low, you must apply good agronomic practices, and you can consider using fertiliser.\n
+AKILIMO can provide you with customised advise to increase your yield. Knowing your crop yield is important to make decisions in your far</string>
+
+
+    <string name="txt_compute_production">Total production is calculated by multiplying the cassava root yield with the total area of your farm.</string>
+    <string name="txt_compute_production_formula">P = Y × A</string>
+    <string name="txt_compute_production_formula_variables">Y = cassava fresh root yield (t ha-1)\n
+P = total production (t)\n
+Y = cassava fresh root yield (t ha\u207B\u00B9)\n
+A = total area of the farm (ha)
+</string>
+    <string name="txt_compute_production_desc">Production is the total amount of roots produced in the farm.\n
+To calculate this, you will need to provide the area of your field.\n
+Free apps are available to measure this with your smartphone by walking along the perimeter of your field</string>
+
+
+    <string name="txt_compute_gross_value">Gross value is calculated by multiplying the total production with the unit sales price.</string>
+    <string name="txt_compute_gross_value_formula">V = P × s</string>
+    <string name="txt_compute_gross_value_formula_variables">V = Gross value ($)\n
+P = total production (t)\n
+s = cassava fresh root unit sales price ($ t\u207B\u00B9)
+</string>
+    <string name="txt_compute_gross_value_desc">The gross value is the worth of your crop that you can expect to be paid when selling at a market offering a unit sales price.\n
+You will need to provide this unit sales price, and obtain information at the market where you intend to sell, or from your buyer.\n
+When selling to a starch factory, the price offered may depend on the quality or starch content of your roots.</string>
 </resources>
