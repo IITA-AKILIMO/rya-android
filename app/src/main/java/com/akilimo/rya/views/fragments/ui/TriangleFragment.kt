@@ -41,9 +41,10 @@ class TriangleFragment : BasePlantTriangle() {
          * @return A new instance of fragment TriangleFragment.
          */
         @JvmStatic
-        fun newInstance(triangleCount: Int, triangleName: String) = TriangleFragment().apply {
+        fun newInstance(triangleCount: Int, triangleName: String, plantCount: String) = TriangleFragment().apply {
             this.triangleName = triangleName
             this.triangleCount = triangleCount
+            this.plantCount = plantCount
         }
 
         @JvmStatic
@@ -78,6 +79,7 @@ class TriangleFragment : BasePlantTriangle() {
             inputLayouts.add(textInputLayout)
         }
         binding.lblTriangleNumber.text = resources.getString(R.string.lbl_triangle_one)
+        binding.lblTrianglePlantCount.text = plantCount
     }
 
 
