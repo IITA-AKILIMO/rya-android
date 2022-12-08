@@ -37,11 +37,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textviewLabel" />
 
+        <TextView
+            android:id="@+id/lblTrianglePlantCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:text="@string/lbl_triangle_one"
+            android:textAlignment="center"
+            android:textSize="@dimen/font_size_16"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblTriangleNumber" />
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/spacing_medium"
-            app:layout_constraintTop_toBottomOf="@+id/lblTriangleNumber"
+            app:layout_constraintTop_toBottomOf="@+id/lblTrianglePlantCount"
             tools:layout_editor_absoluteX="0dp">
 
             <androidx.appcompat.widget.LinearLayoutCompat
