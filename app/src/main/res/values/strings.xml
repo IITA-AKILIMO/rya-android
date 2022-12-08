@@ -68,6 +68,12 @@
     <string name="lbl_triangle_two">Triangle two</string>
     <string name="lbl_triangle_three">Triangle three</string>
     <string name="txt_improve_cass_knowledge">It can help you make a decision on harvest time, negotiate a fair price with buyers when selling at farm gate, and improve your knowledge about cassava farming.</string>
-    <string name="txt_learn_how">You will need to conduct the necessary measurements in your cassava farm. Click \'NEXT\' to learn how.</string>
+    <string name="txt_learn_how">You will need to conduct the necessary measurements in your cassava farm. Click <u>\'NEXT >\'</u> to learn how.</string>
     <string name="lbl_skip">SKIP</string>
+    <string name="txt_yield_calculation">AKILIMO’s method calculates yield by measuring plant density (number of cassava plants per m\u00B2) and the root mass (in kg) per plant.</string>
+    <string name="txt_measure_steps"><b>You need to:</b>\n
+(1) Demarcate a triangle-shaped area with all 3 sides of the same length.\n
+(2) Count the number of plants in the triangle.\n
+(3) Harvest a few plants and weigh their roots.
+</string>
 </resources>
