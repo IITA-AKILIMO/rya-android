@@ -9,7 +9,9 @@ import com.akilimo.rya.adapter.HomeStepperAdapter
 import com.akilimo.rya.databinding.ActivityHomeStepperBinding
 import com.akilimo.rya.databinding.ActivityStartPageStepperBinding
 import com.akilimo.rya.views.fragments.*
+import com.akilimo.rya.views.fragments.onboarding.OnboardingFourFragment
 import com.akilimo.rya.views.fragments.onboarding.OnboardingOneFragment
+import com.akilimo.rya.views.fragments.onboarding.OnboardingThreeFragment
 import com.akilimo.rya.views.fragments.onboarding.OnboardingTwoFragment
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.stepstone.stepper.StepperLayout
@@ -71,8 +73,8 @@ class StartPageStepperActivity : AppCompatActivity() {
 
         fragmentArray.add(OnboardingOneFragment.newInstance())
         fragmentArray.add(OnboardingTwoFragment.newInstance())
-        fragmentArray.add(OnboardingOneFragment.newInstance())
-        fragmentArray.add(OnboardingOneFragment.newInstance())
+        fragmentArray.add(OnboardingThreeFragment.newInstance())
+        fragmentArray.add(OnboardingFourFragment.newInstance())
 
         stepperAdapter =
             HomeStepperAdapter(supportFragmentManager, applicationContext, fragmentArray)
