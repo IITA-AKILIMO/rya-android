@@ -1,14 +1,21 @@
 package com.akilimo.rya.views.fragments
 
+import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
+import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.Fragment
 import com.akilimo.rya.databinding.FragmentPlantingPeriodBinding
+import com.akilimo.rya.utils.DateHelper
 import com.stepstone.stepper.VerificationError
 import java.text.DateFormatSymbols
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -19,12 +26,9 @@ import java.util.*
  */
 class PlantingPeriodFragment : BaseStepFragment() {
 
-    private var calendar: Calendar = Calendar.getInstance()
+    private var cal: Calendar = Calendar.getInstance()
     private var ctx: Context? = null
     private var _binding: FragmentPlantingPeriodBinding? = null
-
-    var months: Array<String> = DateFormatSymbols().months
-    var yearsArray: List<String>? = null
 
     private val binding get() = _binding!!
 
@@ -40,8 +44,7 @@ class PlantingPeriodFragment : BaseStepFragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
         return loadFragmentLayout(inflater, container, savedInstanceState)
@@ -49,23 +52,60 @@ class PlantingPeriodFragment : BaseStepFragment() {
 
 
     override fun loadFragmentLayout(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPlantingPeriodBinding.inflate(inflater, container, false)
         return binding.root
     }
 
+    // create an OnDateSetListener
+    val dateSetListener = object : DatePickerDialog.OnDateSetListener {
+        override fun onDateSet(
+            view: DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int
+        ) {
+            cal.set(Calendar.YEAR, year)
+            cal.set(Calendar.MONTH, monthOfYear)
+            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+            val myFormat = "MM/yyyy" // mention the format you need
+            val sdf = SimpleDateFormat(myFormat, Locale.US)
+            binding.plantingYearMonth.text = sdf.format(cal.time)
+        }
+    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        yearsArray = getYearRange(calendar.get(Calendar.YEAR) - 1, calendar.get(Calendar.YEAR))
 
-        binding.plantingMonthPrompt.setItems(months.toList())
-        binding.plantingYearPrompt.setItems(yearsArray!!)
+        val minDate = DateHelper.getMinDate(-16)
 
-        binding.plantingMonthPrompt.selectItemByIndex(calendar.get(Calendar.MONTH) - 1)
-        binding.plantingYearPrompt.selectItemByIndex(0)
+        binding.btnDatePicker.setOnClickListener { vw ->
+            val dialog = DatePickerDialog(
+                vw.context, dateSetListener,
+                // set DatePickerDialog to point to today's date when it loads up
+                cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)
+            )
+
+            dialog.datePicker.minDate = minDate.timeInMillis
+            dialog.datePicker.maxDate = cal.timeInMillis
+            dialog.show()
+
+
+//            val dialog = DatePickerDialog(vw.context, { _, year, month, day_of_month ->
+//                cal.get(Calendar.YEAR)
+//                cal.get(Calendar.MONTH)
+//                cal.get(Calendar.DAY_OF_MONTH)
+//                val myFormat = "MM-yyyy"
+//                val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
+//                binding.plantingYearMonth.text = sdf.format(cal.time)
+//            }, cal[Calendar.YEAR], cal[Calendar.MONTH], cal[Calendar.DAY_OF_MONTH])
+//            dialog.datePicker.minDate = minDate.timeInMillis
+//            dialog.datePicker.maxDate = cal.timeInMillis
+//            dialog.show()
+
+        }
+
+
     }
 
     override fun onDestroyView() {
@@ -81,15 +121,5 @@ class PlantingPeriodFragment : BaseStepFragment() {
     }
 
     override fun onError(error: VerificationError) {
-    }
-
-    private fun getYearRange(startDate: Int, endDate: Int): MutableList<String> {
-        val list: MutableList<String> = ArrayList()
-        for (i in startDate..endDate) {
-            list.add(i.toString())
-        }
-
-        list.reverse()
-        return list
     }
 }
