@@ -78,6 +78,7 @@ class PlantingPeriodFragment : BaseStepFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val minDate = DateHelper.getMinDate(-16)
+        val maxDate = DateHelper.getMinDate(0)
 
         binding.btnDatePicker.setOnClickListener { vw ->
             val dialog = DatePickerDialog(
@@ -87,7 +88,7 @@ class PlantingPeriodFragment : BaseStepFragment() {
             )
 
             dialog.datePicker.minDate = minDate.timeInMillis
-            dialog.datePicker.maxDate = cal.timeInMillis
+            dialog.datePicker.maxDate = maxDate.timeInMillis
             dialog.show()
 
 
