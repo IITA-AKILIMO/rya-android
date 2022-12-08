@@ -10,6 +10,7 @@ import com.akilimo.rya.databinding.ActivityHomeStepperBinding
 import com.akilimo.rya.databinding.ActivityStartPageStepperBinding
 import com.akilimo.rya.views.fragments.*
 import com.akilimo.rya.views.fragments.onboarding.OnboardingOneFragment
+import com.akilimo.rya.views.fragments.onboarding.OnboardingTwoFragment
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.stepstone.stepper.StepperLayout
 import com.stepstone.stepper.VerificationError
@@ -69,7 +70,7 @@ class StartPageStepperActivity : AppCompatActivity() {
         })
 
         fragmentArray.add(OnboardingOneFragment.newInstance())
-        fragmentArray.add(OnboardingOneFragment.newInstance())
+        fragmentArray.add(OnboardingTwoFragment.newInstance())
         fragmentArray.add(OnboardingOneFragment.newInstance())
         fragmentArray.add(OnboardingOneFragment.newInstance())
 
