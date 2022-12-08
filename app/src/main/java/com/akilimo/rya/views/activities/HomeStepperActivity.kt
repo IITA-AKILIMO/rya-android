@@ -50,7 +50,7 @@ class HomeStepperActivity : AppCompatActivity() {
 
         mStepperLayout = binding.stepperLayout
 
-        binding.stepperLayout.setListener(object : StepperLayout.StepperListener {
+        mStepperLayout.setListener(object : StepperLayout.StepperListener {
             override fun onCompleted(completeButton: View?) {
                 val intent = Intent(
                     this@HomeStepperActivity, PlantTriangleStepperActivity::class.java

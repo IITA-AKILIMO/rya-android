@@ -144,7 +144,7 @@ dependencies {
     implementation 'androidx.core:core-splashscreen:1.0.0'
 
     //google libraries
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'com.google.android.material:material:1.7.0'
 
     //ROOM db
     implementation 'androidx.room:room-runtime:2.4.3'
@@ -155,14 +155,13 @@ dependencies {
 
     //androidx
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.2'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.2'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
 
     //other libraries
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-jackson:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.7'
-    implementation 'com.stepstone.stepper:material-stepper:4.3.1'
     implementation 'androidx.multidex:multidex:2.0.1'
 
     implementation 'com.jsibbold:zoomage:1.3.1'
@@ -174,6 +173,9 @@ dependencies {
 
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
+    //material stepper
+    implementation 'com.stepstone.stepper:material-stepper:4.3.1'
+
     //onboarding
     implementation 'com.github.akshaaatt:Onboarding:1.0.4'
 
@@ -184,8 +186,8 @@ dependencies {
 //    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.0'
 
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 
     debugImplementation 'com.github.amitshekhariitbhu.Android-Debug-Database:debug-db:v1.0.6'
 }

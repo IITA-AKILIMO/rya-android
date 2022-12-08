@@ -67,4 +67,67 @@
     <string name="lbl_triangle_one">Triangle one</string>
     <string name="lbl_triangle_two">Triangle two</string>
     <string name="lbl_triangle_three">Triangle three</string>
+    <string name="txt_improve_cass_knowledge">It can help you make a decision on harvest time, negotiate a fair price with buyers when selling at farm gate, and improve your knowledge about cassava farming.</string>
+    <string name="txt_learn_how">You will need to conduct the necessary measurements in your cassava farm. Click <u>\'NEXT >\'</u> to learn how.</string>
+    <string name="txt_learn_how_2">These measurements will allow you to estimate the yield, total production and gross value of your cassava crop.\n\nClick <u>\'NEXT >\'</u> to learn how.</string>
+    <string name="lbl_skip">SKIP</string>
+    <string name="txt_yield_calculation">AKILIMO’s method calculates yield by measuring plant density (number of cassava plants per m\u00B2) and the root mass (in kg) per plant.</string>
+
+    <string name="txt_measure_steps"><b>You need to:</b>\n
+(1) Demarcate a triangle-shaped area with all 3 sides of the same length.\n
+(2) Count the number of plants in the triangle.\n
+(3) Harvest a few plants and weigh their roots.
+</string>
+
+    <string name="txt_measure_steps_2">Repeat these measurements in at least 3 different places in your farm to obtain an accurate estimate of the root yield.\n\nWe advise that you conduct these measurements along the diagonal of your field.</string>
+    <string name="txt_measure_steps_3">From the corner of your cassava farm, walk about ¼ of the distance along the diagonal into the field.</string>
+    <string name="txt_measure_steps_4">Demarcate the first equilateral triangle. To do this, you need:</string>
+    <string name="txt_measure_steps_5">Place the first peg in between two randomly selected cassava plants</string>
+    <string name="txt_measure_steps_6">Place the first length of rope over the peg and stretch it in a random direction.\n\nMake sure the rope is straight and not touching any plant. Fix it with the second peg.</string>
+    <string name="txt_measure_steps_7">Place another length of rope over each peg, and stretch both ropes to form an equilateral triangle. Where they join, fix the last peg. Make sure each rope is stretched tight and not touching any plant</string>
+    <string name="txt_measure_steps_7_footnote">If your cassava crop is dense, you may need to move some of the pegs a few times to make sure none of the ropes are touching any plants.</string>
+    <string name="txt_measure_steps_8">Count all plants that are located within the triangle. Do not count any plants outside the triangle.</string>
+    <string name="txt_measure_steps_8_footnote">In our example here, there are 12 plants within the triangle. For an equilateral triangle with sides of 5 m each, you expect between 10 and 14 plants per triangle if crop stand is good.</string>
+    <string name="txt_measure_steps_9">Next, you need to harvest some plants. Uproot at least the 3 plants closest to the corners of the triangle. Your yield measurement will be quick but of low precision.</string>
+    <string name="txt_measure_steps_10">You can choose to harvest more plants to improve the precision. Uproot the two plants in each corner for a moderately precise yield measurement.</string>
+    <string name="txt_measure_steps_11">Or, if you want to measure yield with high precision, harvest all plants from the triangle.</string>
+    <string name="txt_measure_steps_12">Remove the roots from the cutting. Do this separately for each harvested plant.</string>
+    <string name="txt_measure_steps_13">Clean any soil from the roots. Only retain roots of marketable size and quality. Discard roots that you would not carry home to process or sell.</string>
+    <string name="txt_measure_steps_14">Cut off the tips of the roots with a cutlass.</string>
+
+    <!-- computing know how -->
+    <string name="txt_compute_root_yield">Yield is calculated by multiplying plant density (number of cassava plants per m\u00B2) and the root mass (in kg) per plant.</string>
+    <string name="txt_compute_root_yield_formula">Y = n ÷ t × w × 10</string>
+    <string name="txt_compute_root_yield_formula_variables">Y = cassava fresh root yield (t ha-1)\n
+n = number of plants in a triangle\n
+t = area of the triangle (m\u00B2): 10.8 m\u00B2 for an equilateral triangle with sides of 5m\n
+w = weight of roots of 1 plant (kg)
+</string>
+    <string name="txt_compute_root_yield_desc">Yield is the amount of roots produced per unit area of land.\n
+It provides a measure of how efficiently your farm land is used to grow cassava.
+If yield is low, you must apply good agronomic practices, and you can consider using fertiliser.\n
+AKILIMO can provide you with customised advise to increase your yield. Knowing your crop yield is important to make decisions in your far</string>
+
+
+    <string name="txt_compute_production">Total production is calculated by multiplying the cassava root yield with the total area of your farm.</string>
+    <string name="txt_compute_production_formula">P = Y × A</string>
+    <string name="txt_compute_production_formula_variables">Y = cassava fresh root yield (t ha-1)\n
+P = total production (t)\n
+Y = cassava fresh root yield (t ha\u207B\u00B9)\n
+A = total area of the farm (ha)
+</string>
+    <string name="txt_compute_production_desc">Production is the total amount of roots produced in the farm.\n
+To calculate this, you will need to provide the area of your field.\n
+Free apps are available to measure this with your smartphone by walking along the perimeter of your field</string>
+
+
+    <string name="txt_compute_gross_value">Gross value is calculated by multiplying the total production with the unit sales price.</string>
+    <string name="txt_compute_gross_value_formula">V = P × s</string>
+    <string name="txt_compute_gross_value_formula_variables">V = Gross value ($)\n
+P = total production (t)\n
+s = cassava fresh root unit sales price ($ t\u207B\u00B9)
+</string>
+    <string name="txt_compute_gross_value_desc">The gross value is the worth of your crop that you can expect to be paid when selling at a market offering a unit sales price.\n
+You will need to provide this unit sales price, and obtain information at the market where you intend to sell, or from your buyer.\n
+When selling to a starch factory, the price offered may depend on the quality or starch content of your roots.</string>
 </resources>
