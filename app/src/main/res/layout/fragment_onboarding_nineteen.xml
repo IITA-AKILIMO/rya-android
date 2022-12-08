@@ -17,9 +17,9 @@
             android:id="@+id/descriptionText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_18"
-            android:text="Place the tabletop balance with an empty bucket on a flat surface and set the weight to zero (tare). Now place the clean roots of the first plant into the bucket and read the weight (kg)."
-            android:textSize="18sp"
+            android:layout_marginTop="@dimen/dimen_5"
+            android:text="Place the tabletop balance with an empty bucket on a flat surface and set the weight to zero (tare).\n\nNow place the clean roots of the first plant into the bucket and read the weight (kg)."
+            android:textSize="@dimen/font_size_18"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:text="Repeat this for each plant."
             android:textColor="@color/overlay_dark_80"
-            android:textSize="12sp"
+            android:textSize="@dimen/font_size_12"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

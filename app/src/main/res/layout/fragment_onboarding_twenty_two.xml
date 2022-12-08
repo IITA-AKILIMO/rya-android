@@ -19,8 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_5"
             android:text="Then continue for about ¾ of the distance along the diagonal and repeat the measurements for a third time. The more measurements you take, the more precise your estimate will be."
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/imageView"
+            android:textSize="@dimen/font_size_18"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -29,7 +29,7 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="185dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="@dimen/dimen_48"
             android:src="@drawable/measurement_x_corner_c"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

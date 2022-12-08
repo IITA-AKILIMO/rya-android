@@ -19,8 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_5"
             android:text="You are now done with the first triangle. Move along the diagonal until you reach the centre of your field. Repeat the measurements a second time."
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/imageView"
+            android:textSize="@dimen/font_size_18"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

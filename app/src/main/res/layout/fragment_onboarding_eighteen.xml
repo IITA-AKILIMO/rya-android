@@ -17,10 +17,9 @@
             android:id="@+id/descriptionText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_18"
+            android:layout_marginTop="@dimen/dimen_5"
             android:text="You are now ready to weigh the roots. You can use a table top balance with a range up to 5 kg and d = 50g."
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/imageView"
+            android:textSize="@dimen/font_size_18"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +33,8 @@
             android:src="@drawable/weighing_scale"
             app:layout_constraintBottom_toTopOf="@+id/descriptionText2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
 
         <TextView
             android:id="@+id/descriptionText2"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dimen_22"
             android:text="Or, you can use a digital hanging balance with a range up to 50 kg and d = 10g"
-            android:textSize="18sp"
+            android:textSize="@dimen/font_size_18"
             app:layout_constraintBottom_toTopOf="@+id/imageView2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
