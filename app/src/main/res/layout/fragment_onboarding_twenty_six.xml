@@ -17,8 +17,8 @@
             android:id="@+id/titleText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_18"
-            android:text="GRoss value"
+            android:layout_marginTop="@dimen/dimen_5"
+            android:text="Gross value"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textSize="@dimen/font_size_22"
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,9 +29,9 @@
             android:id="@+id/descriptionText2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_22"
             android:text="@string/txt_compute_gross_value"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/descriptionText3"
+            android:textSize="@dimen/font_size_18"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleText" />
@@ -46,7 +46,8 @@
             android:textSize="@dimen/font_size_22"
             app:layout_constraintBottom_toTopOf="@+id/descriptionText4"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionText2" />
 
         <TextView
             android:id="@+id/descriptionText4"
@@ -65,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/txt_compute_gross_value_desc"
-            android:textSize="18sp"
+            android:textSize="@dimen/font_size_18"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

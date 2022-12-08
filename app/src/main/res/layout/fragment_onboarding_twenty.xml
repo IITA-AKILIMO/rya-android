@@ -17,7 +17,7 @@
             android:id="@+id/descriptionText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_18"
+            android:layout_marginTop="@dimen/dimen_5"
             android:text="Or, use a stand with a hanging balance to determine the weight of the roots. Remember to remove the tare weight of the empty bucket."
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"

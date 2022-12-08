@@ -9,10 +9,7 @@ import com.akilimo.rya.adapter.HomeStepperAdapter
 import com.akilimo.rya.databinding.ActivityHomeStepperBinding
 import com.akilimo.rya.databinding.ActivityStartPageStepperBinding
 import com.akilimo.rya.views.fragments.*
-import com.akilimo.rya.views.fragments.onboarding.OnboardingFourFragment
-import com.akilimo.rya.views.fragments.onboarding.OnboardingOneFragment
-import com.akilimo.rya.views.fragments.onboarding.OnboardingThreeFragment
-import com.akilimo.rya.views.fragments.onboarding.OnboardingTwoFragment
+import com.akilimo.rya.views.fragments.onboarding.*
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.stepstone.stepper.StepperLayout
 import com.stepstone.stepper.VerificationError
@@ -75,7 +72,28 @@ class StartPageStepperActivity : AppCompatActivity() {
         fragmentArray.add(OnboardingTwoFragment.newInstance())
         fragmentArray.add(OnboardingThreeFragment.newInstance())
         fragmentArray.add(OnboardingFourFragment.newInstance())
-
+        fragmentArray.add(OnboardingFiveFragment.newInstance())
+        fragmentArray.add(OnboardingSixFragment.newInstance())
+        fragmentArray.add(OnboardingSevenFragment.newInstance())
+        fragmentArray.add(OnboardingEightFragment.newInstance())
+        fragmentArray.add(OnboardingNineFragment.newInstance())
+        fragmentArray.add(OnboardingTenFragment.newInstance())
+        fragmentArray.add(OnboardingElevenFragment.newInstance())
+        fragmentArray.add(OnboardingTwelveFragment.newInstance())
+        fragmentArray.add(OnboardingThirteenFragment.newInstance())
+        fragmentArray.add(OnboardingFourteenFragment.newInstance())
+        fragmentArray.add(OnboardingFifteenFragment.newInstance())
+        fragmentArray.add(OnboardingSixteenFragment.newInstance())
+        fragmentArray.add(OnboardingSeventeenFragment.newInstance())
+        fragmentArray.add(OnboardingEighteenFragment.newInstance())
+        fragmentArray.add(OnboardingNineteenFragment.newInstance())
+        fragmentArray.add(OnboardingTwentyFragment.newInstance())
+        fragmentArray.add(OnboardingTwentyOneFragment.newInstance())
+        fragmentArray.add(OnboardingTwentyTwoFragment.newInstance())
+        fragmentArray.add(OnboardingTwentyThreeFragment.newInstance())
+        fragmentArray.add(OnboardingTwentyFourFragment.newInstance())
+        fragmentArray.add(OnboardingTwentyFiveFragment.newInstance())
+        fragmentArray.add(OnboardingTwentySixFragment.newInstance())
         stepperAdapter =
             HomeStepperAdapter(supportFragmentManager, applicationContext, fragmentArray)
         mStepperLayout.adapter = stepperAdapter
