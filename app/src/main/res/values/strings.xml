@@ -69,6 +69,7 @@
     <string name="lbl_triangle_three">Triangle three</string>
     <string name="txt_improve_cass_knowledge">It can help you make a decision on harvest time, negotiate a fair price with buyers when selling at farm gate, and improve your knowledge about cassava farming.</string>
     <string name="txt_learn_how">You will need to conduct the necessary measurements in your cassava farm. Click <u>\'NEXT >\'</u> to learn how.</string>
+    <string name="txt_learn_how_2">These measurements will allow you to estimate the yield, total production and gross value of your cassava crop.\n\nClick <u>\'NEXT >\'</u> to learn how.</string>
     <string name="lbl_skip">SKIP</string>
     <string name="txt_yield_calculation">AKILIMO’s method calculates yield by measuring plant density (number of cassava plants per m\u00B2) and the root mass (in kg) per plant.</string>
 
