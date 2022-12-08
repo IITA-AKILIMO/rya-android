@@ -76,4 +76,5 @@
 (2) Count the number of plants in the triangle.\n
 (3) Harvest a few plants and weigh their roots.
 </string>
+    <string name="txt_measure_steps_2">Repeat these measurements in at least 3 different places in your farm to obtain an accurate estimate of the root yield.\n\nWe advise that you conduct these measurements along the diagonal of your field.</string>
 </resources>
