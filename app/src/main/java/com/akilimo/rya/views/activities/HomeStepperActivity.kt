@@ -48,7 +48,7 @@ class HomeStepperActivity : AppCompatActivity() {
         mStepperLayout.setListener(object : StepperLayout.StepperListener {
             override fun onCompleted(completeButton: View?) {
                 val intent = Intent(
-                    this@HomeStepperActivity, PlantTriangleStepperActivity::class.java
+                    this@HomeStepperActivity, PlantsInTriangleActivity::class.java
                 )
                 startActivity(intent)
                 Animatoo.animateSwipeLeft(this@HomeStepperActivity)
@@ -72,25 +72,18 @@ class HomeStepperActivity : AppCompatActivity() {
         prefs = MySharedPreferences(this)
 
         loadConfig()
-        createFragmentArray()
-        initComponent()
-    }
 
-    private fun initComponent() {
-        stepperAdapter =
-            HomeStepperAdapter(supportFragmentManager, applicationContext, fragmentArray)
-        mStepperLayout.adapter = stepperAdapter
-    }
-
-
-    private fun createFragmentArray() {
         fragmentArray.add(YieldClassFragmentFragment.newInstance())
         fragmentArray.add(FieldInfoFragment.newInstance())
         fragmentArray.add(CassavaPriceFragment.newInstance())
         fragmentArray.add(PlantingPeriodFragment.newInstance())
         fragmentArray.add(PrecisionFragment.newInstance())
-        fragmentArray.add(PlantsInTriangleFragment.newInstance())
+
+        stepperAdapter =
+            HomeStepperAdapter(supportFragmentManager, applicationContext, fragmentArray)
+        mStepperLayout.adapter = stepperAdapter
     }
+
 
     private fun loadConfig() {
         val configReader = fuelrodApiInterface.readConfig("rya")

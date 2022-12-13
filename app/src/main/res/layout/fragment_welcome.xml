@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/grey_5"
     android:padding="@dimen/spacing_small"
-    tools:context="com.akilimo.rya.views.fragments.WelcomeFragment">
+    tools:context=".views.fragments.WelcomeFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
