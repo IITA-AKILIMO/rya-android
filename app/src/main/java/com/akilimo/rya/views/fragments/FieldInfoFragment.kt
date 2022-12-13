@@ -29,12 +29,7 @@ class FieldInfoFragment : BaseStepFragment() {
 
     private var _selectedFieldAreaUnit: String? = null
     private var _areaUnitIndex = 0
-    private var _currencyUnitIndex = 0
     private var _fieldSize: Double = 0.0
-    private var _selectedCurrencyUnit: String? = null
-    private var _sellingPrice: Double = 0.0
-    private var _currency: String = "USD"
-    private var _currencyName: String = "Dollars"
     private var _areaUnit: String = "acre"
 
     private var database: AppDatabase? = null
@@ -78,23 +73,16 @@ class FieldInfoFragment : BaseStepFragment() {
             if (fieldInfoEntity != null) {
 
                 with(fieldInfoEntity!!) {
-                    _sellingPrice = sellingPrice
                     _fieldSize = fieldSize
                     _selectedFieldAreaUnit = fieldAreaUnit
                     _areaUnit = areaUnit
                     _areaUnitIndex = areaUnitIndex
-                    _selectedCurrencyUnit = currencyUnit
-                    _currency = currency
-                    _currencyName = currencyName
-                    _currencyUnitIndex = currencyUnitIndex
                 }
                 areaUnitPrompt.selectItemByIndex(fieldInfoEntity!!.areaUnitIndex)
-                currencyUnitPrompt.selectItemByIndex(fieldInfoEntity!!.currencyUnitIndex)
                 txtFieldSize.editText?.setText(_fieldSize.toString())
-                txtSellingPrice.editText?.setText(_sellingPrice.toString())
             }
 
-            areaUnitPrompt.setOnSpinnerItemSelectedListener(OnSpinnerItemSelectedListener<String?> { oldIndex, oldItem, newIndex, newItem ->
+            areaUnitPrompt.setOnSpinnerItemSelectedListener(OnSpinnerItemSelectedListener<String?> { _, _, newIndex, newItem ->
                 _selectedFieldAreaUnit = newItem
                 _areaUnitIndex = newIndex
                 when {
@@ -110,27 +98,6 @@ class FieldInfoFragment : BaseStepFragment() {
                 }
             })
 
-            currencyUnitPrompt.setOnSpinnerItemSelectedListener(OnSpinnerItemSelectedListener<String?> { oldIndex, oldItem, newIndex, newItem ->
-                _selectedCurrencyUnit = newItem
-                _currencyUnitIndex = newIndex
-                when {
-                    newItem.equals("USD/Tonne", true) -> {
-                        _currency = "USD"
-                        _currencyName = "US Dollars"
-                    }
-                    newItem.equals("NGN/Tonne", true) -> {
-                        _currency = "NGN"
-                        _currencyName = "Naira"
-                    }
-                    newItem.equals("TZS/Tonne", true) -> {
-                        _currency = "TZS"
-                        _currencyName = "Tanzanian Shillings"
-                    }
-                }
-
-            })
-
-
             txtFieldSize.editText?.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     txtFieldSize.error = null
@@ -145,21 +112,6 @@ class FieldInfoFragment : BaseStepFragment() {
                 }
 
             })
-
-            txtSellingPrice.editText?.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    txtSellingPrice.error = null
-                }
-
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    //TODO "Will not be implemented"
-                }
-
-                override fun afterTextChanged(editable: Editable?) {
-                    _sellingPrice = StringToNumberFactory.stringToDouble(editable.toString())
-                }
-
-            })
         }
 
     }
@@ -168,28 +120,16 @@ class FieldInfoFragment : BaseStepFragment() {
 
 
         binding.areaUnitPrompt.error = null
-        binding.currencyUnitPrompt.error = null
 
-
-        var errMessage: String = ""
+        var errMessage = ""
         if (_selectedFieldAreaUnit.isNullOrEmpty()) {
             errMessage = "Select proper field area unit"
             binding.areaUnitPrompt.error = errMessage
         }
 
-        if (_selectedCurrencyUnit.isNullOrEmpty()) {
-            errMessage = "Select proper selling unit"
-            binding.currencyUnitPrompt.error = errMessage
-        }
-
         if (_fieldSize <= 0.0) {
             errMessage = "Provide a valid field size"
             binding.txtFieldSize.error = errMessage
-        }
-
-        if (_sellingPrice <= 0.0) {
-            errMessage = "Provide a valid selling price"
-            binding.txtSellingPrice.error = errMessage
         }
 
 
@@ -211,11 +151,6 @@ class FieldInfoFragment : BaseStepFragment() {
         fieldInfoEntity?.fieldAreaUnit = _selectedFieldAreaUnit!!
         fieldInfoEntity?.fieldSize = _fieldSize
         fieldInfoEntity?.areaUnit = _areaUnit
-        fieldInfoEntity?.currencyUnit = _selectedCurrencyUnit!!
-        fieldInfoEntity?.currency = _currency
-        fieldInfoEntity?.currencyName = _currencyName
-        fieldInfoEntity?.sellingPrice = _sellingPrice
-        fieldInfoEntity?.currencyUnitIndex = _currencyUnitIndex
         fieldInfoEntity?.areaUnitIndex = _areaUnitIndex
 
 

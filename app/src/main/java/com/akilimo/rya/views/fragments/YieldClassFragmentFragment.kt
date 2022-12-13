@@ -176,6 +176,7 @@ class YieldClassFragmentFragment : BaseStepFragment() {
         items.add(
             FieldYield(
                 imageId = yieldImages[0],
+                imageLabel = getString(R.string.fcy_low),
                 yieldLabel = rd3Tonnes,
                 fieldYieldAmountLabel = getString(R.string.fcy_lower),
                 yieldAmount = 3.75,
@@ -185,6 +186,7 @@ class YieldClassFragmentFragment : BaseStepFragment() {
         items.add(
             FieldYield(
                 imageId = yieldImages[1],
+                imageLabel = getString(R.string.fcy_normal),
                 fieldYieldAmountLabel = getString(R.string.fcy_about_the_same),
                 yieldLabel = rd6Tonnes,
                 yieldAmount = 11.25,
@@ -194,6 +196,7 @@ class YieldClassFragmentFragment : BaseStepFragment() {
         items.add(
             FieldYield(
                 imageId = yieldImages[2],
+                imageLabel = getString(R.string.fcy_medium),
                 fieldYieldAmountLabel = getString(R.string.fcy_somewhat_higher),
                 yieldLabel = rd9Tonnes,
                 yieldAmount = 18.75,
@@ -203,6 +206,7 @@ class YieldClassFragmentFragment : BaseStepFragment() {
         items.add(
             FieldYield(
                 imageId = yieldImages[3],
+                imageLabel = getString(R.string.fcy_high),
                 fieldYieldAmountLabel = getString(R.string.fcy_2_3_times_higher),
                 yieldLabel = rd12Tonnes,
                 yieldAmount = 26.25,
@@ -212,6 +216,7 @@ class YieldClassFragmentFragment : BaseStepFragment() {
         items.add(
             FieldYield(
                 imageId = yieldImages[4],
+                imageLabel = getString(R.string.fcy_very_high),
                 fieldYieldAmountLabel = getString(R.string.fcy_more_than_3_times_higher),
                 yieldLabel = rdMore,
                 yieldAmount = 33.75,

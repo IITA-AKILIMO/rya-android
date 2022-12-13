@@ -14,13 +14,13 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium"
-            android:text="We can offer you three types of estimates"
-            android:textAlignment="center"
+            android:text="Precision"
+            android:textSize="@dimen/font_size_22"
             android:textColor="@color/black"
-            android:textSize="@dimen/font_size_18"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -30,13 +30,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_middle"
-            android:text="Which type of estimate do you want?"
-            android:textAlignment="center"
+            android:text="Select the level of precision for your yield estimate. "
             android:textColor="@color/black"
             android:textSize="@dimen/font_size_18"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:text="Higher precision requires more plants to be uprooted and weighed, and more time."
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_size_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/precisionRecycler"
@@ -48,7 +59,7 @@
             app:layout_constraintBottom_toTopOf="@+id/precisionImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView9"
+            app:layout_constraintTop_toBottomOf="@+id/textView10"
             tools:itemCount="3"
             tools:listitem="@layout/precision_card_layout" />
 
@@ -56,12 +67,12 @@
             android:id="@+id/precisionImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxHeight="200dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/app_name"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ic_akilimo_logo_black" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
