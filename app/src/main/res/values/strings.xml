@@ -37,6 +37,14 @@
     <string name="fcy_somewhat_higher">Somewhat higher</string>
     <string name="fcy_2_3_times_higher">2–3 times higher</string>
     <string name="fcy_more_than_3_times_higher">More than 3 times or higher</string>
+
+    <string name="fcy_low">low</string>
+    <string name="fcy_normal">normal</string>
+    <string name="fcy_medium">medium</string>
+    <string name="fcy_high">high</string>
+    <string name="fcy_very_high">very high</string>
+
+
     <string name="lbl_before_starting">Before starting</string>
 
 
