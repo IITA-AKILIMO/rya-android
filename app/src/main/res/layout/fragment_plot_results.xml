@@ -28,8 +28,9 @@
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
                     android:src="@drawable/ic_akilimo_logo_black" />
 
                 <TextView
@@ -73,8 +74,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="with a price of 12,000 Naira per tonne"
-            app:layout_constraintEnd_toEndOf="parent"
             android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tonnageResults" />
 
