@@ -9,13 +9,22 @@
     android:clickable="true"
     android:focusable="true"
     app:cardElevation="@dimen/dimen_16"
-    app:cardMaxElevation="@dimen/dimen_12">
+    app:cardMaxElevation="@dimen/dimen_22">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/dimen_12">
+
+        <TextView
+            android:id="@+id/imageLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textAlignment="center"
+            android:textSize="@dimen/font_size_16"
+            android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/yieldImage"
