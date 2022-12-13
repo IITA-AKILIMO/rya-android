@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.NonNull
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -49,10 +48,12 @@ class FieldYieldAdapter(
         if (holder is OriginalViewHolder) {
             val fieldYield = items[position]
             val currentYieldAmount = fieldYield.yieldAmount
+            val imageLabel = fieldYield.imageLabel
             val yieldLabel = fieldYield.yieldLabel
             val yieldImage = fieldYield.imageId
 
-            holder.name.text = yieldLabel
+            holder.yieldName.text = yieldLabel
+            holder.imageLabel.text = imageLabel
             holder.rootYieldImage.setImageResource(yieldImage)
 
             holder.mainCard.setOnClickListener { theView ->
@@ -89,8 +90,9 @@ class FieldYieldAdapter(
 
     inner class OriginalViewHolder(binding: YieldCardLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val rootYieldImage: ImageView = binding.yieldImage //view.findViewById(R.id.yieldImage)
-        val name: TextView = binding.yieldName //view.findViewById(R.id.yieldName)
-        val mainCard: CardView = binding.yieldCard //view.findViewById(R.id.yieldCard)
+        val imageLabel: TextView = binding.imageLabel
+        val yieldName: TextView = binding.yieldName
+        val rootYieldImage: ImageView = binding.yieldImage
+        val mainCard: CardView = binding.yieldCard
     }
 }

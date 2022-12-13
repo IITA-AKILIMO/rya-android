@@ -1,69 +1,45 @@
-package com.akilimo.rya.views.fragments
+package com.akilimo.rya.views.activities
 
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import com.akilimo.rya.AppDatabase
-import com.akilimo.rya.databinding.FragmentPlantsInTriangleBinding
+import com.akilimo.rya.databinding.ActivityPlantsInTriangleBinding
 import com.akilimo.rya.entities.FieldInfoEntity
 import com.akilimo.rya.utils.StringToNumberFactory
+import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.google.android.material.textfield.TextInputLayout
-import com.stepstone.stepper.VerificationError
 
+class PlantsInTriangleActivity : AppCompatActivity() {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PlantsInTriangleFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class PlantsInTriangleFragment : BaseStepFragment() {
-    private var ctx: Context? = null
-    private var _binding: FragmentPlantsInTriangleBinding? = null
-
-
-    private val binding get() = _binding!!
-
-    private var database: AppDatabase? = null
+    private lateinit var binding: ActivityPlantsInTriangleBinding
 
     private var triangle1PlantCount: Int = -1
     private var triangle2PlantCount: Int = -1
     private var triangle3PlantCount: Int = -1
     private var hasError = true
     private var fieldInfoEntity: FieldInfoEntity? = null
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @return A new instance of fragment PlantsInTriangleFragment.
-         */
-        @JvmStatic
-        fun newInstance() = PlantsInTriangleFragment()
-    }
-
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        this.ctx = context
-    }
+    private var database: AppDatabase? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+//        WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
-        database = AppDatabase.getDatabase(ctx!!)
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        binding = ActivityPlantsInTriangleBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        database = AppDatabase.getDatabase(this)
 
         fieldInfoEntity = database?.fieldInfoDao()?.findOne()
 
-        refreshPlantTriangleCountData(fieldInfoEntity)
+        if (fieldInfoEntity != null) {
+            triangle1PlantCount = fieldInfoEntity?.triangle1PlantCount!!
+            triangle2PlantCount = fieldInfoEntity?.triangle2PlantCount!!
+            triangle3PlantCount = fieldInfoEntity?.triangle3PlantCount!!
+            refreshPlantTriangleCountData(fieldInfoEntity)
+        }
 
         with(binding) {
             txtPlantCountTri1.editText?.addTextChangedListener(object : TextWatcher {
@@ -112,7 +88,32 @@ class PlantsInTriangleFragment : BaseStepFragment() {
                     validateInput(triangle3PlantCount, txtPlantCountTri3)
                 }
             })
+
+
+            btnContinue.setOnClickListener {
+                if (!hasError) {
+                    if (fieldInfoEntity == null) {
+                        fieldInfoEntity = FieldInfoEntity(id = 1)
+                    }
+                    fieldInfoEntity?.triangle1PlantCount = triangle1PlantCount
+                    fieldInfoEntity?.triangle2PlantCount = triangle2PlantCount
+                    fieldInfoEntity?.triangle3PlantCount = triangle3PlantCount
+
+                    database?.fieldInfoDao()?.insert(fieldInfoEntity!!)
+
+                    val intent = Intent(
+                        this@PlantsInTriangleActivity, PlantTriangleStepperActivity::class.java
+                    )
+                    startActivity(intent)
+                    Animatoo.animateSwipeLeft(this@PlantsInTriangleActivity)
+                    finish()
+                }
+            }
         }
+    }
+
+    private fun extractNumberValue(editable: Editable?): Int {
+        return StringToNumberFactory.stringToInt(editable.toString())
     }
 
     private fun refreshPlantTriangleCountData(fieldInfoEntity: FieldInfoEntity?) {
@@ -136,48 +137,6 @@ class PlantsInTriangleFragment : BaseStepFragment() {
         }
     }
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        return loadFragmentLayout(inflater, container, savedInstanceState)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    override fun verifyStep(): VerificationError? {
-        if (hasError) {
-            return VerificationError("Please enter values greater than 0")
-        }
-
-        //save the values now
-        if (fieldInfoEntity == null) {
-            fieldInfoEntity = FieldInfoEntity(id = 1)
-        }
-
-        fieldInfoEntity?.triangle1PlantCount = triangle1PlantCount
-        fieldInfoEntity?.triangle2PlantCount = triangle2PlantCount
-        fieldInfoEntity?.triangle3PlantCount = triangle3PlantCount
-
-        database?.fieldInfoDao()?.insert(fieldInfoEntity!!)
-
-        return verificationError
-    }
-
-    override fun loadFragmentLayout(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentPlantsInTriangleBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    private fun extractNumberValue(editable: Editable?): Int {
-        return StringToNumberFactory.stringToInt(editable.toString())
-    }
-
     private fun validateInput(intValue: Int, inputLayout: TextInputLayout) {
         if (intValue <= 0) {
             hasError = true
@@ -186,5 +145,4 @@ class PlantsInTriangleFragment : BaseStepFragment() {
         }
         hasError = false
     }
-
 }
