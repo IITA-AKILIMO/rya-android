@@ -1,14 +1,13 @@
 package com.akilimo.rya.views.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.akilimo.rya.adapter.HomeStepperAdapter
-import com.akilimo.rya.databinding.ActivityHomeStepperBinding
 import com.akilimo.rya.databinding.ActivityStartPageStepperBinding
-import com.akilimo.rya.views.fragments.*
+import com.akilimo.rya.views.fragments.WelcomeFragment
 import com.akilimo.rya.views.fragments.onboarding.*
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.stepstone.stepper.StepperLayout
@@ -68,6 +67,7 @@ class StartPageStepperActivity : AppCompatActivity() {
 
         })
 
+        fragmentArray.add(WelcomeFragment.newInstance())
         fragmentArray.add(OnboardingOneFragment.newInstance())
         fragmentArray.add(OnboardingTwoFragment.newInstance())
         fragmentArray.add(OnboardingThreeFragment.newInstance())
