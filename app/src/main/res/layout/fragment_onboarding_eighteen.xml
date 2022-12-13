@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dimen_22"
-            android:text="Or, you can use a digital hanging balance with a range up to 50 kg and d = 10g"
+            android:text="Or, you can use a digital hanging balance with a range up to 50 kg and d = 10g."
             android:textSize="@dimen/font_size_18"
             app:layout_constraintBottom_toTopOf="@+id/imageView2"
             app:layout_constraintEnd_toEndOf="parent"
