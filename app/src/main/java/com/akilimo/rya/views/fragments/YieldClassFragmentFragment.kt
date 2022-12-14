@@ -99,7 +99,7 @@ class YieldClassFragmentFragment : BaseStepFragment() {
         mAdapter.setOnItemClickListener(object : FieldYieldAdapter.OnItemClickListener {
             override fun onItemClick(view: View, fieldYield: FieldYield, position: Int) {
                 mAdapter.setActiveRowIndex(position, view)
-                selectedYield = fieldYield.yieldAmount;
+                selectedYield = fieldYield.yieldAmount
                 fieldYieldEntity = FieldYieldEntity(
                     id = 1,
                     imageId = fieldYield.imageId,

@@ -2,23 +2,19 @@ package com.akilimo.rya.views.fragments
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.R
 import com.akilimo.rya.adapter.YieldPrecisionAdapter
 import com.akilimo.rya.data.YieldPrecision
 import com.akilimo.rya.databinding.FragmentPrecisionBinding
-import com.akilimo.rya.entities.FieldInfoEntity
 import com.akilimo.rya.entities.YieldPrecisionEntity
 import com.akilimo.rya.utils.TheItemAnimation
-import com.akilimo.rya.utils.Tools
-import com.akilimo.rya.widgets.SpacingItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import com.stepstone.stepper.VerificationError
 

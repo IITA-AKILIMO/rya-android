@@ -2,8 +2,8 @@ package com.akilimo.rya.widgets
 
 import android.graphics.Rect
 import android.view.View
-import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 
 /**
  * RecyclerView item decoration - give equal margin around grid item

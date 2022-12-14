@@ -2,20 +2,15 @@ package com.akilimo.rya.views.fragments.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.appcompat.widget.AppCompatEditText
-import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.R
 import com.akilimo.rya.databinding.FragmentTriangleBinding
 import com.akilimo.rya.entities.PlantTriangleEntity
 import com.akilimo.rya.utils.StringToNumberFactory
-import com.akilimo.rya.views.fragments.BaseStepFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.stepstone.stepper.VerificationError
@@ -41,11 +36,12 @@ class TriangleFragment : BasePlantTriangle() {
          * @return A new instance of fragment TriangleFragment.
          */
         @JvmStatic
-        fun newInstance(triangleCount: Int, triangleName: String, plantCount: String) = TriangleFragment().apply {
-            this.triangleName = triangleName
-            this.triangleCount = triangleCount
-            this.plantCount = plantCount
-        }
+        fun newInstance(triangleCount: Int, triangleName: String, plantCount: String) =
+            TriangleFragment().apply {
+                this.triangleName = triangleName
+                this.triangleCount = triangleCount
+                this.plantCount = plantCount
+            }
 
         @JvmStatic
         fun newInstance() = TriangleFragment().apply {}

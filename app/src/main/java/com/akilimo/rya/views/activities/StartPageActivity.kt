@@ -3,7 +3,6 @@ package com.akilimo.rya.views.activities
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.aemerse.onboard.OnboardAdvanced

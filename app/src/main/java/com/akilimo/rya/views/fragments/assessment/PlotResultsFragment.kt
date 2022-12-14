@@ -3,14 +3,12 @@ package com.akilimo.rya.views.fragments.assessment
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.akilimo.rya.AppDatabase
-import com.akilimo.rya.R
-import com.akilimo.rya.databinding.FragmentAssessmentResultsBinding
 import com.akilimo.rya.databinding.FragmentPlotResultsBinding
 import com.akilimo.rya.rest.ApiInterface
 import com.akilimo.rya.rest.request.RyaPlot
@@ -113,7 +111,7 @@ class PlotResultsFragment(private val ryaEndpoint: String) : BaseStepFragment() 
             override fun onFailure(call: Call<ResponseBody>, throwable: Throwable) {
                 Toast.makeText(
                     ctx, "Unable to load plot data", Toast.LENGTH_SHORT
-                ).show();
+                ).show()
             }
 
         })

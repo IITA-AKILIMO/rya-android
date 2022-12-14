@@ -1,7 +1,6 @@
 package com.akilimo.rya.repos
 
 import androidx.room.*
-import com.akilimo.rya.entities.FieldInfoEntity
 import com.akilimo.rya.entities.PlantTriangleEntity
 
 @Dao
