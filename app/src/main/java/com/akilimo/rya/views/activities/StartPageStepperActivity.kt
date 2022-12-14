@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.akilimo.rya.adapter.HomeStepperAdapter
 import com.akilimo.rya.databinding.ActivityStartPageStepperBinding
+import com.akilimo.rya.utils.MySharedPreferences
 import com.akilimo.rya.views.fragments.WelcomeFragment
 import com.akilimo.rya.views.fragments.onboarding.*
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
@@ -25,6 +26,7 @@ class StartPageStepperActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val prefs = MySharedPreferences(this)
         binding = ActivityStartPageStepperBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -66,6 +68,13 @@ class StartPageStepperActivity : AppCompatActivity() {
             }
 
         })
+
+        //check if profile is filled
+        if (!prefs.isProfileInfoFilled()) {
+            val firstIntent = Intent(this@StartPageStepperActivity, UserProfileActivity::class.java)
+            startActivity(firstIntent)
+            Animatoo.animateZoom(this@StartPageStepperActivity)
+        }
 
         fragmentArray.add(WelcomeFragment.newInstance())
         fragmentArray.add(OnboardingOneFragment.newInstance())
