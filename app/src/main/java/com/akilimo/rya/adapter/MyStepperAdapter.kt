@@ -1,12 +1,12 @@
 package com.akilimo.rya.adapter
 
 import android.content.Context
-import com.stepstone.stepper.adapter.AbstractFragmentStepAdapter
 import android.os.Bundle
 import androidx.annotation.IntRange
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.stepstone.stepper.Step
+import com.stepstone.stepper.adapter.AbstractFragmentStepAdapter
 import com.stepstone.stepper.viewmodel.StepViewModel
 
 open class MyStepperAdapter(
@@ -33,9 +33,9 @@ open class MyStepperAdapter(
 
     override fun getViewModel(@IntRange(from = 0) position: Int): StepViewModel {
         val builder = StepViewModel.Builder(ctx)
-        if(position==0){
+        if (position == 0) {
             builder.setBackButtonLabel("Cancel")
-        }else if(position ==count-1){
+        } else if (position == count - 1) {
             builder.setEndButtonLabel("Finish")
         }
         return builder.create()

@@ -25,9 +25,9 @@ interface ApiInterface {
 
             val builder = OkHttpClient.Builder()
             val httpLoggingInterceptor = HttpLoggingInterceptor()
-            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY;
-            builder.networkInterceptors().add(httpLoggingInterceptor);
-            val client = builder.build();
+            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+            builder.networkInterceptors().add(httpLoggingInterceptor)
+            val client = builder.build()
 
             val retrofit = Retrofit.Builder()
                 .client(client)

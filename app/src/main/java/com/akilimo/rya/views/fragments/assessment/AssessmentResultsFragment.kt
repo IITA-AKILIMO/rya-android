@@ -142,7 +142,7 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
             }
 
             override fun onFailure(call: Call<YieldEstimate>, t: Throwable) {
-                Toast.makeText(ctx, "Unable to compute the estimate", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ctx, "Unable to compute the estimate", Toast.LENGTH_SHORT).show()
             }
 
         })
@@ -219,7 +219,7 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
             override fun onFailure(call: Call<ResponseBody>, throwable: Throwable) {
                 Toast.makeText(
                     ctx, "Unable to load plot data", Toast.LENGTH_SHORT
-                ).show();
+                ).show()
             }
 
         })

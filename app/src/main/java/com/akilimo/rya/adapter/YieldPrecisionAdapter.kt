@@ -4,13 +4,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.akilimo.rya.R
-import com.akilimo.rya.data.FieldYield
 import com.akilimo.rya.data.YieldPrecision
 import com.akilimo.rya.utils.TheItemAnimation
 
@@ -48,7 +46,7 @@ class YieldPrecisionAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is OriginalViewHolder) {
-            val precision = items[position];
+            val precision = items[position]
             holder.name.text = precision.precisionString
 
             holder.mainCard.setOnClickListener { theView ->

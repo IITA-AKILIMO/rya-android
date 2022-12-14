@@ -1,14 +1,11 @@
 package com.akilimo.rya.views.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.akilimo.rya.R
+import androidx.fragment.app.Fragment
 import com.akilimo.rya.databinding.FragmentBeforeStartingBinding
-import com.akilimo.rya.databinding.FragmentPlantTrianglesBinding
-import com.akilimo.rya.databinding.FragmentPlantingPeriodBinding
 import com.stepstone.stepper.VerificationError
 
 /**

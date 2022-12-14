@@ -2,11 +2,9 @@ package com.akilimo.rya.views.fragments.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.Fragment
 import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.R
