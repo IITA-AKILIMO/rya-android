@@ -4,7 +4,6 @@ package com.akilimo.rya.rest
 
 import com.akilimo.rya.rest.response.RemoteConfig
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
@@ -22,7 +21,7 @@ interface FuelrodApiInterface {
 //            val httpLoggingInterceptor = HttpLoggingInterceptor()
 //            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY;
 //            builder.networkInterceptors().add(httpLoggingInterceptor);
-            val client = builder.build();
+            val client = builder.build()
 
             val retrofit = Retrofit.Builder()
                 .client(client)

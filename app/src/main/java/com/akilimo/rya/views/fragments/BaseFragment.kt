@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.akilimo.rya.interfaces.IFragmentInflater
-import com.stepstone.stepper.Step
-import com.stepstone.stepper.VerificationError
 
 abstract class BaseFragment : Fragment(), IFragmentInflater {
 

@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.akilimo.rya.databinding.FragmentOnboardingFiveBinding
 import com.akilimo.rya.databinding.FragmentOnboardingSixBinding
 import com.akilimo.rya.views.fragments.BaseStepFragment
 

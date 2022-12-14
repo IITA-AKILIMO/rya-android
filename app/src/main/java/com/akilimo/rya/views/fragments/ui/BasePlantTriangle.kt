@@ -8,11 +8,8 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.view.setPadding
 import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.R
-import com.akilimo.rya.entities.PlantTriangleEntity
-import com.akilimo.rya.utils.StringToNumberFactory
 import com.akilimo.rya.views.fragments.BaseStepFragment
 import com.google.android.material.textfield.TextInputLayout
-import com.stepstone.stepper.VerificationError
 
 abstract class BasePlantTriangle : BaseStepFragment() {
 
