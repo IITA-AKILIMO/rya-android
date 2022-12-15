@@ -71,7 +71,7 @@
                     android:background="@color/grey_5"
                     android:hint="@string/selling_price_prompt"
                     android:padding="@dimen/dimen_12"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/font_size_22"
                     app:spinner_arrow_tint="@color/akilimoDarkGreen"
                     app:spinner_divider_color="@color/akilimoDarkGreen"
                     app:spinner_divider_show="true"
