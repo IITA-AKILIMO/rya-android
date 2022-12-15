@@ -64,6 +64,14 @@
         <item>NGN/Tonne</item>
         <item>TZS/Tonne</item>
     </string-array>
+
+    <string-array name="designation_array">
+        <item>Farmer</item>
+        <item>Extensionist</item>
+        <item>Researcher</item>
+        <item>Other</item>
+    </string-array>
+
     <string name="title_activity_plant_triangles">Plant Triangles</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>

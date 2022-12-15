@@ -87,5 +87,47 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
+        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+            android:id="@+id/designationDropdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_smlarge"
+            app:layout_constraintTop_toBottomOf="@+id/txtEmail"
+            app:smsp_floatingLabelText="Designation"
+            app:smsp_hint="Select designation"
+            app:smsp_outlinedBoxRadius="3dp" />
+
+
+        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+            android:id="@+id/languageDropdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_smlarge"
+            app:layout_constraintTop_toBottomOf="@+id/designationDropdown"
+            app:smsp_floatingLabelText="Language"
+            app:smsp_hint="Select language"
+            app:smsp_outlinedBoxRadius="3dp" />
+
+        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+            android:id="@+id/currencyDropdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_smlarge"
+            app:layout_constraintTop_toBottomOf="@+id/languageDropdown"
+            app:smsp_floatingLabelText="Currency"
+            app:smsp_hint="Select currency"
+            app:smsp_outlinedBoxRadius="3dp" />
+
+        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+            android:id="@+id/areaUnitDropdowm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_smlarge"
+            app:layout_constraintTop_toBottomOf="@+id/currencyDropdown"
+            app:smsp_floatingLabelText="Area unit"
+            app:smsp_hint="Select area unit"
+            app:smsp_outlinedBoxRadius="3dp" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
