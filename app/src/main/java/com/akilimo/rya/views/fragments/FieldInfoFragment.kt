@@ -9,11 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.akilimo.rya.AppDatabase
+import com.akilimo.rya.R
 import com.akilimo.rya.databinding.FragmentFieldInfoBinding
 import com.akilimo.rya.entities.FieldInfoEntity
+import com.akilimo.rya.entities.UserInfoEntity
 import com.akilimo.rya.utils.StringToNumberFactory
 import com.google.android.material.snackbar.Snackbar
-import com.skydoves.powerspinner.OnSpinnerItemSelectedListener
 import com.stepstone.stepper.VerificationError
 
 
@@ -34,6 +35,7 @@ class FieldInfoFragment : BaseStepFragment() {
 
     private var database: AppDatabase? = null
     private var fieldInfoEntity: FieldInfoEntity? = null
+    private var userInfoEntity: UserInfoEntity? = null
 
 
     private val binding get() = _binding!!
@@ -69,34 +71,23 @@ class FieldInfoFragment : BaseStepFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         fieldInfoEntity = database?.fieldInfoDao()?.findOne()
+        userInfoEntity = database?.userInfoDao()?.findOne()
         with(binding) {
             if (fieldInfoEntity != null) {
-
                 with(fieldInfoEntity!!) {
                     _fieldSize = fieldSize
-                    _selectedFieldAreaUnit = fieldAreaUnit
-                    _areaUnit = areaUnit
-                    _areaUnitIndex = areaUnitIndex
                 }
-                areaUnitPrompt.selectItemByIndex(fieldInfoEntity!!.areaUnitIndex)
                 txtFieldSize.editText?.setText(_fieldSize.toString())
             }
 
-            areaUnitPrompt.setOnSpinnerItemSelectedListener(OnSpinnerItemSelectedListener<String?> { _, _, newIndex, newItem ->
-                _selectedFieldAreaUnit = newItem
-                _areaUnitIndex = newIndex
-                when {
-                    newItem.equals("Acre", true) -> {
-                        _areaUnit = "acre"
-                    }
-                    newItem.equals("Hectare", true) -> {
-                        _areaUnit = "ha"
-                    }
-                    newItem.equals("Meter squared", true) -> {
-                        _areaUnit = "m2"
-                    }
-                }
-            })
+            with(userInfoEntity) {
+                _areaUnit = this?.areaUnit ?: "ha"
+            }
+
+            val labelText = activity?.getString(R.string.lbl_field_area, _areaUnit)
+            val hintText = activity?.getString(R.string.lbl_field_area_hint, _areaUnit)
+            txtFieldSize.hint = hintText
+            lblFieldAreaUnit.text = labelText
 
             txtFieldSize.editText?.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -118,14 +109,8 @@ class FieldInfoFragment : BaseStepFragment() {
 
     override fun verifyStep(): VerificationError? {
 
-
-        binding.areaUnitPrompt.error = null
-
         var errMessage = ""
-        if (_selectedFieldAreaUnit.isNullOrEmpty()) {
-            errMessage = "Select proper field area unit"
-            binding.areaUnitPrompt.error = errMessage
-        }
+
 
         if (_fieldSize <= 0.0) {
             errMessage = "Provide a valid field size"
@@ -148,10 +133,8 @@ class FieldInfoFragment : BaseStepFragment() {
             fieldInfoEntity = FieldInfoEntity(id = 1)
         }
 
-        fieldInfoEntity?.fieldAreaUnit = _selectedFieldAreaUnit!!
         fieldInfoEntity?.fieldSize = _fieldSize
         fieldInfoEntity?.areaUnit = _areaUnit
-        fieldInfoEntity?.areaUnitIndex = _areaUnitIndex
 
 
         database?.fieldInfoDao()?.insert(fieldInfoEntity = fieldInfoEntity!!)
