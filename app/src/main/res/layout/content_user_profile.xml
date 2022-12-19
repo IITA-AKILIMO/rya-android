@@ -116,6 +116,7 @@
             app:layout_constraintTop_toBottomOf="@+id/languageDropdown"
             app:smsp_floatingLabelText="Currency"
             app:smsp_hint="Select currency"
+            app:smsp_isSearchable="true"
             app:smsp_outlinedBoxRadius="3dp" />
 
         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
@@ -128,6 +129,15 @@
             app:smsp_hint="Select area unit"
             app:smsp_outlinedBoxRadius="3dp" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:text="Save"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/areaUnitDropdowm" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
