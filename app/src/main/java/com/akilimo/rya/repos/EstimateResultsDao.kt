@@ -2,7 +2,6 @@ package com.akilimo.rya.repos
 
 import androidx.room.*
 import com.akilimo.rya.entities.EstimateResultsEntity
-import com.akilimo.rya.entities.FieldInfoEntity
 
 @Dao
 interface EstimateResultsDao {

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".views.activities.UserProfileActivity"
+    tools:showIn="@layout/activity_user_profile2">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_medium">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:hint="Enter your name"
+            app:endIconMode="clear_text"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textAutoComplete"
+                android:padding="@dimen/dimen_18"
+                android:textSize="@dimen/font_size_18" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/countryCodePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_5"
+            android:padding="@dimen/dimen_5"
+            app:ccp_autoDetectCountry="true"
+            app:ccp_hintExampleNumber="true"
+            app:ccp_rememberLastSelection="true"
+            app:ccp_showFullName="true"
+            app:ccp_showNameCode="true"
+            app:ccp_showPhoneCode="false"
+            app:ccp_textGravity="LEFT"
+            app:layout_constraintTop_toBottomOf="@+id/txtName" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtPhoneNumber"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:hint="Enter your phone number"
+            app:layout_constraintTop_toBottomOf="@+id/countryCodePicker">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:padding="@dimen/dimen_18"
+                android:textSize="@dimen/font_size_18" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtEmail"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:hint="Enter your email"
+            app:layout_constraintTop_toBottomOf="@+id/txtPhoneNumber">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:padding="@dimen/dimen_18"
+                android:textSize="@dimen/font_size_18" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+            android:id="@+id/designationDropdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_smlarge"
+            app:layout_constraintTop_toBottomOf="@+id/txtEmail"
+            app:smsp_floatingLabelText="Designation"
+            app:smsp_hint="Select designation"
+            app:smsp_outlinedBoxRadius="3dp" />
+
+
+        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+            android:id="@+id/languageDropdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_smlarge"
+            app:layout_constraintTop_toBottomOf="@+id/designationDropdown"
+            app:smsp_floatingLabelText="Language"
+            app:smsp_hint="Select language"
+            app:smsp_outlinedBoxRadius="3dp" />
+
+        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+            android:id="@+id/currencyDropdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_smlarge"
+            app:layout_constraintTop_toBottomOf="@+id/languageDropdown"
+            app:smsp_floatingLabelText="Currency"
+            app:smsp_hint="Select currency"
+            app:smsp_isSearchable="true"
+            app:smsp_outlinedBoxRadius="3dp" />
+
+        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+            android:id="@+id/areaUnitDropdowm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_smlarge"
+            app:layout_constraintTop_toBottomOf="@+id/currencyDropdown"
+            app:smsp_floatingLabelText="Area unit"
+            app:smsp_hint="Select area unit"
+            app:smsp_outlinedBoxRadius="3dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:text="Save"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/areaUnitDropdowm" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

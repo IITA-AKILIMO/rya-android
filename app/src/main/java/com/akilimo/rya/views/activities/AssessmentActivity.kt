@@ -1,8 +1,8 @@
 package com.akilimo.rya.views.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.akilimo.rya.adapter.MyStepperAdapter
 import com.akilimo.rya.databinding.ActivityHomeStepperBinding

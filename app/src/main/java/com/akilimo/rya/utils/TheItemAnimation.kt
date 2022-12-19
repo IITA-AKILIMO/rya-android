@@ -1,6 +1,5 @@
 package com.akilimo.rya.utils
 
-import com.akilimo.rya.utils.TheItemAnimation
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.view.View

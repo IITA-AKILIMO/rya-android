@@ -17,10 +17,17 @@
         android:theme="@style/AppTheme"
         tools:targetApi="n">
         <activity
+            android:name=".views.activities.UserProfileActivity"
+            android:exported="false"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".views.activities.PlantsInTriangleActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".views.activities.PlantTriangleStepperActivity"
             android:exported="false"

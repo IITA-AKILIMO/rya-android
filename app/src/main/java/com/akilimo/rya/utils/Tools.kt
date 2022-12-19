@@ -1,6 +1,6 @@
 package com.akilimo.rya.utils
 
-import android.content.*
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.util.TypedValue
@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.PropertyAccessor
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import org.json.JSONObject
-import java.util.*
 import kotlin.math.roundToInt
 
 

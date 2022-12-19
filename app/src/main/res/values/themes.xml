@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <style name="AppTheme" parent="BaseTheme" />
 
@@ -26,6 +26,9 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <!--         Set the splash screen background, animated icon, and animation duration.-->

@@ -1,11 +1,10 @@
 package com.akilimo.rya.adapter
 
-import android.content.Context
-import androidx.fragment.app.*
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.akilimo.rya.R
-import com.akilimo.rya.views.fragments.PlaceholderFragment
 
 
 /**

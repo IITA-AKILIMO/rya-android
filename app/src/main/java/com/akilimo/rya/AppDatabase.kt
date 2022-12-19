@@ -8,14 +8,8 @@ import com.akilimo.rya.entities.*
 import com.akilimo.rya.repos.*
 
 @Database(
-    entities = [
-        FieldInfoEntity::class,
-        YieldPrecisionEntity::class,
-        PlantTriangleEntity::class,
-        FieldYieldEntity::class,
-        EstimateResultsEntity::class
-    ],
-    version = 1,
+    entities = [FieldInfoEntity::class, YieldPrecisionEntity::class, PlantTriangleEntity::class, FieldYieldEntity::class, EstimateResultsEntity::class, CurrencyEntity::class, UserInfoEntity::class],
+    version = 4,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -24,6 +18,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun plantTriangleDao(): PlantTriangleDao
     abstract fun fieldYieldDao(): FieldYieldDao
     abstract fun estimateResultsDao(): EstimateResultsDao
+    abstract fun currencyDao(): CurrencyDao
+    abstract fun userInfoDao(): UserInfoDao
 
 
     companion object {
@@ -39,8 +35,7 @@ abstract class AppDatabase : RoomDatabase() {
                 synchronized(AppDatabase::class.java) {
                     if (database == null) {
                         database = Room.databaseBuilder(
-                            context.applicationContext,
-                            AppDatabase::class.java, "RYA_05_OCT_2022"
+                            context.applicationContext, AppDatabase::class.java, "RYA_15_DEC_2022"
                         )
                             .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()

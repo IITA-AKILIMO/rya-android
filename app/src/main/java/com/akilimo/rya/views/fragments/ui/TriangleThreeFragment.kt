@@ -40,11 +40,12 @@ class TriangleThreeFragment : BasePlantTriangle() {
          * @return A new instance of fragment TriangleFragment.
          */
         @JvmStatic
-        fun newInstance(triangleCount: Int, triangleName: String, plantCount: String) = TriangleThreeFragment().apply {
-            this.triangleName = triangleName
-            this.triangleCount = triangleCount
-            this.plantCount = plantCount
-        }
+        fun newInstance(triangleCount: Int, triangleName: String, plantCount: String) =
+            TriangleThreeFragment().apply {
+                this.triangleName = triangleName
+                this.triangleCount = triangleCount
+                this.plantCount = plantCount
+            }
     }
 
     override fun onAttach(context: Context) {

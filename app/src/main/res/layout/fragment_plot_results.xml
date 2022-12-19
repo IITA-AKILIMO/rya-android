@@ -31,7 +31,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/ic_akilimo_logo_black" />
+                    android:src="@drawable/ic_akilimo_logo" />
 
                 <TextView
                     android:layout_width="wrap_content"

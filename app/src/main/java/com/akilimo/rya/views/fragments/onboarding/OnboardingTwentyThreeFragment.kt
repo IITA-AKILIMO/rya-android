@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.akilimo.rya.databinding.*
+import com.akilimo.rya.databinding.FragmentOnboardingTwentyThreeBinding
 import com.akilimo.rya.views.activities.HomeStepperActivity
 import com.akilimo.rya.views.fragments.BaseStepFragment
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
