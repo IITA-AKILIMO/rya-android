@@ -32,7 +32,7 @@ class PrecisionFragment : BaseStepFragment() {
     private var triangleCount: Int = -1
     private var plantCount: Int = -1
     private var selectedPrecisionIndex: Int = -1
-    private var selectedPrecisionImage: Int = R.drawable.ic_akilimo_logo_black
+    private var selectedPrecisionImage: Int = R.drawable.ic_akilimo_logo
 
     private var database: AppDatabase? = null
     private var fieldInfo: YieldPrecisionEntity? = null

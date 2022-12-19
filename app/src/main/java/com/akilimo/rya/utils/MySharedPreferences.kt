@@ -16,6 +16,16 @@ class MySharedPreferences(context: Context) {
         editor = pref.edit()
     }
 
+
+    fun saveFilledProfileInfo(profileFilled: Boolean) {
+        editor.putBoolean("profile_filled", profileFilled)
+        editor.commit()
+    }
+
+    fun isProfileInfoFilled(): Boolean {
+        return pref.getBoolean("profile_filled", false)
+    }
+
     fun saveApiEndpoint(endpoint: String) {
         editor.putString("endpoint", endpoint)
         editor.commit()
