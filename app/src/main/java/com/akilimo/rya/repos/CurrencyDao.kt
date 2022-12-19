@@ -7,10 +7,14 @@ import com.akilimo.rya.entities.CurrencyEntity
 interface CurrencyDao {
 
     @Query("SELECT * from currencies")
-    fun getAll(): List<CurrencyEntity>
+    fun getAll(): MutableList<CurrencyEntity>
+
 
     @Query("SELECT * FROM currencies WHERE country_code =:countryCode")
     fun findOne(countryCode: String): CurrencyEntity?
+
+    @Query("SELECT * FROM currencies WHERE country_name =:countryName")
+    fun findByCountryName(countryName: String): CurrencyEntity?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(currencyEntity: CurrencyEntity)
