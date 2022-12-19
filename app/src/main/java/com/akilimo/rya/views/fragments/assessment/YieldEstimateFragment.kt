@@ -56,7 +56,9 @@ class YieldEstimateFragment : BaseStepFragment() {
         if (yieldEntity != null) {
             binding.txtYieldValue.text = yieldEntity.yieldLabel
             binding.txtYieldDesc.text = yieldEntity.fieldYieldDesc
-            binding.imgYieldImage.setImageResource(yieldEntity.imageId)
+            if (yieldEntity.imageId != null) {
+                binding.imgYieldImage.setImageResource(yieldEntity.imageId)
+            }
         }
     }
 
