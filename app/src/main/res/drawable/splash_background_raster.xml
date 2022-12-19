@@ -9,6 +9,6 @@
         <bitmap
             android:gravity="center"
             android:scaleType="centerInside"
-            android:src="@drawable/raster_akilimo_logo_white" />
+            android:src="@drawable/raster_akilimo_logo_colored" />
     </item>
 </layer-list>
