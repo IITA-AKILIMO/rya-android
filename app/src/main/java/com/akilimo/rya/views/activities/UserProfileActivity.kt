@@ -89,8 +89,10 @@ class UserProfileActivity : AppCompatActivity() {
                 txtEmail.editText?.setText(userInfoEntity?.email)
 
                 countryCode = userInfoEntity?.countryCode
+                currencyCode = userInfoEntity?.currencyCode
+                currencyName = userInfoEntity?.currencyName
                 areaUnit = userInfoEntity?.areaUnit
-                countryCodePicker.setCountryForNameCode("KE")
+                countryCodePicker.setCountryForNameCode(countryCode)
 
                 currencyDropdown.setSelection(currencyList.indexOf(userInfoEntity?.currencyCode))
                 languageDropdown.setSelection(languageList.indexOf(userInfoEntity?.language))
