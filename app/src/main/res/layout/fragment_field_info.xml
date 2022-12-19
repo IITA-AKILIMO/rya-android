@@ -41,12 +41,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView2">
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/lblFieldAreaUnit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_medium"
-                    android:layout_marginBottom="@dimen/spacing_medium"
-                    android:text="What is the area of your field?" />
+                    android:layout_marginBottom="@dimen/spacing_xlarge"
+                    android:text="@string/lbl_field_area"
+                    android:textSize="@dimen/font_size_18" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txtFieldSize"
@@ -54,7 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/spacing_medium"
-                    android:hint="Field area"
+                    android:hint="@string/lbl_field_area_hint"
                     app:endIconMode="clear_text">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -64,21 +65,6 @@
                         android:padding="@dimen/dimen_12" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-
-                <com.skydoves.powerspinner.PowerSpinnerView
-                    android:id="@+id/areaUnitPrompt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/grey_3"
-                    android:hint="@string/field_area_unit_prompt"
-                    android:padding="@dimen/dimen_12"
-                    android:textSize="20sp"
-                    app:spinner_arrow_tint="@color/akilimoDarkGreen"
-                    app:spinner_divider_color="@color/akilimoDarkGreen"
-                    app:spinner_divider_show="true"
-                    app:spinner_divider_size="0.5dp"
-                    app:spinner_item_array="@array/field_area_unit_array"
-                    app:spinner_popup_animation="dropdown" />
 
             </LinearLayout>
 

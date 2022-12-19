@@ -24,6 +24,7 @@ class UserProfileActivity : AppCompatActivity() {
     private var designation: String? = null
     private var fullMobileNumber: String = ""
     private var currencyCode: String? = null
+    private var currencyName: String? = null
     private var areaUnit: String? = "ha"
     private var areaUnitText: String? = "Hectare"
     private var email: String = ""
@@ -107,6 +108,7 @@ class UserProfileActivity : AppCompatActivity() {
                 if (currency != null) {
                     val index = currencyList.indexOf(currency.currencyCode)
                     currencyDropdown.setSelection(index)
+                    currencyName = currency.currencyName
                 }
 
             }
@@ -220,6 +222,7 @@ class UserProfileActivity : AppCompatActivity() {
                 areaUnit = areaUnit!!,
                 areaUnitText = areaUnitText!!,
                 currencyCode = currencyCode!!,
+                currencyName = currencyName!!,
                 email = email,
                 language = language
             )
@@ -232,6 +235,7 @@ class UserProfileActivity : AppCompatActivity() {
             userInfoEntity?.phoneNumber = fullMobileNumber
             userInfoEntity?.areaUnit = areaUnit!!
             userInfoEntity?.areaUnitText = areaUnitText!!
+            userInfoEntity?.currencyName = currencyName!!
             userInfoEntity?.currencyCode = currencyCode!!
             userInfoEntity?.email = email
             userInfoEntity?.language = language

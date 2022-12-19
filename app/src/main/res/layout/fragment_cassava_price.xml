@@ -41,12 +41,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView2">
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/lblCassPrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_medium"
-                    android:layout_marginBottom="@dimen/spacing_medium"
-                    android:text="At which price do you sell your cassava?" />
+                    android:layout_marginBottom="@dimen/spacing_xlarge"
+                    android:text="@string/lbl_cassava_selling_price"
+                    android:textSize="@dimen/font_size_18" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txtSellingPrice"
@@ -54,7 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/spacing_medium"
-                    android:hint="Cassava selling price"
+                    android:hint="@string/lbl_cassava_selling_price_hint"
                     app:endIconMode="clear_text">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -64,20 +65,6 @@
                         android:minHeight="50dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.skydoves.powerspinner.PowerSpinnerView
-                    android:id="@+id/currencyUnitPrompt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/grey_5"
-                    android:hint="@string/selling_price_prompt"
-                    android:padding="@dimen/dimen_12"
-                    android:textSize="@dimen/font_size_22"
-                    app:spinner_arrow_tint="@color/akilimoDarkGreen"
-                    app:spinner_divider_color="@color/akilimoDarkGreen"
-                    app:spinner_divider_show="true"
-                    app:spinner_divider_size="0.5dp"
-                    app:spinner_item_array="@array/currency_unit_array"
-                    app:spinner_popup_animation="dropdown" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

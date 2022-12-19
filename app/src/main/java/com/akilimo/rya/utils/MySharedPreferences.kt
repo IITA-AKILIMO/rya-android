@@ -18,7 +18,7 @@ class MySharedPreferences(context: Context) {
 
 
     fun saveFilledProfileInfo(profileFilled: Boolean) {
-        editor.putBoolean("endpoint", profileFilled)
+        editor.putBoolean("profile_filled", profileFilled)
         editor.commit()
     }
 

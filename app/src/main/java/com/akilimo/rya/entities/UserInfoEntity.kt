@@ -10,6 +10,7 @@ data class UserInfoEntity(
     @ColumnInfo(name = "full_names") var fullNames: String,
     @ColumnInfo(name = "country") var countryCode: String,
     @ColumnInfo(name = "currency") var currencyCode: String,
+    @ColumnInfo(name = "currency_name") var currencyName: String,
     @ColumnInfo(name = "designation") var designation: String,
     @ColumnInfo(name = "phone_number") var phoneNumber: String,
     @ColumnInfo(name = "email") var email: String,
