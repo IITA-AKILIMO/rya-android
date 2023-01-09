@@ -19,7 +19,7 @@ class PrefillCurrency(private val currencyDao: CurrencyDao) {
         }
     }
 
-    fun fillWithStartingNotes(context: Context) {
+    fun fillWithCountryCurrencies(context: Context) {
         try {
             val notes = loadJSONArray(context)
             for (i in 0 until notes.length()) {
@@ -39,7 +39,6 @@ class PrefillCurrency(private val currencyDao: CurrencyDao) {
                 currencyDao.insert(noteEntity)
             }
         } catch (e: JSONException) {
-//            Timber.d("fillWithStartingNotes: $e")
             val k = e
         }
     }
