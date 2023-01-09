@@ -12,6 +12,7 @@ import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.databinding.FragmentAssessmentResultsBinding
 import com.akilimo.rya.entities.EstimateResultsEntity
 import com.akilimo.rya.entities.FieldInfoEntity
+import com.akilimo.rya.entities.UserInfoEntity
 import com.akilimo.rya.enums.PrecisionTypes
 import com.akilimo.rya.rest.ApiInterface
 import com.akilimo.rya.rest.request.GeneratePlot
@@ -79,6 +80,7 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
     }
 
     private fun refreshEstimateData() {
+        val userInfo = database?.userInfoDao()?.findOne()
         val fieldInfo = database?.fieldInfoDao()?.findOne()
         val yieldPrecision = database?.yieldPrecisionDao()?.findOne()
 
@@ -99,7 +101,7 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
 
         val estimates = RyaEstimate(
             fieldArea = fieldInfo?.fieldSize!!,
-            areaUnit = fieldInfo.areaUnit,
+            areaUnit = userInfo?.areaUnit!!,
             precisionType = PrecisionTypes.valueOf(yieldPrecision?.yieldPrecision!!),
             plantCounts = listOf(
                 fieldInfo.triangle1PlantCount,
@@ -109,10 +111,14 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
             plantRms = plantRootMass,
         )
 
-        computeYieldEstimate(yieldEstimate = estimates, fieldInfo = fieldInfo)
+        computeYieldEstimate(userInfo = userInfo, yieldEstimate = estimates, fieldInfo = fieldInfo)
     }
 
-    private fun computeYieldEstimate(yieldEstimate: RyaEstimate, fieldInfo: FieldInfoEntity) {
+    private fun computeYieldEstimate(
+        userInfo: UserInfoEntity,
+        yieldEstimate: RyaEstimate,
+        fieldInfo: FieldInfoEntity
+    ) {
         val estimate = apiInterface?.computeEstimate(yieldEstimate)
         estimate?.enqueue(object : Callback<YieldEstimate> {
             override fun onResponse(call: Call<YieldEstimate>, response: Response<YieldEstimate>) {
@@ -128,7 +134,7 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
                         binding.tonnageResults.text = "Estimated production:\n$theMedian tonnes"
                         //next generate the plots
                         val estimateResults = EstimateResultsEntity(
-                            currency = fieldInfo.currency,
+                            currency = userInfo.currencyCode,
                             tonnagePrice = fieldInfo.sellingPrice,
                             tonnageEstimate = theMedian.toDouble(),
                             fieldArea = fieldInfo.fieldSize,
