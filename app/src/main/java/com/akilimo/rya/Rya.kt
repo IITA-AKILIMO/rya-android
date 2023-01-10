@@ -12,6 +12,6 @@ class Rya : MultiDexApplication() {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         JodaTimeAndroid.init(this)
 
-        PrefillCurrency(AppDatabase.getDatabase(this)!!.currencyDao()).fillWithStartingNotes(this)
+        PrefillCurrency(AppDatabase.getDatabase(this)!!.currencyDao()).fillWithCountryCurrencies(this)
     }
 }

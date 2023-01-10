@@ -1,5 +1,4 @@
 This latest update includes:
-- Revised introduction wizard page
-- Added new instructionaly navigation for better information
-- New interface to collect user profile information
+- Corrected bugs for picking field information
+- Added better error message handling
 - Several bug fixes and improvements
