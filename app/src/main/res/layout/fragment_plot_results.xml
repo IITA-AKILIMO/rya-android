@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shimmer_auto_start="true">
@@ -86,20 +87,47 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dimen_62"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_akilimo_logo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tonnageResultsSub" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/btnRetry"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="false"
+            app:lottie_rawRes="@raw/error" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRetry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_retry"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/widgetGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:constraint_referenced_ids="yieldPlotImage,tonnageResultsSub,tonnageResults,title"
-            tools:layout_editor_absoluteX="10dp"
-            tools:layout_editor_absoluteY="10dp" />
+            app:constraint_referenced_ids="yieldPlotImage,tonnageResultsSub,tonnageResults,title" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/errorWidgetGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="btnRetry,lottieAnimation" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

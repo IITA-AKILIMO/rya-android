@@ -71,7 +71,8 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
         super.onViewCreated(view, savedInstanceState)
 
         apiInterface = ApiInterface.create(ryaEndpoint)
-        refreshEstimateData()
+
+        binding.btnRetry.setOnClickListener { refreshEstimateData() }
     }
 
     override fun onSelected() {
@@ -119,39 +120,59 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
         yieldEstimate: RyaEstimate,
         fieldInfo: FieldInfoEntity
     ) {
-        val estimate = apiInterface?.computeEstimate(yieldEstimate)
-        estimate?.enqueue(object : Callback<YieldEstimate> {
-            override fun onResponse(call: Call<YieldEstimate>, response: Response<YieldEstimate>) {
-                if (response.isSuccessful) {
-                    val myResp: YieldEstimate? = response.body()
-                    if (myResp != null) {
-                        val totalElements = myResp.result.size
-                        val results = DoubleArray(totalElements)
-                        for ((index, result) in myResp.result.withIndex()) {
-                            results[index] = result
-                        }
-                        val theMedian = median(results)
-                        binding.tonnageResults.text = "Estimated production:\n$theMedian tonnes"
-                        //next generate the plots
-                        val estimateResults = EstimateResultsEntity(
-                            currency = userInfo.currencyCode,
-                            tonnagePrice = fieldInfo.sellingPrice,
-                            tonnageEstimate = theMedian.toDouble(),
-                            fieldArea = fieldInfo.fieldSize,
-                            fileNameFull = "",
-                            fileNameLean = ""
-                        )
 
-                        generatePlots(fieldInfo, myResp.result, estimateResults)
+        with(binding) {
+
+            if (!shimmerViewContainer.isShimmerStarted) {
+                shimmerViewContainer.startShimmer()
+            }
+
+            shimmerWidgetGroup.visibility = View.VISIBLE
+            errorWidgetGroup.visibility = View.GONE
+            widgetGroup.visibility = View.GONE
+
+
+            val estimate = apiInterface?.computeEstimate(yieldEstimate)
+            estimate?.enqueue(object : Callback<YieldEstimate> {
+                override fun onResponse(
+                    call: Call<YieldEstimate>, response: Response<YieldEstimate>
+                ) {
+                    if (response.isSuccessful) {
+                        val myResp: YieldEstimate? = response.body()
+                        if (myResp != null) {
+                            val results = DoubleArray(myResp.result.size)
+                            for ((index, result) in myResp.result.withIndex()) {
+                                results[index] = result
+                            }
+                            val theMedian = median(results)
+                            tonnageResults.text = "Estimated production:\n$theMedian tonnes"
+                            //next generate the plots
+                            val estimateResults = EstimateResultsEntity(
+                                currency = userInfo.currencyCode,
+                                tonnagePrice = fieldInfo.sellingPrice,
+                                tonnageEstimate = theMedian.toDouble(),
+                                fieldArea = fieldInfo.fieldSize,
+                                fileNameFull = "",
+                                fileNameLean = ""
+                            )
+
+                            generatePlots(fieldInfo, myResp.result, estimateResults)
+                        }
+                    } else {
+                        shimmerWidgetGroup.visibility = View.GONE
+                        errorWidgetGroup.visibility = View.VISIBLE
+                        Toast.makeText(ctx, response.message(), Toast.LENGTH_LONG).show()
                     }
                 }
-            }
 
-            override fun onFailure(call: Call<YieldEstimate>, t: Throwable) {
-                Toast.makeText(ctx, "Unable to compute the estimate", Toast.LENGTH_SHORT).show()
-            }
+                override fun onFailure(call: Call<YieldEstimate>, t: Throwable) {
+                    shimmerWidgetGroup.visibility = View.GONE
+                    errorWidgetGroup.visibility = View.VISIBLE
+                    Toast.makeText(ctx, t.message, Toast.LENGTH_SHORT).show()
+                }
 
-        })
+            })
+        }
     }
 
 
@@ -165,11 +186,6 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
             areaUnit = fieldInfo.areaUnit,
             fileName = guid.toString()
         )
-        if (!binding.shimmerViewContainer.isShimmerStarted) {
-            binding.shimmerViewContainer.startShimmer()
-        }
-        binding.shimmerViewContainer.visibility = View.VISIBLE
-        binding.widgetGroup.visibility = View.GONE
 
         val plots = apiInterface?.generatePlots(generatePlot)
         plots?.enqueue(object : Callback<GeneratePlotResp> {
@@ -191,13 +207,20 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
                         database?.estimateResultsDao()?.insert(estimateResults)
                         renderPlot(RyaPlot(plotImages.fileNameFull))
                     }
+                } else {
+                    binding.shimmerViewContainer.stopShimmer()
+                    binding.shimmerWidgetGroup.visibility = View.GONE
+                    binding.errorWidgetGroup.visibility = View.VISIBLE
+                    Toast.makeText(ctx, response.message(), Toast.LENGTH_LONG).show()
                 }
             }
 
             override fun onFailure(call: Call<GeneratePlotResp>, t: Throwable) {
-                Toast.makeText(
-                    ctx, "Unable to load the plots, please try again", Toast.LENGTH_SHORT
-                ).show()
+                binding.shimmerViewContainer.stopShimmer()
+                binding.shimmerWidgetGroup.visibility = View.GONE
+                binding.errorWidgetGroup.visibility = View.VISIBLE
+
+                Toast.makeText(ctx, t.message, Toast.LENGTH_SHORT).show()
             }
 
         })
@@ -217,15 +240,21 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
 //                  imageView.setImage(ImageSource.bitmap(bitmap))
                     imageView.setImageBitmap(bitmap)
                     binding.shimmerViewContainer.stopShimmer()
-                    binding.shimmerViewContainer.visibility = View.GONE
+                    binding.shimmerWidgetGroup.visibility = View.GONE
                     binding.widgetGroup.visibility = View.VISIBLE
+                } else {
+                    binding.shimmerViewContainer.stopShimmer()
+                    binding.shimmerWidgetGroup.visibility = View.GONE
+                    binding.errorWidgetGroup.visibility = View.VISIBLE
+                    Toast.makeText(ctx, "Unable to load plot image", Toast.LENGTH_LONG).show()
                 }
             }
 
             override fun onFailure(call: Call<ResponseBody>, throwable: Throwable) {
-                Toast.makeText(
-                    ctx, "Unable to load plot data", Toast.LENGTH_SHORT
-                ).show()
+                binding.shimmerViewContainer.stopShimmer()
+                binding.shimmerWidgetGroup.visibility = View.GONE
+                binding.errorWidgetGroup.visibility = View.VISIBLE
+                Toast.makeText(ctx, throwable.message, Toast.LENGTH_SHORT).show()
             }
 
         })
