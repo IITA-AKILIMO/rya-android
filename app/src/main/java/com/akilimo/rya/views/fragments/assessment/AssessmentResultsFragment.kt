@@ -161,6 +161,9 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
                     } else {
                         shimmerWidgetGroup.visibility = View.GONE
                         errorWidgetGroup.visibility = View.VISIBLE
+                        if (!lottieAnimation.isAnimating) {
+                            lottieAnimation.playAnimation()
+                        }
                         Toast.makeText(ctx, response.message(), Toast.LENGTH_LONG).show()
                     }
                 }
@@ -168,6 +171,9 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
                 override fun onFailure(call: Call<YieldEstimate>, t: Throwable) {
                     shimmerWidgetGroup.visibility = View.GONE
                     errorWidgetGroup.visibility = View.VISIBLE
+                    if (!lottieAnimation.isAnimating) {
+                        lottieAnimation.playAnimation()
+                    }
                     Toast.makeText(ctx, t.message, Toast.LENGTH_SHORT).show()
                 }
 
@@ -211,6 +217,9 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
                     binding.shimmerViewContainer.stopShimmer()
                     binding.shimmerWidgetGroup.visibility = View.GONE
                     binding.errorWidgetGroup.visibility = View.VISIBLE
+                    if (!binding.lottieAnimation.isAnimating) {
+                        binding.lottieAnimation.playAnimation()
+                    }
                     Toast.makeText(ctx, response.message(), Toast.LENGTH_LONG).show()
                 }
             }
@@ -219,6 +228,9 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
                 binding.shimmerViewContainer.stopShimmer()
                 binding.shimmerWidgetGroup.visibility = View.GONE
                 binding.errorWidgetGroup.visibility = View.VISIBLE
+                if (!binding.lottieAnimation.isAnimating) {
+                    binding.lottieAnimation.playAnimation()
+                }
 
                 Toast.makeText(ctx, t.message, Toast.LENGTH_SHORT).show()
             }
@@ -246,6 +258,9 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
                     binding.shimmerViewContainer.stopShimmer()
                     binding.shimmerWidgetGroup.visibility = View.GONE
                     binding.errorWidgetGroup.visibility = View.VISIBLE
+                    if (!binding.lottieAnimation.isAnimating) {
+                        binding.lottieAnimation.animate()
+                    }
                     Toast.makeText(ctx, "Unable to load plot image", Toast.LENGTH_LONG).show()
                 }
             }
@@ -254,6 +269,9 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
                 binding.shimmerViewContainer.stopShimmer()
                 binding.shimmerWidgetGroup.visibility = View.GONE
                 binding.errorWidgetGroup.visibility = View.VISIBLE
+                if (!binding.lottieAnimation.isAnimating) {
+                    binding.lottieAnimation.playAnimation()
+                }
                 Toast.makeText(ctx, throwable.message, Toast.LENGTH_SHORT).show()
             }
 
