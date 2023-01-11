@@ -12,8 +12,8 @@ plugins {
 sonarqube {
     properties {
         property "sonar.projectName", "AKILIMO RYA"
-        property "sonar.projectKey", "RYA"
-        property "sonar.login", "sqp_dae104ac3c0f8a1af88643c5ef8ebcc5f81986f4"
+        property "sonar.projectKey", "IITA-AKILIMO_rya-android_AYWat7AVA_a0kZ5UNFXL"
+        property "sonar.login", "sqp_a2bb614153d3c527c1696695a5bf2edbc22ddce6"
 //        property "sonar.host.url", "http://localhost:9000"
         property "sonar.sources", "src"
         property "sonar.sourceEncoding", "UTF-8"
