@@ -149,6 +149,10 @@ class UserProfileActivity : AppCompatActivity() {
                     adapterView: AdapterView<*>?, view: View?, position: Int, id: Long
                 ) {
                     currencyCode = currencyList[position]
+                    val currency = getCurrencyName(currencyCode)
+                    if (currency != null) {
+                        currencyName = currency.currencyName
+                    }
                 }
 
                 override fun onNothingSelected(p0: AdapterView<*>?) {}
@@ -163,6 +167,11 @@ class UserProfileActivity : AppCompatActivity() {
 
     private fun getCountryCurrencyCode(countryName: String?): CurrencyEntity? {
         return database?.currencyDao()?.findByCountryName(countryName = countryName!!.uppercase())
+    }
+
+    private fun getCurrencyName(currencyName: String?): CurrencyEntity? {
+        return database?.currencyDao()
+            ?.findByCurrencyCode(currencyCode = currencyName!!.uppercase())
     }
 
     private fun saveUserInfo(vw: View) {

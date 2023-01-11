@@ -52,7 +52,8 @@ class PlotResultsFragment(private val ryaEndpoint: String) : BaseStepFragment() 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        refreshPlotData()
+
+        binding.btnRetry.setOnClickListener { refreshPlotData() }
     }
 
     override fun onSelected() {
@@ -95,23 +96,30 @@ class PlotResultsFragment(private val ryaEndpoint: String) : BaseStepFragment() 
 
         val plotReader = apiInterface?.readPlot(ryaPlot)
 
+
         plotReader?.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.body() != null) {
                     val bytes = response.body()!!.bytes()
                     val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-//                  imageView.setImage(ImageSource.bitmap(bitmap))
                     imageView.setImageBitmap(bitmap)
-                    binding.shimmerViewContainer.stopShimmer()
-                    binding.shimmerViewContainer.visibility = View.GONE
-                    binding.widgetGroup.visibility = View.VISIBLE
+                    with(binding) {
+                        shimmerViewContainer.stopShimmer()
+                        shimmerViewContainer.visibility = View.GONE
+                        widgetGroup.visibility = View.VISIBLE
+                        lottieAnimation.visibility = View.GONE
+                    }
                 }
             }
 
             override fun onFailure(call: Call<ResponseBody>, throwable: Throwable) {
-                Toast.makeText(
-                    ctx, "Unable to load plot data", Toast.LENGTH_SHORT
-                ).show()
+                with(binding) {
+                    shimmerViewContainer.stopShimmer()
+                    shimmerViewContainer.visibility = View.GONE
+                    widgetGroup.visibility = View.GONE
+                    lottieAnimation.visibility = View.VISIBLE
+                }
+                Toast.makeText(ctx, throwable.message, Toast.LENGTH_SHORT).show()
             }
 
         })

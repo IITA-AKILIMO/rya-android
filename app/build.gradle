@@ -114,7 +114,7 @@ static def computeBuildNumber() {
         def versionMinor = splitMe[1]
         def versionPatchRaw = splitMe[2].split('-')
         def versionPatch = versionPatchRaw[0].toInteger()
-        gitVersionTag = String.format('%d.%d.%d_beta_%d',
+        gitVersionTag = String.format('%d.%d.%d-beta-%d',
                 Integer.valueOf(versionMajor),
                 Integer.valueOf(versionMinor),
                 Integer.valueOf(versionPatch),

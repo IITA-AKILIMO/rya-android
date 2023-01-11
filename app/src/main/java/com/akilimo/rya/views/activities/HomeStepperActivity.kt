@@ -23,7 +23,6 @@ import retrofit2.Response
 
 class HomeStepperActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeStepperBinding
-    private lateinit var apiInterface: ApiInterface
     private lateinit var fuelrodApiInterface: FuelrodApiInterface
     private lateinit var prefs: MySharedPreferences
 
@@ -38,7 +37,6 @@ class HomeStepperActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 //        installSplashScreen()
         binding = ActivityHomeStepperBinding.inflate(layoutInflater)
-        apiInterface = ApiInterface.create()
         fuelrodApiInterface = FuelrodApiInterface.create()
 
         setContentView(binding.root)

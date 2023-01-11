@@ -135,5 +135,7 @@
     <string name="lbl_field_area_hint">Field area in %1$s</string>
     <string name="lbl_cassava_selling_price_hint">Cassava selling price in %1$s per tonne</string>
     <string name="lbl_cassava_selling_price">At which price do you sell your cassava per tonne?</string>
+    <string name="lbl_retry">Retry</string>
+    <string name="lbl_assessment_message">Preparing assessment results, please wait...</string>
 
 </resources>

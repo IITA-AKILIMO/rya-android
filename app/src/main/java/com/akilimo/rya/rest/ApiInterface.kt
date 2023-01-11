@@ -15,6 +15,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.POST
+import java.util.concurrent.TimeUnit
 
 
 interface ApiInterface {
@@ -24,6 +25,10 @@ interface ApiInterface {
         fun create(BASE_URL: String = "http://157.245.26.55:3000/api/"): ApiInterface {
 
             val builder = OkHttpClient.Builder()
+//                .connectTimeout(60, TimeUnit.SECONDS)
+//                .readTimeout(120, TimeUnit.SECONDS)
+//                .writeTimeout(120, TimeUnit.SECONDS)
+
             val httpLoggingInterceptor = HttpLoggingInterceptor()
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             builder.networkInterceptors().add(httpLoggingInterceptor)
@@ -36,16 +41,16 @@ interface ApiInterface {
                 .baseUrl(BASE_URL)
                 .build()
 
+
             return retrofit.create(ApiInterface::class.java)
         }
     }
 
+    @POST("v1/rya/estimate")
+    fun computeEstimate(@Body ryaEstimate: RyaEstimate): Call<YieldEstimate>
 
     @POST("v1/rya/read-plot")
     fun readPlot(@Body ryaPlot: RyaPlot): Call<ResponseBody>
-
-    @POST("v1/rya/estimate")
-    fun computeEstimate(@Body ryaEstimate: RyaEstimate): Call<YieldEstimate>
 
     @POST("v1/rya/plot")
     fun generatePlots(@Body ryaPlot: GeneratePlot): Call<GeneratePlotResp>

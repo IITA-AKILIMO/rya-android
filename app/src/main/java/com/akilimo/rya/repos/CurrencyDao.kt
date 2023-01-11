@@ -13,6 +13,9 @@ interface CurrencyDao {
     @Query("SELECT * FROM currencies WHERE country_code =:countryCode")
     fun findOne(countryCode: String): CurrencyEntity?
 
+    @Query("SELECT * FROM currencies WHERE currency_code =:currencyCode")
+    fun findByCurrencyCode(currencyCode: String): CurrencyEntity?
+
     @Query("SELECT * FROM currencies WHERE country_name =:countryName")
     fun findByCountryName(countryName: String): CurrencyEntity?
 

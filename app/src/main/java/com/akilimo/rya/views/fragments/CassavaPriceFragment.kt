@@ -68,32 +68,7 @@ class CassavaPriceFragment : BaseStepFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        fieldInfoEntity = database?.fieldInfoDao()?.findOne()
-        userInfoEntity = database?.userInfoDao()?.findOne()
         with(binding) {
-            if (fieldInfoEntity != null) {
-
-                with(fieldInfoEntity!!) {
-                    _sellingPrice = sellingPrice
-                    _fieldSize = fieldSize
-                }
-
-                with(userInfoEntity) {
-                    _currency = this?.currencyCode ?: "USD"
-                    _currencyName = this?.currencyName ?: "Dollars"
-                }
-
-                val hintText =
-                    activity?.getString(R.string.lbl_cassava_selling_price_hint, _currencyName)
-                txtSellingPrice.hint = hintText
-
-                txtSellingPrice.editText?.setText(_sellingPrice.toString())
-            }
-
-
-
-
             txtSellingPrice.editText?.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     txtSellingPrice.error = null
@@ -111,6 +86,30 @@ class CassavaPriceFragment : BaseStepFragment() {
 
     }
 
+    override fun onSelected() {
+        super.onSelected()
+        fieldInfoEntity = database?.fieldInfoDao()?.findOne()
+        userInfoEntity = database?.userInfoDao()?.findOne()
+        with(binding) {
+            _currency = userInfoEntity?.currencyCode!!
+            _currencyName = userInfoEntity?.currencyName!!
+
+            if (fieldInfoEntity != null) {
+
+                with(fieldInfoEntity!!) {
+                    _sellingPrice = sellingPrice
+                    _fieldSize = fieldSize
+                }
+
+                val hintText =
+                    activity?.getString(R.string.lbl_cassava_selling_price_hint, _currencyName)
+                txtSellingPrice.hint = hintText
+
+                txtSellingPrice.editText?.setText(_sellingPrice.toString())
+            }
+        }
+    }
+
     override fun verifyStep(): VerificationError? {
 
         if (_sellingPrice <= 0.0) {
@@ -123,8 +122,6 @@ class CassavaPriceFragment : BaseStepFragment() {
             fieldInfoEntity = FieldInfoEntity(id = 1)
         }
 
-        fieldInfoEntity?.currency = _currency
-        fieldInfoEntity?.currencyName = _currencyName
         fieldInfoEntity?.sellingPrice = _sellingPrice
 
 
