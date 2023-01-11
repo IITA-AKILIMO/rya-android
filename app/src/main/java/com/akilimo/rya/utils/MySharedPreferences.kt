@@ -6,7 +6,8 @@ import android.content.SharedPreferences
 class MySharedPreferences(context: Context) {
 
     private val editor: SharedPreferences.Editor
-    private val pref: SharedPreferences = context.getSharedPreferences(PREF_NAME, 0)
+    private val pref: SharedPreferences =
+        context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
 
     companion object {
         private const val PREF_NAME = "rya-pref"
