@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_5"
             app:ccp_autoDetectCountry="true"
-            app:ccp_countryPreference="NG,TZ"
+            app:ccp_countryPreference="KE,RW,NG,TZ"
             app:ccp_hintExampleNumber="true"
             app:ccp_rememberLastSelection="true"
             app:ccp_showFullName="true"
@@ -133,7 +133,7 @@
             android:layout_height="wrap_content"
             android:prompt="@string/lbl_designation_prompt"
             android:spinnerMode="dialog"
-            tools:listitem="@android:layout/simple_dropdown_item_1line" />
+            tools:listitem="@android:layout/simple_spinner_dropdown_item" />
 
         <TextView
             android:id="@+id/currencyLabel"
