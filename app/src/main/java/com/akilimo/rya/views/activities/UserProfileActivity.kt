@@ -1,8 +1,11 @@
 package com.akilimo.rya.views.activities
 
+import android.R
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.SpinnerAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.akilimo.rya.AppDatabase
@@ -71,22 +74,34 @@ class UserProfileActivity : AppCompatActivity() {
             currencyList.add(currency.currencyCode)
         }
 
+        val designationAdapter = ArrayAdapter(
+            this@UserProfileActivity, R.layout.simple_dropdown_item_1line, designationList
+        )
+
+        val languageAdapter = ArrayAdapter(
+            this@UserProfileActivity, R.layout.simple_dropdown_item_1line, languageList
+        )
+
+        val areaUnitAdapter = ArrayAdapter(
+            this@UserProfileActivity, R.layout.simple_dropdown_item_1line, areaUnitList
+        )
+
 
         @Suppress("USELESS_CAST") with(binding.lytUserProfile) {
             countryCodePicker.registerCarrierNumberEditText(edtPhone)
 
-            designationDropdown.item = designationList as List<Any>?
-            languageDropdown.item = languageList as List<Any>?
-            currencyDropdown.item = currencyList as List<Any>?
-            areaUnitDropdowm.item = areaUnitList as List<Any>?
+            designationSpinner.adapter = designationAdapter
+            languageSpinner.adapter = languageAdapter
+            currencySpinner.adapter = currencyAdapter
+            areaUnitSpinner.adapter = areaUnitAdapter
 
             if (userInfoEntity != null) {
                 if (!userInfoEntity?.phoneNumber.isNullOrBlank()) {
                     countryCodePicker.fullNumber = userInfoEntity?.phoneNumber
                 }
 
-                txtName.editText?.setText(userInfoEntity?.fullNames)
-                txtEmail.editText?.setText(userInfoEntity?.email)
+                edtFirstName.setText(userInfoEntity?.fullNames)
+                edtEmail.setText(userInfoEntity?.email)
 
                 countryCode = userInfoEntity?.countryCode
                 currencyCode = userInfoEntity?.currencyCode
@@ -94,13 +109,13 @@ class UserProfileActivity : AppCompatActivity() {
                 areaUnit = userInfoEntity?.areaUnit
                 countryCodePicker.setCountryForNameCode(countryCode)
 
-                currencyDropdown.setSelection(currencyList.indexOf(userInfoEntity?.currencyCode))
-                languageDropdown.setSelection(languageList.indexOf(userInfoEntity?.language))
-                areaUnitDropdowm.setSelection(areaUnitList.indexOf(userInfoEntity?.areaUnitText))
-                designationDropdown.setSelection(designationList.indexOf(userInfoEntity?.designation))
+                currencySpinner.setSelection(currencyList.indexOf(currencyCode))
+                languageSpinner.setSelection(languageList.indexOf(userInfoEntity?.language))
+                areaUnitSpinner.setSelection(areaUnitList.indexOf(userInfoEntity?.areaUnitText))
+                designationSpinner.setSelection(designationList.indexOf(userInfoEntity?.designation))
             } else {
-                languageDropdown.setSelection(0)
-                areaUnitDropdowm.setSelection(0)
+                languageSpinner.setSelection(0)
+                areaUnitSpinner.setSelection(0)
             }
 
             countryCodePicker.setOnCountryChangeListener {
@@ -109,26 +124,25 @@ class UserProfileActivity : AppCompatActivity() {
                 val currency = getCountryCurrencyCode(countryCodePicker.selectedCountryName)
                 if (currency != null) {
                     val index = currencyList.indexOf(currency.currencyCode)
-                    currencyDropdown.setSelection(index)
+                    currencySpinner.setSelection(index)
                     currencyName = currency.currencyName
                 }
 
             }
 
 
-            designationDropdown.onItemSelectedListener =
+            designationSpinner.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(
                         adapterView: AdapterView<*>?, view: View?, position: Int, id: Long
                     ) {
-                        designation = designationList!![position]
-                        designationDropdown.errorText = null
+                        designation = designationList[position]
                     }
 
                     override fun onNothingSelected(p0: AdapterView<*>?) {}
                 }
 
-            areaUnitDropdowm.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            areaUnitSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     adapterView: AdapterView<*>?, view: View?, position: Int, id: Long
                 ) {
@@ -144,7 +158,7 @@ class UserProfileActivity : AppCompatActivity() {
                 override fun onNothingSelected(p0: AdapterView<*>?) {}
             }
 
-            currencyDropdown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            currencySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     adapterView: AdapterView<*>?, view: View?, position: Int, id: Long
                 ) {
@@ -178,12 +192,12 @@ class UserProfileActivity : AppCompatActivity() {
         hasError = false
         var errMessage = ""
         with(binding.lytUserProfile) {
-            txtEmail.error = null
-            txtName.error = null
-            txtPhoneNumber.error = null
+            edtEmail.error = null
+            edtFirstName.error = null
+            edtPhone.error = null
 
-            fullNames = txtName.editText?.text.toString()
-            email = txtEmail.editText?.text.toString()
+            fullNames = edtFirstName.text.toString()
+            email = edtEmail.text.toString()
             fullMobileNumber = countryCodePicker.fullNumber
             countryCode = countryCodePicker.selectedCountryNameCode
 
@@ -192,7 +206,7 @@ class UserProfileActivity : AppCompatActivity() {
             if (fullNames.isNullOrBlank()) {
                 hasError = true
                 errMessage = "Fill in your names"
-                txtName.error = errMessage
+                edtFirstName.error = errMessage
             }
 
             if (countryCode.isNullOrBlank()) {
@@ -208,13 +222,11 @@ class UserProfileActivity : AppCompatActivity() {
             if (designation.isNullOrBlank()) {
                 hasError = true
                 errMessage = "Pick a valid designation"
-                designationDropdown.errorText = errMessage
             }
 
             if (areaUnit.isNullOrBlank()) {
                 hasError = true
                 errMessage = "Pick a valid area unit"
-                designationDropdown.errorText = errMessage
             }
 
         }
