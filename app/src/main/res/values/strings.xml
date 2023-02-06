@@ -7,6 +7,7 @@
 
     <string name="welcome_instructions">AKILIMO helps you estimate your production before harvesting your cassava crop.</string>
 
+    <string name="lbl_optional">Optional</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="finish">Finish</string>
@@ -137,5 +138,11 @@
     <string name="lbl_cassava_selling_price">At which price do you sell your cassava per tonne?</string>
     <string name="lbl_retry">Retry</string>
     <string name="lbl_assessment_message">Preparing assessment results, please wait...</string>
+
+    <string name="lbl_save">Save</string>
+    <string name="lbl_area_unit_prompt">Select area unit</string>
+    <string name="lbl_currency_prompt">Select currency</string>
+    <string name="lbl_language_prompt">Select language</string>
+    <string name="lbl_designation_prompt">Select designation</string>
 
 </resources>

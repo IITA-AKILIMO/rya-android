@@ -36,9 +36,9 @@ jobs:
         run: ./gradlew testRelease
         continue-on-error: true
 
-      - name: Make Unit test report
-        uses: doanpt/AndroidTestReportAction@v1.0
-        if: ${{ always() }} # IMPORTANT: run Android Test Report regardless
+#      - name: Make Unit test report
+#        uses: doanpt/AndroidTestReportAction@v1.0
+#        if: ${{ always() }} # IMPORTANT: run Android Test Report regardless
 
   build_artifacts:
     if: contains(github.ref, 'beta') || contains(github.ref, 'main')

@@ -44,6 +44,6 @@
 
     <include
         android:id="@+id/lytUserProfile"
-        layout="@layout/content_user_profile" />
+        layout="@layout/content_user_profile_2" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

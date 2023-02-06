@@ -43,7 +43,10 @@ constructor(
             view = convertView
             vh = view.tag as ItemHolder
         }
-        vh.label.text = currencyItems[position].countryName
+
+        val currencyText =
+            currencyItems[position].currencyName + " (" + currencyItems[position].currencyCode + ")"
+        vh.label.text = currencyText
 
         return view
     }
