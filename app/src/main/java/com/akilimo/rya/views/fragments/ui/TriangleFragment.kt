@@ -98,13 +98,15 @@ class TriangleFragment : BasePlantTriangle() {
 
 
     override fun verifyStep(): VerificationError? {
-        var inputValid = false
+        var inputValid = true
         val plantTrianglesMeasurement: MutableList<PlantTriangleEntity> = arrayListOf()
         var plantNumber = 1
         for (inputLayout in inputLayouts) {
             val rootWeightString = inputLayout.editText?.editableText.toString()
             val rootWeight = StringToNumberFactory.stringToDouble(rootWeightString)
-            inputValid = rootWeight > 0
+            if (rootWeight < 0 || rootWeight > 20) {
+                inputValid = false
+            }
             if (inputValid) {
                 //save this value to the database
                 inputLayout.error = null
