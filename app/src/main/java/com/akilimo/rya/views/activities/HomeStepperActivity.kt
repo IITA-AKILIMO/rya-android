@@ -84,7 +84,7 @@ class HomeStepperActivity : AppCompatActivity() {
 
 
     private fun loadConfig() {
-        val configReader = fuelrodApiInterface.readConfig("rya")
+        val configReader: Call<List<RemoteConfig>> = fuelrodApiInterface.readConfig("rya")
 
 
         configReader.enqueue(object : Callback<List<RemoteConfig>> {
