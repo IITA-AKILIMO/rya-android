@@ -84,21 +84,24 @@ class PlantTriangleStepperActivity : AppCompatActivity() {
             plantCount = yieldClass.plantCount
             fragmentArray.add(
                 TriangleFragment.newInstance(
-                    triangleCount = plantCount / 3,
+//                    triangleCount = plantCount / 3,
+                    triangleCount = triangleOnePlantCount,
                     triangleName = "one",
                     plantCount = "$triangleOnePlantCount plants"
                 )
             )
             fragmentArray.add(
                 TriangleTwoFragment.newInstance(
-                    triangleCount = plantCount / 3,
+//                    triangleCount = plantCount / 3,
+                    triangleCount = triangleTwoPlantCount,
                     triangleName = "two",
                     plantCount = "$triangleTwoPlantCount plants"
                 )
             )
             fragmentArray.add(
                 TriangleThreeFragment.newInstance(
-                    triangleCount = plantCount / 3,
+//                    triangleCount = plantCount / 3,
+                    triangleCount = triangleThreePlantCount,
                     triangleName = "three",
                     plantCount = "$triangleThreePlantCount plants"
                 )

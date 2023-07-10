@@ -27,7 +27,8 @@ abstract class BasePlantTriangle : BaseStepFragment() {
             /* width = */ ViewGroup.LayoutParams.MATCH_PARENT,
             /* height = */ ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        layoutParams.setMargins(0, 0, 0, resources.getDimension(R.dimen.dimen_124).toInt())
+//        layoutParams.setMargins(0, 0, 0, resources.getDimension(R.dimen.dimen_124).toInt())
+        layoutParams.setMargins(0, 0, 0, 0)
 
         val textInputLayout = TextInputLayout(
             context, null, R.attr.customTextInputStyle
