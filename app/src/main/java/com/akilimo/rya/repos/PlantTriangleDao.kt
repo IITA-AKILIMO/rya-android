@@ -45,4 +45,7 @@ interface PlantTriangleDao {
     @Update
     fun update(fieldInfoEntity: PlantTriangleEntity)
 
+    @Query("DELETE FROM plant_triangle")
+    fun deleteAll()
+
 }

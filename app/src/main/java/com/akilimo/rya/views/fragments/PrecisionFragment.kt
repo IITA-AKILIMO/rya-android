@@ -162,11 +162,12 @@ class PrecisionFragment : BaseStepFragment() {
         fieldInfo?.precisionImage = selectedPrecisionImage
 
 
+        database!!.plantTriangleDao().deleteAll()
         database!!.yieldPrecisionDao().insert(fieldInfo!!)
         return null
     }
 
-    override fun onSelected() {
+    override fun onSelected() {/* no code required here */
     }
 
     override fun onError(error: VerificationError) {
