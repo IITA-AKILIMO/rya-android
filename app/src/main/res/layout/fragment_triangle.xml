@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             android:id="@+id/lblTriangleNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_small"
             android:text="@string/lbl_triangle_one"
             android:textAlignment="center"
             android:textSize="@dimen/font_size_16"
@@ -41,7 +41,7 @@
             android:id="@+id/lblTrianglePlantCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_medium"
             android:text="@string/lbl_triangle_one"
             android:textAlignment="center"
             android:textSize="@dimen/font_size_16"
@@ -50,42 +50,37 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lblTriangleNumber" />
 
-        <androidx.core.widget.NestedScrollView
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/lytTextField"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/spacing_medium"
-            app:layout_constraintTop_toBottomOf="@+id/lblTrianglePlantCount"
-            tools:layout_editor_absoluteX="0dp">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xmedium"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_medium"
+            app:layout_constraintTop_toBottomOf="@+id/lblTrianglePlantCount">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/lytTextField"
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtRootWeight"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/spacing_medium"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:hint="Field area"
+                app:endIconMode="clear_text">
 
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txtRootWeight"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/spacing_medium"
-                    android:hint="Field area"
-                    app:endIconMode="clear_text">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
-                        android:padding="@dimen/dimen_12" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:inputType="numberDecimal"
+                    android:padding="@dimen/dimen_12" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.core.widget.NestedScrollView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</FrameLayout>
+</androidx.core.widget.NestedScrollView>
