@@ -42,7 +42,7 @@ android {
     defaultConfig {
         applicationId "com.akilimo.rya"
         minSdk 21
-        targetSdk 33
+        targetSdk 34
         versionCode appVersionCode
         versionName releaseVersionName
         multiDexEnabled true
@@ -139,24 +139,24 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
 
-    implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'androidx.core:core-splashscreen:1.0.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.core:core-splashscreen:1.0.1'
 
     //google libraries
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'com.google.android.material:material:1.9.0'
 
     //ROOM db
-    implementation 'androidx.room:room-runtime:2.4.3'
+    implementation 'androidx.room:room-runtime:2.5.2'
 //    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
 //    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
-    kapt 'androidx.room:room-compiler:2.4.3'
+    kapt 'androidx.room:room-compiler:2.5.2'
 //    ksp 'androidx.room:room-compiler:2.4.3'
 
     //androidx
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'
 
     //other libraries
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -194,8 +194,8 @@ dependencies {
 //    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.0'
 
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     debugImplementation 'com.github.amitshekhariitbhu.Android-Debug-Database:debug-db:v1.0.6'
 }
