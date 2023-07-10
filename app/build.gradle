@@ -37,7 +37,7 @@ android {
     def releaseVersionName = computeBuildNumber()
     def appVersionCode = computeVersionCode()
 
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.akilimo.rya"
