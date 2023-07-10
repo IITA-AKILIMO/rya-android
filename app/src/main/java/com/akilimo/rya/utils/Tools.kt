@@ -31,7 +31,7 @@ object Tools {
             jsonString = mapper.writeValueAsString(objectClass)
             jsonObject = JSONObject(jsonString)
         } catch (ex: Exception) {
-
+            // TODO add error logging service like sentry or any other
         }
         return jsonObject
     }
