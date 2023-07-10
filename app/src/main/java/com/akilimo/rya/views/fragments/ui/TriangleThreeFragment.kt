@@ -97,16 +97,12 @@ class TriangleThreeFragment : BasePlantTriangle() {
     }
 
     override fun verifyStep(): VerificationError? {
-        var inputValid = true
         val plantTrianglesMeasurement: MutableList<PlantTriangleEntity> = arrayListOf()
         var plantNumber = 1
         for (inputLayout in inputLayouts) {
             val rootWeightString = inputLayout.editText?.editableText.toString()
             val rootWeight = StringToNumberFactory.stringToDouble(rootWeightString)
-            if (rootWeight < 0 || rootWeight > 20) {
-                inputValid = false
-            }
-            if (inputValid) {
+            if (rootWeightValid(rootWeight)) {
                 //save this value to the database
                 inputLayout.error = null
                 plantTrianglesMeasurement.add(
@@ -118,15 +114,12 @@ class TriangleThreeFragment : BasePlantTriangle() {
                 )
                 plantNumber++
             } else {
-                inputLayout.error = "Provide correct plant root weight"
+                inputLayout.error = "Provide correct plant root weight between 0.1KG and 20KG"
                 inputLayout.requestFocus()
-                break //no need to loop all through
+                return myVerificationError()
             }
         }
 
-        if (!inputValid) {
-            return VerificationError("Provide correct plant root weight for all inputs")
-        }
 
         database?.plantTriangleDao()?.insertAll(plantTrianglesMeasurement)
         return verificationError
