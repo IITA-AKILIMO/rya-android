@@ -15,6 +15,7 @@ import com.stepstone.stepper.VerificationError
 abstract class BasePlantTriangle : BaseStepFragment() {
 
     protected var plantCount: Int = -1
+    protected var uprootedPlants: Int = -1
     protected var triangleName: String? = null
 
     protected var database: AppDatabase? = null
