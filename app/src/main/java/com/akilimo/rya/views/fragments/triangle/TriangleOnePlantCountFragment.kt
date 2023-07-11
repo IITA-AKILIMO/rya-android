@@ -18,13 +18,13 @@ import com.stepstone.stepper.VerificationError
  * Use the [TriangleOnePlantCountFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class TriangleOnePlantCountFragment : BaseStepFragment() {
+open class TriangleOnePlantCountFragment : BaseStepFragment() {
 
-    private var ctx: Context? = null
-    private var _binding: FragmentPlantCountBinding? = null
-    private var fieldInfoEntity: FieldInfoEntity? = null
-    private var database: AppDatabase? = null
-    private var plantCount = 0
+    protected var ctx: Context? = null
+    protected var _binding: FragmentPlantCountBinding? = null
+    protected var fieldInfoEntity: FieldInfoEntity? = null
+    protected var database: AppDatabase? = null
+    protected var plantCount = 0
 
     private val binding get() = _binding!!
 
@@ -50,6 +50,7 @@ class TriangleOnePlantCountFragment : BaseStepFragment() {
         database = AppDatabase.getDatabase(ctx!!)
 
     }
+
     override fun onSelected() {
         super.onSelected()
         fieldInfoEntity = database?.fieldInfoDao()?.findOne()

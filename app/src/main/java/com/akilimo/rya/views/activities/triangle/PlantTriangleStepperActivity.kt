@@ -1,4 +1,4 @@
-package com.akilimo.rya.views.activities
+package com.akilimo.rya.views.activities.triangle
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,12 +8,14 @@ import androidx.fragment.app.Fragment
 import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.adapter.MyStepperAdapter
 import com.akilimo.rya.databinding.MyStepperLayoutBinding
+import com.akilimo.rya.views.activities.AssessmentActivity
 import com.akilimo.rya.views.fragments.ui.TriangleThreeFragment
 import com.akilimo.rya.views.fragments.ui.TriangleTwoFragment
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.stepstone.stepper.StepperLayout
 import com.stepstone.stepper.VerificationError
 
+@Deprecated("To be removed")
 class PlantTriangleStepperActivity : AppCompatActivity() {
     private lateinit var binding: MyStepperLayoutBinding
     private lateinit var stepperAdapter: MyStepperAdapter
@@ -65,23 +67,6 @@ class PlantTriangleStepperActivity : AppCompatActivity() {
             triangleThreePlantCount = fieldInfoEntity.triangle3PlantCount
         }
 
-        if (yieldClass != null) {
-            plantCount = yieldClass.plantCount
-            fragmentArray.add(
-                TriangleTwoFragment.newInstance(
-//                    triangleCount = plantCount / 3,
-                    triangleCount = triangleTwoPlantCount,
-                    triangleName = "two"
-                )
-            )
-            fragmentArray.add(
-                TriangleThreeFragment.newInstance(
-//                    triangleCount = plantCount / 3,
-                    plantCount = triangleThreePlantCount,
-                    triangleName = "three"
-                )
-            )
-        }
         stepperAdapter = MyStepperAdapter(supportFragmentManager, applicationContext, fragmentArray)
         mStepperLayout.adapter = stepperAdapter
     }

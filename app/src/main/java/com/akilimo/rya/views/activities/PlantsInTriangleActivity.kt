@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.databinding.ActivityPlantsInTriangleBinding
 import com.akilimo.rya.entities.FieldInfoEntity
-import com.akilimo.rya.utils.PrefillCurrency
 import com.akilimo.rya.utils.StringToNumberFactory
+import com.akilimo.rya.views.activities.triangle.PlantTriangleStepperActivity
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.google.android.material.textfield.TextInputLayout
 

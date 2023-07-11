@@ -17,7 +17,7 @@ interface PlantTriangleDao {
 
     @Query("SELECT * FROM plant_triangle WHERE triangle_name=:triangleName AND plant_name=:plantName LIMIT 1")
     fun findOneByTriangleNameAndPlantName(
-        triangleName: String?, plantName: String
+        triangleName: String, plantName: String
     ): PlantTriangleEntity?
 
 

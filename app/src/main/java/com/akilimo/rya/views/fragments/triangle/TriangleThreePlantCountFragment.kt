@@ -1,0 +1,54 @@
+package com.akilimo.rya.views.fragments.triangle
+
+import android.content.Context
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.akilimo.rya.AppDatabase
+import com.akilimo.rya.databinding.FragmentPlantCountBinding
+import com.akilimo.rya.entities.FieldInfoEntity
+import com.akilimo.rya.utils.StringToNumberFactory
+import com.akilimo.rya.views.fragments.BaseStepFragment
+import com.stepstone.stepper.VerificationError
+
+/**
+ * A simple [Fragment] subclass.
+ * Use the [TriangleThreePlantCountFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+class TriangleThreePlantCountFragment : TriangleOnePlantCountFragment() {
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = TriangleThreePlantCountFragment()
+    }
+
+    private val binding get() = _binding!!
+
+    override fun onSelected() {
+        super.onSelected()
+        fieldInfoEntity = database?.fieldInfoDao()?.findOne()
+
+        if (fieldInfoEntity != null) {
+            plantCount = fieldInfoEntity?.triangle3PlantCount!!
+        }
+
+        binding.txtTrianglePlantCount.editText?.setText(plantCount.toString())
+    }
+
+    override fun verifyStep(): VerificationError? {
+
+        plantCount =
+            StringToNumberFactory.stringToInt(binding.txtTrianglePlantCount.editText?.text.toString())
+        if (plantCount > 0) {
+            fieldInfoEntity?.triangle3PlantCount = plantCount
+            database?.fieldInfoDao()?.update(fieldInfoEntity = fieldInfoEntity!!)
+            return null
+        }
+
+        return VerificationError("Provide a valid plant count of at least 1")
+    }
+
+}

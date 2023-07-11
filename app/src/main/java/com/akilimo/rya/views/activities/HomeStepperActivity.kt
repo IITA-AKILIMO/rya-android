@@ -11,6 +11,7 @@ import com.akilimo.rya.databinding.ActivityHomeStepperBinding
 import com.akilimo.rya.rest.FuelrodApiInterface
 import com.akilimo.rya.rest.response.RemoteConfig
 import com.akilimo.rya.utils.MySharedPreferences
+import com.akilimo.rya.views.activities.triangle.TriangleOneActivity
 import com.akilimo.rya.views.fragments.*
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.stepstone.stepper.StepperLayout

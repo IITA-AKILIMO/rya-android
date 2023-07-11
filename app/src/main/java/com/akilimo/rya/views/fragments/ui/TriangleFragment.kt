@@ -20,13 +20,13 @@ import java.lang.Exception
  * Use the [TriangleFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class TriangleFragment : BasePlantTriangle() {
+open class TriangleFragment : BasePlantTriangle() {
 
-    private var _binding: FragmentTriangleBinding? = null
-    private var ctx: Context? = null
+    protected var _binding: FragmentTriangleBinding? = null
+    protected var ctx: Context? = null
 
 
-    private val inputLayouts: MutableList<TextInputLayout> = arrayListOf()
+    protected val inputLayouts: MutableList<TextInputLayout> = arrayListOf()
 
     private val binding get() = _binding!!
 
@@ -36,7 +36,7 @@ class TriangleFragment : BasePlantTriangle() {
          * @return A new instance of fragment TriangleFragment.
          */
         @JvmStatic
-        fun newInstance(triangleName: String = "one") =
+        fun newInstance(triangleName: String = "One") =
             TriangleFragment().apply {
                 this.triangleName = triangleName
             }
@@ -101,7 +101,8 @@ class TriangleFragment : BasePlantTriangle() {
         var plantNumber = 1
         for (inputLayout in inputLayouts) {
             val plantTriangle = database?.plantTriangleDao()
-                ?.findOneByTriangleNameAndPlantName(triangleName, "plant$plantNumber")
+                ?.findOneByTriangleNameAndPlantName(triangleName!!, "plant$plantNumber")
+
             if (plantTriangle != null) {
                 inputLayout.editText?.setText(plantTriangle.rootWeight.toString())
                 plantNumber++
