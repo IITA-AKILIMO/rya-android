@@ -8,11 +8,11 @@ object StringToNumberFactory {
      */
     @JvmStatic
     fun stringToInt(numberString: String): Int {
-        try {
-            return numberString.toInt()
+        return try {
+            numberString.toInt()
         } catch (_: Exception) {
+            0
         }
-        return 0
     }
 
     /**
@@ -21,10 +21,10 @@ object StringToNumberFactory {
      */
     @JvmStatic
     fun stringToDouble(numberString: String): Double {
-        try {
-            return numberString.toDouble()
+        return try {
+            numberString.toDouble()
         } catch (_: Exception) {
+            0.0
         }
-        return 0.0
     }
 }
