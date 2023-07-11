@@ -1,7 +1,7 @@
 approval-bot: Automatic pull request review
 on: [ pull_request ]
 jobs:
-  automate-pullrequest-review:
+  pr-review:
     runs-on: ubuntu-latest
     steps:
       - name: Approve pull request
