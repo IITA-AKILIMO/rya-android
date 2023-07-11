@@ -9,12 +9,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Create pull request
-        uses: devops-infra/action-pull-request@v0.5.5
+        uses: thomaseizinger/create-pull-request@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          target_branch: main
-          reviewer: masgeek
-          assignee: masgeek
-          get_diff: true
-          label: release
-          title: Next release
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          head: ${{ github.ref }}
+          base: main
+          title: "An automatically created PR!"
