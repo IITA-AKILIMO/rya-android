@@ -127,7 +127,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v2
-        name: Retreive artifacts
+        name: Retrieve artifacts
         with:
           name: app-release
           path: release
