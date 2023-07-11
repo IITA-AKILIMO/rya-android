@@ -15,7 +15,7 @@ jobs:
         uses: devops-infra/action-pull-request@v0.5.5
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          title: ${{ github.event.commits[0].message }}
+          title: 'Next release'
           reviewer: ${{ github.actor }}
           assignee: ${{ github.actor }}
           target_branch: main
