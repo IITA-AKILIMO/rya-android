@@ -61,7 +61,12 @@ class TriangleThreeFragment : TriangleFragment() {
 
                 val fieldInfoEntity = database?.fieldInfoDao()?.findOne()
                 if (fieldInfoEntity != null) {
-                    plantCount = fieldInfoEntity.triangle3PlantCount
+                    uprootedPlants = fieldInfoEntity.triangle3PlantCount
+                }
+
+                val yieldPrecision = database?.yieldPrecisionDao()?.findOne()
+                if (yieldPrecision != null) {
+                    plantCount = yieldPrecision.plantCount / 3
                 }
 
                 for (i in 0 until plantCount) {
@@ -70,7 +75,7 @@ class TriangleThreeFragment : TriangleFragment() {
                     inputLayouts.add(textInputLayout)
                 }
                 lblTriangleNumber.text = resources.getString(R.string.lbl_triangle_three)
-                lblTrianglePlantCount.text = "$plantCount plants"
+                lblTrianglePlantCount.text = "$uprootedPlants plants"
             }
 
             loadTriangleData()

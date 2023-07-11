@@ -35,10 +35,9 @@ class TriangleTwoFragment : TriangleFragment() {
          * @return A new instance of fragment TriangleFragment.
          */
         @JvmStatic
-        fun newInstance(triangleName: String = "Two") =
-            TriangleTwoFragment().apply {
-                this.triangleName = triangleName
-            }
+        fun newInstance(triangleName: String = "Two") = TriangleTwoFragment().apply {
+            this.triangleName = triangleName
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,8 +60,14 @@ class TriangleTwoFragment : TriangleFragment() {
 
                 val fieldInfoEntity = database?.fieldInfoDao()?.findOne()
                 if (fieldInfoEntity != null) {
-                    plantCount = fieldInfoEntity.triangle2PlantCount
+                    uprootedPlants = fieldInfoEntity.triangle2PlantCount
                 }
+
+                val yieldPrecision = database?.yieldPrecisionDao()?.findOne()
+                if (yieldPrecision != null) {
+                    plantCount = yieldPrecision.plantCount / 3
+                }
+
 
                 for (i in 0 until plantCount) {
                     val textInputLayout = addTextInputLayout(i, requireView().context)
@@ -70,7 +75,7 @@ class TriangleTwoFragment : TriangleFragment() {
                     inputLayouts.add(textInputLayout)
                 }
                 lblTriangleNumber.text = resources.getString(R.string.lbl_triangle_two)
-                lblTrianglePlantCount.text = "$plantCount plants"
+                lblTrianglePlantCount.text = "$uprootedPlants plants"
             }
 
             loadTriangleData()
@@ -78,35 +83,4 @@ class TriangleTwoFragment : TriangleFragment() {
             //TODO add sentry logging
         }
     }
-
-//    override fun verifyStep(): VerificationError? {
-//        //TODO consider modularizing this function for all Triangle fragments
-//        val plantTrianglesMeasurement: MutableList<PlantTriangleEntity> = arrayListOf()
-//        var plantNumber = 1
-//        for (inputLayout in inputLayouts) {
-//            val rootWeightString = inputLayout.editText?.editableText.toString()
-//            val rootWeight = StringToNumberFactory.stringToDouble(rootWeightString)
-//
-//            if (rootWeightValid(rootWeight)) {
-//                //save this value to the database
-//                inputLayout.error = null
-//                plantTrianglesMeasurement.add(
-//                    PlantTriangleEntity(
-//                        triangleName = triangleName!!,
-//                        plantName = "plant$plantNumber",
-//                        rootWeight = rootWeight
-//                    )
-//                )
-//                plantNumber++
-//            } else {
-//                inputLayout.error = "Provide correct plant root weight between 0.1KG and 20KG"
-//                inputLayout.requestFocus()
-//                return myVerificationError()
-//            }
-//        }
-//
-//
-//        database?.plantTriangleDao()?.insertAll(plantTrianglesMeasurement)
-//        return verificationError
-//    }
 }
