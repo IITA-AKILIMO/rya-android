@@ -11,9 +11,9 @@ import com.akilimo.rya.R
 import com.akilimo.rya.databinding.FragmentTriangleBinding
 import com.akilimo.rya.entities.PlantTriangleEntity
 import com.akilimo.rya.utils.StringToNumberFactory
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.stepstone.stepper.VerificationError
+import java.lang.Exception
 
 /**
  * A simple [Fragment] subclass.
@@ -32,19 +32,14 @@ class TriangleFragment : BasePlantTriangle() {
 
     companion object {
         /**
-         * @param triangleCount Parameter 1.
+         * @param triangleName Parameter 1.
          * @return A new instance of fragment TriangleFragment.
          */
         @JvmStatic
-        fun newInstance(triangleCount: Int, triangleName: String, plantCount: String) =
+        fun newInstance(triangleName: String = "one") =
             TriangleFragment().apply {
                 this.triangleName = triangleName
-                this.triangleCount = triangleCount
-                this.plantCount = plantCount
             }
-
-        @JvmStatic
-        fun newInstance() = TriangleFragment().apply {}
     }
 
     override fun onAttach(context: Context) {
@@ -66,24 +61,47 @@ class TriangleFragment : BasePlantTriangle() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val lyt = binding.lytTextField
-        lyt.removeAllViews() //clear all components
-        inputLayouts.clear()
-        for (i in 0 until triangleCount) {
-            val textInputLayout = addTextInputLayout(i, requireView().context)
-            lyt.addView(textInputLayout)
-            inputLayouts.add(textInputLayout)
-        }
-        binding.lblTriangleNumber.text = resources.getString(R.string.lbl_triangle_one)
-        binding.lblTrianglePlantCount.text = plantCount
+        buildDynamicWidgets()
     }
 
+    private fun buildDynamicWidgets() {
+        try {
+            with(binding) {
+                if (lytTextField.childCount > 0) {
+                    lytTextField.removeAllViews() //clear all components
+                }
+                inputLayouts.clear()
+
+                val fieldInfoEntity = database?.fieldInfoDao()?.findOne()
+                if (fieldInfoEntity != null) {
+                    plantCount = fieldInfoEntity.triangle1PlantCount
+                }
+
+                for (i in 0 until plantCount) {
+                    val textInputLayout = addTextInputLayout(i, requireView().context)
+                    lytTextField.addView(textInputLayout)
+                    inputLayouts.add(textInputLayout)
+                }
+                lblTriangleNumber.text = resources.getString(R.string.lbl_triangle_one)
+                lblTrianglePlantCount.text = "$plantCount plants"
+            }
+
+            loadTriangleData()
+        } catch (ex: Exception) {
+            //TODO add sentry logging
+        }
+    }
+
+    override fun onSelected() {
+        super.onSelected()
+        buildDynamicWidgets()
+    }
 
     override fun loadTriangleData() {
         var plantNumber = 1
         for (inputLayout in inputLayouts) {
             val plantTriangle = database?.plantTriangleDao()
-                ?.findOneByTriangleNameAndPlantName(triangleName!!, "plant$plantNumber")
+                ?.findOneByTriangleNameAndPlantName(triangleName, "plant$plantNumber")
             if (plantTriangle != null) {
                 inputLayout.editText?.setText(plantTriangle.rootWeight.toString())
                 plantNumber++
@@ -98,13 +116,16 @@ class TriangleFragment : BasePlantTriangle() {
 
 
     override fun verifyStep(): VerificationError? {
+        if (inputLayouts.isEmpty()) {
+            return myVerificationError("No plant root weights have been provided")
+        }
+
         val plantTrianglesMeasurement: MutableList<PlantTriangleEntity> = arrayListOf()
         var plantNumber = 1
         for (inputLayout in inputLayouts) {
             val rootWeightString = inputLayout.editText?.editableText.toString()
             val rootWeight = StringToNumberFactory.stringToDouble(rootWeightString)
             if (rootWeightValid(rootWeight)) {
-                //save this value to the database
                 inputLayout.error = null
                 plantTrianglesMeasurement.add(
                     PlantTriangleEntity(
@@ -121,21 +142,7 @@ class TriangleFragment : BasePlantTriangle() {
             }
         }
 
-
-
         database?.plantTriangleDao()?.insertAll(plantTrianglesMeasurement)
         return verificationError
-    }
-
-
-    override fun onError(error: VerificationError) {
-        val snackBar = Snackbar.make(
-            binding.constraintLayout, error.errorMessage, Snackbar.LENGTH_SHORT
-        )
-
-        snackBar.setAction("RETRY") {
-            snackBar.dismiss()
-        }
-        snackBar.show()
     }
 }

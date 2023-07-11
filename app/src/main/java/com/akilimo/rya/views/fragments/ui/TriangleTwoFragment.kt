@@ -40,11 +40,9 @@ class TriangleTwoFragment : BasePlantTriangle() {
          * @return A new instance of fragment TriangleFragment.
          */
         @JvmStatic
-        fun newInstance(triangleCount: Int, triangleName: String, plantCount: String) =
+        fun newInstance(triangleCount: Int, triangleName: String) =
             TriangleTwoFragment().apply {
                 this.triangleName = triangleName
-                this.triangleCount = triangleCount
-                this.plantCount = plantCount
             }
 
         @JvmStatic
@@ -73,13 +71,13 @@ class TriangleTwoFragment : BasePlantTriangle() {
         val lyt = binding.lytTextField
         lyt.removeAllViews() //clear all components
         inputLayouts.clear()
-        for (i in 0 until triangleCount) {
+        for (i in 0 until plantCount) {
             val textInputLayout = addTextInputLayout(i, requireView().context)
             lyt.addView(textInputLayout)
             inputLayouts.add(textInputLayout)
         }
         binding.lblTriangleNumber.text = resources.getString(R.string.lbl_triangle_two)
-        binding.lblTrianglePlantCount.text = plantCount
+        binding.lblTrianglePlantCount.text = "$plantCount plants"
 
     }
 

@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.adapter.MyStepperAdapter
 import com.akilimo.rya.databinding.MyStepperLayoutBinding
-import com.akilimo.rya.views.fragments.ui.TriangleFragment
 import com.akilimo.rya.views.fragments.ui.TriangleThreeFragment
 import com.akilimo.rya.views.fragments.ui.TriangleTwoFragment
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
@@ -53,20 +52,6 @@ class PlantTriangleStepperActivity : AppCompatActivity() {
                 if (fragmentArray.size <= 0) {
                     return
                 }
-//                when (val fragment = fragmentArray[newStepPosition]) {
-//                    is TriangleFragment -> {
-//                        fragment.triangleCount = plantCount / 3
-//                        fragment.triangleName = "one"
-//                    }
-//                    is TriangleTwoFragment -> {
-//                        fragment.triangleCount = plantCount / 3
-//                        fragment.triangleName = "two"
-//                    }
-//                    is TriangleThreeFragment -> {
-//                        fragment.triangleCount = plantCount / 3
-//                        fragment.triangleName = "three"
-//                    }
-//                }
             }
 
             override fun onReturn() {
@@ -83,27 +68,17 @@ class PlantTriangleStepperActivity : AppCompatActivity() {
         if (yieldClass != null) {
             plantCount = yieldClass.plantCount
             fragmentArray.add(
-                TriangleFragment.newInstance(
-//                    triangleCount = plantCount / 3,
-                    triangleCount = triangleOnePlantCount,
-                    triangleName = "one",
-                    plantCount = "$triangleOnePlantCount plants"
-                )
-            )
-            fragmentArray.add(
                 TriangleTwoFragment.newInstance(
 //                    triangleCount = plantCount / 3,
                     triangleCount = triangleTwoPlantCount,
-                    triangleName = "two",
-                    plantCount = "$triangleTwoPlantCount plants"
+                    triangleName = "two"
                 )
             )
             fragmentArray.add(
                 TriangleThreeFragment.newInstance(
 //                    triangleCount = plantCount / 3,
-                    triangleCount = triangleThreePlantCount,
-                    triangleName = "three",
-                    plantCount = "$triangleThreePlantCount plants"
+                    plantCount = triangleThreePlantCount,
+                    triangleName = "three"
                 )
             )
         }
