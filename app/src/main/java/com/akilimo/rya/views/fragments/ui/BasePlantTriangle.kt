@@ -10,12 +10,12 @@ import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.R
 import com.akilimo.rya.views.fragments.BaseStepFragment
 import com.google.android.material.textfield.TextInputLayout
+import com.stepstone.stepper.VerificationError
 
 abstract class BasePlantTriangle : BaseStepFragment() {
 
-    protected var triangleCount: Int = -1
+    protected var plantCount: Int = -1
     protected var triangleName: String? = null
-    protected var plantCount: String? = null
 
     protected var database: AppDatabase? = null
 
@@ -26,7 +26,8 @@ abstract class BasePlantTriangle : BaseStepFragment() {
             /* width = */ ViewGroup.LayoutParams.MATCH_PARENT,
             /* height = */ ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        layoutParams.setMargins(0, 0, 0, resources.getDimension(R.dimen.dimen_124).toInt())
+//        layoutParams.setMargins(0, 0, 0, resources.getDimension(R.dimen.dimen_124).toInt())
+        layoutParams.setMargins(0, 0, 0, 0)
 
         val textInputLayout = TextInputLayout(
             context, null, R.attr.customTextInputStyle
@@ -69,11 +70,21 @@ abstract class BasePlantTriangle : BaseStepFragment() {
         loadTriangleData()
     }
 
+    protected fun rootWeightValid(rootWeight: Double): Boolean {
+        if (rootWeight in 0.1..20.0) {
+            return true
+        }
+        return false
+    }
+
+    protected fun myVerificationError(message: String = "Provide correct plant root weight between 0.1KG and 20KG"): VerificationError {
+        return VerificationError(message)
+    }
+
     abstract fun loadTriangleData()
 
     @Deprecated("To be removed completely", ReplaceWith("false"))
     fun validateInput(): Boolean {
         return false
     }
-
 }
