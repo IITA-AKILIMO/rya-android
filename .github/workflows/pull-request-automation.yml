@@ -1,4 +1,4 @@
-approval-bot: Automatic pull request review
+name: Automatic PR review
 on: [ pull_request ]
 jobs:
   pr-review:
