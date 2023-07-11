@@ -20,6 +20,9 @@
         tools:replace="android:allowBackup"
         tools:targetApi="s">
         <activity
+            android:name=".views.activities.TriangleOneActivity"
+            android:exported="false" />
+        <activity
             android:name=".views.activities.UserProfileActivity"
             android:exported="false"
             android:screenOrientation="portrait">

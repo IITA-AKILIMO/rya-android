@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.akilimo.rya.adapter.HomeStepperAdapter
 import com.akilimo.rya.databinding.ActivityHomeStepperBinding
-import com.akilimo.rya.rest.ApiInterface
 import com.akilimo.rya.rest.FuelrodApiInterface
 import com.akilimo.rya.rest.response.RemoteConfig
 import com.akilimo.rya.utils.MySharedPreferences
@@ -46,7 +45,7 @@ class HomeStepperActivity : AppCompatActivity() {
         mStepperLayout.setListener(object : StepperLayout.StepperListener {
             override fun onCompleted(completeButton: View?) {
                 val intent = Intent(
-                    this@HomeStepperActivity, PlantsInTriangleActivity::class.java
+                    this@HomeStepperActivity, TriangleOneActivity::class.java
                 )
                 startActivity(intent)
                 Animatoo.animateSwipeLeft(this@HomeStepperActivity)
@@ -71,7 +70,7 @@ class HomeStepperActivity : AppCompatActivity() {
 
         loadConfig()
 
-        fragmentArray.add(YieldClassFragmentFragment.newInstance())
+        fragmentArray.add(YieldClassFragment.newInstance())
         fragmentArray.add(FieldInfoFragment.newInstance())
         fragmentArray.add(CassavaPriceFragment.newInstance())
         fragmentArray.add(PlantingPeriodFragment.newInstance())

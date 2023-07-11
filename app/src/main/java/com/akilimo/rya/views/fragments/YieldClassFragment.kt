@@ -21,10 +21,10 @@ import com.stepstone.stepper.VerificationError
 
 /**
  * A simple [Fragment] subclass.
- * Use the [YieldClassFragmentFragment.newInstance] factory method to
+ * Use the [YieldClassFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class YieldClassFragmentFragment : BaseStepFragment() {
+class YieldClassFragment : BaseStepFragment() {
 
     private var ctx: Context? = null
     private var _binding: FragmentYieldClassBinding? = null
@@ -47,7 +47,7 @@ class YieldClassFragmentFragment : BaseStepFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() = YieldClassFragmentFragment()
+        fun newInstance() = YieldClassFragment()
     }
 
 

@@ -13,8 +13,10 @@ import com.akilimo.rya.utils.StringToNumberFactory
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.google.android.material.textfield.TextInputLayout
 
+@Deprecated("Remove before final release")
 class PlantsInTriangleActivity : AppCompatActivity() {
 
+    //TODO remove this activity
     private lateinit var binding: ActivityPlantsInTriangleBinding
 
     private var triangle1PlantCount: Int = -1
