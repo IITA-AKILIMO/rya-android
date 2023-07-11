@@ -1,7 +1,7 @@
-name: Run the Action on each commit
+name: Create next release
 on:
   push:
-    branches-ignore: main
+    branches: develop
 jobs:
   action-pull-request:
     runs-on: ubuntu-latest
