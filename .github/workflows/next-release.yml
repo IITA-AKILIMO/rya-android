@@ -1,0 +1,20 @@
+name: Run the Action on each commit
+on:
+  push:
+    branches-ignore: main
+jobs:
+  action-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Create pull request
+        uses: devops-infra/action-pull-request@v0.5.5
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          target_branch: main
+          reviewer: masgeek
+          assignee: masgeek
+          get_diff: true
+          label: release
+          title: Next release
