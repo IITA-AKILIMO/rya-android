@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Approve pull request
-        if: github.actor == 'masgeek'
+#        if: github.actor == 'masgeek'
         uses: andrewmusgrave/automatic-pull-request-review@0.0.5
         with:
           repo-token: '${{ secrets.GITHUB_TOKEN }}'
