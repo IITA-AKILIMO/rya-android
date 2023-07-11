@@ -88,11 +88,11 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
         val plantCount = yieldPrecision?.plantCount
 
         val triangleOneRootMass =
-            database?.plantTriangleDao()?.findPlantRootMass("one", limit = plantCount!!)
+            database?.plantTriangleDao()?.findPlantRootMass("One", limit = plantCount!!)
         val triangleTwoRootMass =
-            database?.plantTriangleDao()?.findPlantRootMass("two", limit = plantCount!!)
+            database?.plantTriangleDao()?.findPlantRootMass("Two", limit = plantCount!!)
         val triangleThreeRootMass =
-            database?.plantTriangleDao()?.findPlantRootMass("three", limit = plantCount!!)
+            database?.plantTriangleDao()?.findPlantRootMass("Three", limit = plantCount!!)
 
 
         val plantRootMass: MutableList<Double> = ArrayList()
