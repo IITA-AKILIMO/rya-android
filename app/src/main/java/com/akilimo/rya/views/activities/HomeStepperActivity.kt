@@ -92,11 +92,9 @@ class HomeStepperActivity : AppCompatActivity() {
                 call: Call<List<RemoteConfig>>, response: Response<List<RemoteConfig>>
             ) {
                 val configList = response.body()
-                if (configList != null) {
-                    if (configList.isNotEmpty()) {
-                        val remoteConfig = configList[0]
-                        prefs.saveApiEndpoint(remoteConfig.configValue)
-                    }
+                if (!configList.isNullOrEmpty()) {
+                    val remoteConfig = configList[0]
+                    prefs.saveApiEndpoint(remoteConfig.configValue)
                 }
             }
 
