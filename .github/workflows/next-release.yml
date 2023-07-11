@@ -7,11 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Create pull request
-        uses: thomaseizinger/create-pull-request@master
+        uses: actions/checkout@v3
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          head: ${{ github.ref }}
-          base: main
-          title: "An automatically created PR!"
+          ref: main
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: update authors
+          title: Update AUTHORS
+          body: Credit new contributors by updating AUTHORS
+          branch: main
