@@ -34,13 +34,13 @@ class FieldComputations {
         return bigDecimal.setScale(decimalPlaces, RoundingMode.HALF_EVEN).toDouble()
     }
 
-    fun averageRootWeight(rootWeights: DoubleArray): Double {
-        var weightSum = 0.0
-        for (rootWeight in rootWeights) {
-            weightSum += rootWeight
+    fun computeAverage(arrayDouble: DoubleArray): Double {
+        var sum = 0.0
+        for (doubleValue in arrayDouble) {
+            sum += doubleValue
         }
 
-        return weightSum / rootWeights.size
+        return sum / arrayDouble.size
     }
 
     fun rootYieldPerTonne(plantCount: Int, triangleArea: Double, meanRootWeightKg: Double): Double {
