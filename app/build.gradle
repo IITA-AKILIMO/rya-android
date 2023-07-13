@@ -151,6 +151,8 @@ dependencies {
 
     //ROOM db
     implementation 'androidx.room:room-runtime:2.5.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.junit.jupiter:junit-jupiter'
 //    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
 //    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     kapt 'androidx.room:room-compiler:2.5.2'
@@ -197,6 +199,7 @@ dependencies {
 //    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.0'
 
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.3'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
