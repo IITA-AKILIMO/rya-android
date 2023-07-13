@@ -11,8 +11,11 @@ import com.akilimo.rya.utils.MySharedPreferences
 import com.akilimo.rya.views.fragments.WelcomeFragment
 import com.akilimo.rya.views.fragments.onboarding.*
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
+import com.rollbar.android.Rollbar
 import com.stepstone.stepper.StepperLayout
 import com.stepstone.stepper.VerificationError
+import io.sentry.Sentry
+import io.sentry.SentryLevel
 
 private val fragmentArray: MutableList<Fragment> = arrayListOf()
 
@@ -26,6 +29,7 @@ class StartPageStepperActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val prefs = MySharedPreferences(this)
         binding = ActivityStartPageStepperBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -50,6 +54,8 @@ class StartPageStepperActivity : AppCompatActivity() {
              * @param verificationError verification error
              */
             override fun onError(verificationError: VerificationError?) {
+//                Rollbar.instance().error(verificationError?.errorMessage)
+                Sentry.captureMessage(verificationError?.errorMessage!!, SentryLevel.ERROR)
             }
 
             /**

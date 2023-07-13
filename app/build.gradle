@@ -7,6 +7,7 @@ plugins {
     id 'com.vanniktech.android.junit.jacoco'
     id 'org.sonarqube'
     id 'kotlin-kapt'
+    id "io.sentry.android.gradle" version "3.11.1"
 }
 
 sonarqube {
@@ -195,6 +196,13 @@ dependencies {
 //    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
 //    implementation 'com.fasterxml.jackson.core:jackson-core:2.13.0'
 //    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.0'
+
+    //Rollbar monitoring
+    implementation 'com.rollbar:rollbar-java:1.10.0'
+    implementation 'com.rollbar:rollbar-android:1.10.0@aar'
+
+    //sentry monitoring
+    implementation 'io.sentry:sentry-android:6.25.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
