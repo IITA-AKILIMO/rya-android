@@ -6,6 +6,8 @@ import org.junit.Test
 internal class FieldComputationsTest {
     private val fc = FieldComputations()
 
+    val hectareToAcre = 2.47105
+
     @Test
     fun calculate_triangle_area() {
         val triArea = fc.triangleArea(sideLength = 5.0)
@@ -111,7 +113,13 @@ internal class FieldComputationsTest {
         val roundedYield = fc.roundToNDecimalPlaces(averageToneYield, 1)
         assertEquals(26.7, roundedYield, 0.0)
 
-//        val rootYieldPerHectare = fc.rootYieldPerHectare()
+        val acreYield = averageToneYield / hectareToAcre
+        val roundedAcreYield = fc.roundToNDecimalPlaces(acreYield, 1)
+        assertEquals(10.8, roundedAcreYield, 0.0)
 
+
+        val rootYieldStandardDev = fc.computeSampleStandardDeviation(yieldValues = rootTonneYields)
+        val roundedSd = fc.roundToNDecimalPlaces(rootYieldStandardDev, 2)
+        assertEquals(4.44, roundedSd, 0.0)
     }
 }

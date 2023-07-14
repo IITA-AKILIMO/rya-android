@@ -2,6 +2,7 @@ package com.akilimo.rya.utils
 
 import java.math.BigDecimal
 import java.math.RoundingMode
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 class FieldComputations {
@@ -46,5 +47,14 @@ class FieldComputations {
     fun rootYieldPerTonne(plantCount: Int, triangleArea: Double, meanRootWeightKg: Double): Double {
         val const = 10 //gotten from conversion of meters and KG
         return (meanRootWeightKg * plantCount) / triangleArea * const
+    }
+
+    fun computeSampleStandardDeviation(yieldValues: DoubleArray): Double {
+        val average = computeAverage(yieldValues)
+        val sumOfSquareDiffs = yieldValues.sumOf { (it - average).pow(2) }
+
+        val variance = sumOfSquareDiffs / (yieldValues.size - 1)
+
+        return sqrt(variance)
     }
 }
