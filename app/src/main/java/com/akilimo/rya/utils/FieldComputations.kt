@@ -57,4 +57,22 @@ class FieldComputations {
 
         return sqrt(variance)
     }
+
+    fun computeUpperConfidenceBound(averageTonneYield: Double, sDev: Double): Double {
+        val upperConfidence = averageTonneYield + (2 * sDev)
+        if (upperConfidence <= 0.0) {
+            return 0.0
+        }
+        return upperConfidence
+    }
+
+    fun computeLowerConfidenceBound(averageTonneYield: Double, sDev: Double): Double {
+        val upperConfidence = averageTonneYield - (2 * sDev)
+        if (upperConfidence <= 0.0) {
+            return 0.0
+        }
+        return upperConfidence
+    }
+
+
 }

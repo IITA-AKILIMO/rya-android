@@ -109,17 +109,35 @@ internal class FieldComputationsTest {
             rootYieldPerTonneTri3
         )
 
-        val averageToneYield = fc.computeAverage(rootTonneYields)
-        val roundedYield = fc.roundToNDecimalPlaces(averageToneYield, 1)
+        //average tonne yield RY
+        val averageTonneYield = fc.computeAverage(rootTonneYields)
+        val roundedYield = fc.roundToNDecimalPlaces(averageTonneYield, 1)
         assertEquals(26.7, roundedYield, 0.0)
 
-        val acreYield = averageToneYield / hectareToAcre
-        val roundedAcreYield = fc.roundToNDecimalPlaces(acreYield, 1)
-        assertEquals(10.8, roundedAcreYield, 0.0)
-
-
+        //root yield standard deviation RySd
         val rootYieldStandardDev = fc.computeSampleStandardDeviation(yieldValues = rootTonneYields)
         val roundedSd = fc.roundToNDecimalPlaces(rootYieldStandardDev, 2)
         assertEquals(4.44, roundedSd, 0.0)
+
+        val lowerConfidenceBound = fc.computeLowerConfidenceBound(
+            averageTonneYield,
+            rootYieldStandardDev
+        )
+        val roundedLowerConfidence = fc.roundToNDecimalPlaces(lowerConfidenceBound, 1)
+        assertEquals(17.8, roundedLowerConfidence, 0.0)
+
+        val negativeLower = fc.computeLowerConfidenceBound(
+            1.5,
+            4.8
+        )
+        assertEquals(0.0, negativeLower, 0.0)
+
+        val upperConfidenceBound = fc.computeUpperConfidenceBound(
+            averageTonneYield,
+            rootYieldStandardDev
+        )
+        val roundedUpperConfidence = fc.roundToNDecimalPlaces(upperConfidenceBound, 1)
+        assertEquals(35.5, roundedUpperConfidence, 0.0)
+
     }
 }
