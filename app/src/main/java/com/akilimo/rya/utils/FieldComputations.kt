@@ -74,5 +74,15 @@ class FieldComputations {
         return upperConfidence
     }
 
+    fun computeTotalRootProduction(fieldSizeHa: Double, rootYield: Double): Double {
+        return fieldSizeHa * rootYield
+    }
+
+    fun computeRootProductionConfidenceBound(
+        fieldSizeHa: Double,
+        rootYieldLowerCB: Double
+    ): Double {
+        return fieldSizeHa * rootYieldLowerCB
+    }
 
 }

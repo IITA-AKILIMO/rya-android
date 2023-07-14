@@ -7,6 +7,7 @@ internal class FieldComputationsTest {
     private val fc = FieldComputations()
 
     val hectareToAcre = 2.47105
+    val landSizeHa = 10.0
 
     @Test
     fun calculate_triangle_area() {
@@ -119,11 +120,11 @@ internal class FieldComputationsTest {
         val roundedSd = fc.roundToNDecimalPlaces(rootYieldStandardDev, 2)
         assertEquals(4.44, roundedSd, 0.0)
 
-        val lowerConfidenceBound = fc.computeLowerConfidenceBound(
+        val rootYieldLowerConfidenceBound = fc.computeLowerConfidenceBound(
             averageTonneYield,
             rootYieldStandardDev
         )
-        val roundedLowerConfidence = fc.roundToNDecimalPlaces(lowerConfidenceBound, 1)
+        val roundedLowerConfidence = fc.roundToNDecimalPlaces(rootYieldLowerConfidenceBound, 1)
         assertEquals(17.8, roundedLowerConfidence, 0.0)
 
         val negativeLower = fc.computeLowerConfidenceBound(
@@ -132,12 +133,34 @@ internal class FieldComputationsTest {
         )
         assertEquals(0.0, negativeLower, 0.0)
 
-        val upperConfidenceBound = fc.computeUpperConfidenceBound(
+        val rootYieldUpperConfidenceBound = fc.computeUpperConfidenceBound(
             averageTonneYield,
             rootYieldStandardDev
         )
-        val roundedUpperConfidence = fc.roundToNDecimalPlaces(upperConfidenceBound, 1)
+        val roundedUpperConfidence = fc.roundToNDecimalPlaces(rootYieldUpperConfidenceBound, 1)
         assertEquals(35.5, roundedUpperConfidence, 0.0)
+
+        val totalRootProduction = fc.computeTotalRootProduction(
+            fieldSizeHa = landSizeHa,
+            rootYield = averageTonneYield
+        )
+
+        val roundedTotalRootProduction = fc.roundToNDecimalPlaces(totalRootProduction, 0)
+        assertEquals(267.0, roundedTotalRootProduction, 0.0)
+
+        val rootProductionUpperCB = fc.computeRootProductionConfidenceBound(
+            fieldSizeHa = landSizeHa,
+            rootYieldLowerCB = rootYieldLowerConfidenceBound
+        )
+        val roundedRootProductionUpperCB = fc.roundToNDecimalPlaces(rootProductionUpperCB, 0)
+        assertEquals(178.0, roundedRootProductionUpperCB, 0.0)
+
+        val rootProductionLowerCB = fc.computeRootProductionConfidenceBound(
+            fieldSizeHa = landSizeHa,
+            rootYieldLowerCB = rootYieldUpperConfidenceBound
+        )
+        val roundedRootProductionLowerCB = fc.roundToNDecimalPlaces(rootProductionLowerCB, 0)
+        assertEquals(355.0, roundedRootProductionLowerCB, 0.0)
 
     }
 }
