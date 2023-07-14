@@ -3,6 +3,7 @@ package com.akilimo.rya.utils
 import java.math.BigDecimal
 import java.math.RoundingMode
 import kotlin.math.pow
+import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
 class FieldComputations {
@@ -85,4 +86,25 @@ class FieldComputations {
         return fieldSizeHa * rootYieldLowerCB
     }
 
+    fun computeTotalCropValue(totalRootProd: Double, rootUnitPrice: Double): Double {
+        return totalRootProd * rootUnitPrice
+    }
+
+
+    fun roundToNearestSpecifiedValue(
+        number: Double,
+        roundingDigit: Int = 10000
+    ): Double {
+        val integerPart = number.toInt()
+
+        // Get the ten thousandths digit of the number.
+        val tenThousandthsDigit = roundToNDecimalPlaces(number % roundingDigit, 0)
+
+        // If the ten thousandths digit is less than 5,000, round down.
+        // Otherwise, round up to the next ten thousand.
+        if (tenThousandthsDigit < 5000) {
+            return integerPart.toDouble()
+        }
+        return (integerPart + roundingDigit).toDouble()
+    }
 }

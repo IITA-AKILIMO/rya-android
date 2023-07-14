@@ -6,8 +6,9 @@ import org.junit.Test
 internal class FieldComputationsTest {
     private val fc = FieldComputations()
 
-    val hectareToAcre = 2.47105
-    val landSizeHa = 10.0
+    private val hectareToAcre = 2.47105
+    private val landSizeHa = 10.0
+    private val rootUnitPrice = 30000.0
 
     @Test
     fun calculate_triangle_area() {
@@ -161,6 +162,14 @@ internal class FieldComputationsTest {
         )
         val roundedRootProductionLowerCB = fc.roundToNDecimalPlaces(rootProductionLowerCB, 0)
         assertEquals(355.0, roundedRootProductionLowerCB, 0.0)
+
+
+        val totalCropValue = fc.computeTotalCropValue(
+            totalRootProd = totalRootProduction,
+            rootUnitPrice = rootUnitPrice
+        )
+        val roundedTotalCropValue = fc.roundToNearestSpecifiedValue(totalCropValue)
+        assertEquals(8010000.0, roundedTotalCropValue, 0.0)
 
     }
 }
