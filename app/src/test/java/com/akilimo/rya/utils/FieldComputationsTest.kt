@@ -168,7 +168,9 @@ internal class FieldComputationsTest {
             totalRootProd = totalRootProduction,
             rootUnitPrice = rootUnitPrice
         )
-        val roundedTotalCropValue = fc.roundToNearestSpecifiedValue(totalCropValue)
+        val roundingFactor = fc.roundingFactor(totalCropValue)
+        assertEquals(10000, roundingFactor)
+        val roundedTotalCropValue = fc.roundToNearestSpecifiedValue(totalCropValue,roundingFactor)
         assertEquals(8010000.0, roundedTotalCropValue, 0.0)
 
     }
