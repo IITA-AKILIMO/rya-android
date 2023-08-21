@@ -3,9 +3,7 @@ package com.akilimo.rya.utils
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
-import kotlin.math.ceil
 import kotlin.math.pow
-import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
 class FieldComputations {
@@ -79,15 +77,15 @@ class FieldComputations {
         return upperConfidence
     }
 
-    fun computeTotalRootProduction(fieldSizeHa: Double, rootYield: Double): Double {
-        return fieldSizeHa * rootYield
+    fun computeTotalRootProduction(fieldSize: Double, rootYield: Double): Double {
+        return fieldSize * rootYield
     }
 
     fun computeRootProductionConfidenceBound(
-        fieldSizeHa: Double,
+        fieldSize: Double,
         rootYieldLowerCB: Double
     ): Double {
-        return fieldSizeHa * rootYieldLowerCB
+        return fieldSize * rootYieldLowerCB
     }
 
     fun computeTotalCropValue(totalRootProd: Double, rootUnitPrice: Double): Double {

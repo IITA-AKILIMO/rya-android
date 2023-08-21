@@ -76,7 +76,7 @@ internal class FieldComputationsTest {
     }
 
     @Test
-    fun compute_root_yield_per_hectare_and_acre() {
+    fun compute_root_yield_per_hectare() {
         val triArea = fc.triangleArea(sideLength = 5.0)
         //First triangle
         val rootWeightTr1 = doubleArrayOf(2.5, 1.9, 3.0)
@@ -139,7 +139,7 @@ internal class FieldComputationsTest {
         assertEquals(35.5, roundedUpperConfidence, 0.0)
 
         val totalRootProduction = fc.computeTotalRootProduction(
-            fieldSizeHa = landSizeHa,
+            fieldSize = landSizeHa,
             rootYield = averageTonneYield
         )
 
@@ -147,14 +147,14 @@ internal class FieldComputationsTest {
         assertEquals(267.0, roundedTotalRootProduction, 0.0)
 
         val rootProductionLowerCB = fc.computeRootProductionConfidenceBound(
-            fieldSizeHa = landSizeHa,
+            fieldSize = landSizeHa,
             rootYieldLowerCB = rootYieldLowerConfidenceBound
         )
         val roundedRootProductionLowerCB = fc.roundToNDecimalPlaces(rootProductionLowerCB, 0)
         assertEquals(178.0, roundedRootProductionLowerCB, 0.0)
 
         val rootProductionUpperCB = fc.computeRootProductionConfidenceBound(
-            fieldSizeHa = landSizeHa,
+            fieldSize = landSizeHa,
             rootYieldLowerCB = rootYieldUpperConfidenceBound
         )
         val roundedRootProductionUpperCB = fc.roundToNDecimalPlaces(rootProductionUpperCB, 0)
