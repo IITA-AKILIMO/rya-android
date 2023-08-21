@@ -2,11 +2,15 @@ package com.akilimo.rya.utils
 
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.text.DecimalFormat
 import kotlin.math.ceil
 import kotlin.math.pow
+import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
 class FieldComputations {
+
+    var df: DecimalFormat = DecimalFormat("#.00")
 
     /**
      * Calculates the area of a triangle with equilateral sides.
@@ -88,40 +92,5 @@ class FieldComputations {
 
     fun computeTotalCropValue(totalRootProd: Double, rootUnitPrice: Double): Double {
         return totalRootProd * rootUnitPrice
-    }
-
-
-    fun roundToNearestSpecifiedValue(
-        number: Double,
-        roundingDigit: Int
-    ): Double {
-        val integerPart = number.toInt()
-
-        // Get the ten thousandths digit of the number.
-        val remainder = roundToNDecimalPlaces(number % roundingDigit, 0)
-
-        // Otherwise, round up to the next ten thousand.
-        val result =  if (remainder >= 5000) {
-            number + (10000 - remainder)
-        } else {
-            number
-        }
-
-        return result
-    }
-
-    fun roundToNearestSpecifiedValue(numberValue: Double): Double {
-        val roundingFactor = roundingFactor(numberValue)
-        return ceil(numberValue / roundingFactor) * roundingFactor
-    }
-
-    fun roundingFactor(numberValue: Double): Int {
-        return if (numberValue >= 100000) {
-            10000
-        } else if (numberValue >= 10000) {
-            1000
-        } else {
-            100
-        }
     }
 }

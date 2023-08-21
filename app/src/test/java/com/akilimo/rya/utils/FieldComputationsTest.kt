@@ -128,10 +128,7 @@ internal class FieldComputationsTest {
         val roundedLowerConfidence = fc.roundToNDecimalPlaces(rootYieldLowerConfidenceBound, 1)
         assertEquals(17.8, roundedLowerConfidence, 0.0)
 
-        val negativeLower = fc.computeLowerConfidenceBound(
-            1.5,
-            4.8
-        )
+        val negativeLower = fc.computeLowerConfidenceBound(1.5, 4.8)
         assertEquals(0.0, negativeLower, 0.0)
 
         val rootYieldUpperConfidenceBound = fc.computeUpperConfidenceBound(
@@ -149,29 +146,43 @@ internal class FieldComputationsTest {
         val roundedTotalRootProduction = fc.roundToNDecimalPlaces(totalRootProduction, 0)
         assertEquals(267.0, roundedTotalRootProduction, 0.0)
 
-        val rootProductionUpperCB = fc.computeRootProductionConfidenceBound(
+        val rootProductionLowerCB = fc.computeRootProductionConfidenceBound(
             fieldSizeHa = landSizeHa,
             rootYieldLowerCB = rootYieldLowerConfidenceBound
         )
-        val roundedRootProductionUpperCB = fc.roundToNDecimalPlaces(rootProductionUpperCB, 0)
-        assertEquals(178.0, roundedRootProductionUpperCB, 0.0)
+        val roundedRootProductionLowerCB = fc.roundToNDecimalPlaces(rootProductionLowerCB, 0)
+        assertEquals(178.0, roundedRootProductionLowerCB, 0.0)
 
-        val rootProductionLowerCB = fc.computeRootProductionConfidenceBound(
+        val rootProductionUpperCB = fc.computeRootProductionConfidenceBound(
             fieldSizeHa = landSizeHa,
             rootYieldLowerCB = rootYieldUpperConfidenceBound
         )
-        val roundedRootProductionLowerCB = fc.roundToNDecimalPlaces(rootProductionLowerCB, 0)
-        assertEquals(355.0, roundedRootProductionLowerCB, 0.0)
+        val roundedRootProductionUpperCB = fc.roundToNDecimalPlaces(rootProductionUpperCB, 0)
+        assertEquals(355.0, roundedRootProductionUpperCB, 0.0)
 
 
         val totalCropValue = fc.computeTotalCropValue(
-            totalRootProd = totalRootProduction,
+            totalRootProd = roundedTotalRootProduction,
             rootUnitPrice = rootUnitPrice
         )
-        val roundingFactor = fc.roundingFactor(totalCropValue)
-        assertEquals(10000, roundingFactor)
-        val roundedTotalCropValue = fc.roundToNearestSpecifiedValue(totalCropValue,roundingFactor)
-        assertEquals(8010000.0, roundedTotalCropValue, 0.0)
+
+        assertEquals(8010000.00, totalCropValue, 0.0)
+
+        val totalCropValueUpperBound = fc.computeTotalCropValue(
+            totalRootProd = roundedRootProductionUpperCB,
+            rootUnitPrice = rootUnitPrice
+        )
+        val roundedTotalCropValueUpper = fc.roundToNDecimalPlaces(totalCropValueUpperBound)
+        assertEquals(10650000.00, roundedTotalCropValueUpper, 0.0)
+
+        val totalCropValueLowerBound = fc.computeTotalCropValue(
+            totalRootProd = roundedRootProductionLowerCB,
+            rootUnitPrice = rootUnitPrice
+        )
+
+        val roundedTotalCropValueLower = fc.roundToNDecimalPlaces(totalCropValueLowerBound)
+        assertEquals(5340000.00, roundedTotalCropValueLower, 0.0)
+
 
     }
 }
