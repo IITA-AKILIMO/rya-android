@@ -20,6 +20,7 @@ import com.akilimo.rya.rest.request.RyaEstimate
 import com.akilimo.rya.rest.request.RyaPlot
 import com.akilimo.rya.rest.response.GeneratePlotResp
 import com.akilimo.rya.rest.response.YieldEstimate
+import com.akilimo.rya.utils.FieldComputations
 import com.akilimo.rya.views.fragments.BaseStepFragment
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -42,6 +43,7 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
     private var apiInterface: ApiInterface? = null
     private val guid = "test"
 
+    private val fc = FieldComputations()
     private val binding get() = _binding!!
 
 
@@ -81,6 +83,56 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
     }
 
     private fun refreshEstimateData() {
+        val userInfo = database?.userInfoDao()?.findOne()
+        val fieldInfo = database?.fieldInfoDao()?.findOne()
+        val yieldPrecision = database?.yieldPrecisionDao()?.findOne()
+        val triArea = fc.triangleArea(sideLength = 5.0)
+
+        val plantCount = yieldPrecision?.plantCount
+
+        val triangleOneRootMass =
+            database?.plantTriangleDao()?.findPlantRootMass("One", limit = plantCount!!)
+        val triangleTwoRootMass =
+            database?.plantTriangleDao()?.findPlantRootMass("Two", limit = plantCount!!)
+        val triangleThreeRootMass =
+            database?.plantTriangleDao()?.findPlantRootMass("Three", limit = plantCount!!)
+
+
+        val rootWeightMeanTri1 = fc.computeAverage(triangleOneRootMass!!.toDoubleArray())
+        val rootYieldPerTonneTri1 = fc.rootYieldPerTonne(
+            plantCount = fieldInfo!!.triangle1PlantCount,
+            triangleArea = triArea,
+            meanRootWeightKg = rootWeightMeanTri1
+        )
+
+        val rootWeightMeanTri2 = fc.computeAverage(triangleTwoRootMass!!.toDoubleArray())
+        val rootYieldPerTonneTri2 = fc.rootYieldPerTonne(
+            plantCount = fieldInfo.triangle2PlantCount,
+            triangleArea = triArea,
+            meanRootWeightKg = rootWeightMeanTri2
+        )
+
+        val rootWeightMeanTri3 = fc.computeAverage(triangleThreeRootMass!!.toDoubleArray())
+        val rootYieldPerTonneTri3 = fc.rootYieldPerTonne(
+            plantCount = fieldInfo.triangle3PlantCount,
+            triangleArea = triArea,
+            meanRootWeightKg = rootWeightMeanTri3
+        )
+
+        val rootTonneYields = doubleArrayOf(
+            rootYieldPerTonneTri1,
+            rootYieldPerTonneTri2,
+            rootYieldPerTonneTri3
+        )
+
+        val averageTonneYield = fc.computeAverage(rootTonneYields)
+        val roundedYieldHa = fc.roundToNDecimalPlaces(averageTonneYield, 1)
+        val rootYieldStandardDev = fc.computeSampleStandardDeviation(yieldValues = rootTonneYields)
+        val roundedSdHa = fc.roundToNDecimalPlaces(rootYieldStandardDev, 2)
+
+    }
+
+    private fun refreshEstimateDataOld() {
         val userInfo = database?.userInfoDao()?.findOne()
         val fieldInfo = database?.fieldInfoDao()?.findOne()
         val yieldPrecision = database?.yieldPrecisionDao()?.findOne()

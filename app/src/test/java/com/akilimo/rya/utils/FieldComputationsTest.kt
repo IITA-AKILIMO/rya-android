@@ -211,6 +211,17 @@ internal class FieldComputationsTest {
         val roundedTotalCropValueLower = fc.roundToNDecimalPlaces(totalCropValueLowerBound)
         assertEquals(5340000.00, roundedTotalCropValueLower, 0.0)
 
+        //now generate the final text
+
+        val recTextHa =
+            "Your expected yield is $roundedYieldHa t/acre. " +
+                    "Production is $totalRootProduction tonnes " +
+                    "(between $rootProductionLowerCB and $rootProductionUpperCB), " +
+                    "and estimated value is $totalCropValue Naira."
+
+        val recTextAcre =
+            "Your expected yield is 10.8 t/acre. Production is 21.6 tonnes (between 14.4 and 28.8), and estimated value is 647,000 Naira."
+        assertEquals(recTextAcre, recTextHa)
 
     }
 }
