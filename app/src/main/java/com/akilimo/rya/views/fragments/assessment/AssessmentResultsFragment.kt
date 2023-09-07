@@ -60,10 +60,14 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
         apiInterface = ApiInterface.create(ryaEndpoint)
 
         binding.btnRetry.setOnClickListener {
-            val uri = Uri.parse("smsto:")
-            val intent = Intent(Intent.ACTION_SENDTO, uri)
-            intent.putExtra("sms_body", recText)
-            startActivity(intent)
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, recText)
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
         }
     }
 
