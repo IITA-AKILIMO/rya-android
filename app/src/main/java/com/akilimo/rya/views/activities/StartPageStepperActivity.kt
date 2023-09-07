@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.akilimo.rya.adapter.HomeStepperAdapter
 import com.akilimo.rya.databinding.ActivityStartPageStepperBinding
+import com.akilimo.rya.updates.InAppUpdate
 import com.akilimo.rya.utils.MySharedPreferences
 import com.akilimo.rya.views.fragments.WelcomeFragment
 import com.akilimo.rya.views.fragments.onboarding.*
@@ -21,6 +22,7 @@ class StartPageStepperActivity : AppCompatActivity() {
 
     private lateinit var stepperAdapter: HomeStepperAdapter
     private lateinit var mStepperLayout: StepperLayout
+    private lateinit var inAppUpdate: InAppUpdate
 
     private lateinit var binding: ActivityStartPageStepperBinding
 
@@ -29,6 +31,12 @@ class StartPageStepperActivity : AppCompatActivity() {
         val prefs = MySharedPreferences(this)
         binding = ActivityStartPageStepperBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //Check for application updates
+
+        inAppUpdate = InAppUpdate(this@StartPageStepperActivity)
+        inAppUpdate.checkForUpdates();
+
 
         mStepperLayout = binding.startPageStepperLayout
 
@@ -50,6 +58,7 @@ class StartPageStepperActivity : AppCompatActivity() {
              * @param verificationError verification error
              */
             override fun onError(verificationError: VerificationError?) {
+                //not implemented
             }
 
             /**
@@ -58,6 +67,7 @@ class StartPageStepperActivity : AppCompatActivity() {
              * @param newStepPosition new step position
              */
             override fun onStepSelected(newStepPosition: Int) {
+                //not implemented
             }
 
             /**
@@ -65,6 +75,7 @@ class StartPageStepperActivity : AppCompatActivity() {
              * (the button is not present by default on first step).
              */
             override fun onReturn() {
+                //not implemented
             }
 
         })
@@ -107,5 +118,20 @@ class StartPageStepperActivity : AppCompatActivity() {
             HomeStepperAdapter(supportFragmentManager, applicationContext, fragmentArray)
         mStepperLayout.adapter = stepperAdapter
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        inAppUpdate.onActivityResult(requestCode, resultCode)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        inAppUpdate.onResume();
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        inAppUpdate.onDestroy()
     }
 }
