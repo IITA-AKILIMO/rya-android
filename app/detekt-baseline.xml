@@ -1,0 +1,108 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>ConstructorParameterNaming:FieldYieldAdapter.kt$FieldYieldAdapter$private val _context: Context</ID>
+    <ID>ConstructorParameterNaming:YieldPrecisionAdapter.kt$YieldPrecisionAdapter$private val _context: Context</ID>
+    <ID>EmptyFunctionBlock:BaseStepFragment.kt$BaseStepFragment${}</ID>
+    <ID>EmptyFunctionBlock:BeforeStartingFragment.kt$BeforeStartingFragment${ }</ID>
+    <ID>EmptyFunctionBlock:CassavaPriceFragment.kt$CassavaPriceFragment${}</ID>
+    <ID>EmptyFunctionBlock:FieldInfoFragment.kt$FieldInfoFragment${}</ID>
+    <ID>EmptyFunctionBlock:PlantTriangleStepperActivity.kt$PlantTriangleStepperActivity.&lt;no name provided&gt;${ }</ID>
+    <ID>EmptyFunctionBlock:PlantingPeriodFragment.kt$PlantingPeriodFragment${ }</ID>
+    <ID>EmptyFunctionBlock:StartPageStepperActivity.kt$StartPageStepperActivity.&lt;no name provided&gt;${ }</ID>
+    <ID>EmptyFunctionBlock:UserProfileActivity.kt$UserProfileActivity.&lt;no name provided&gt;${}</ID>
+    <ID>EmptyFunctionBlock:YieldClassFragment.kt$YieldClassFragment${}</ID>
+    <ID>EmptyFunctionBlock:YieldEstimateFragment.kt$YieldEstimateFragment${}</ID>
+    <ID>EnumNaming:PrecisionTypes.kt$PrecisionTypes$high</ID>
+    <ID>EnumNaming:PrecisionTypes.kt$PrecisionTypes$low</ID>
+    <ID>EnumNaming:PrecisionTypes.kt$PrecisionTypes$medium</ID>
+    <ID>FunctionOnlyReturningConstant:BasePlantTriangle.kt$BasePlantTriangle$@Deprecated("To be removed completely", ReplaceWith("false")) fun validateInput(): Boolean</ID>
+    <ID>FunctionParameterNaming:ApiInterface.kt$ApiInterface.Companion$BASE_URL: String = "http://157.245.26.55:3000/api/"</ID>
+    <ID>FunctionParameterNaming:FuelrodApiInterface.kt$FuelrodApiInterface.Companion$base_uri: String = "https://api.tsobu.co.ke/"</ID>
+    <ID>LongMethod:AssessmentResultsFragment.kt$AssessmentResultsFragment$private fun refreshEstimateData()</ID>
+    <ID>LongMethod:FieldComputationsTest.kt$FieldComputationsTest$@Test fun compute_root_yield_per_hectare_acre()</ID>
+    <ID>LongMethod:UserProfileActivity.kt$UserProfileActivity$override fun onCreate(savedInstanceState: Bundle?)</ID>
+    <ID>LongMethod:UserProfileActivity.kt$UserProfileActivity$private fun saveUserInfo(vw: View)</ID>
+    <ID>LongMethod:YieldClassFragment.kt$YieldClassFragment$private fun setYieldData(areaUnit: String = "ha"): List&lt;FieldYield&gt;</ID>
+    <ID>LongParameterList:AssessmentResultsFragment.kt$AssessmentResultsFragment$( areaUnit: String, currencyName: String?, yieldPerHectare: Double, totalCropValue: Double, totalRootProduction: Double, rootProductionLowerCB: Double, rootProductionUpperCB: Double )</ID>
+    <ID>MagicNumber:BasePlantTriangle.kt$BasePlantTriangle$0.1</ID>
+    <ID>MagicNumber:BasePlantTriangle.kt$BasePlantTriangle$20.0</ID>
+    <ID>MagicNumber:FieldComputations.kt$FieldComputations$10</ID>
+    <ID>MagicNumber:PlantingPeriodFragment.kt$PlantingPeriodFragment$16</ID>
+    <ID>MagicNumber:TheItemAnimation.kt$TheItemAnimation$0.5f</ID>
+    <ID>MagicNumber:TheItemAnimation.kt$TheItemAnimation$3</ID>
+    <ID>MagicNumber:TheItemAnimation.kt$TheItemAnimation$400</ID>
+    <ID>MagicNumber:TheItemAnimation.kt$TheItemAnimation$400f</ID>
+    <ID>MagicNumber:TheItemAnimation.kt$TheItemAnimation$500F</ID>
+    <ID>MagicNumber:TheItemAnimation.kt$TheItemAnimation$800F</ID>
+    <ID>MagicNumber:TriangleFragment.kt$TriangleFragment$3</ID>
+    <ID>MagicNumber:TriangleThreeFragment.kt$TriangleThreeFragment$3</ID>
+    <ID>MagicNumber:TriangleTwoFragment.kt$TriangleTwoFragment$3</ID>
+    <ID>MagicNumber:YieldClassFragment.kt$YieldClassFragment$3</ID>
+    <ID>MaxLineLength:AppDatabase.kt$AppDatabase$entities = [FieldInfoEntity::class, YieldPrecisionEntity::class, PlantTriangleEntity::class, FieldYieldEntity::class, EstimateResultsEntity::class, CurrencyEntity::class, UserInfoEntity::class]</ID>
+    <ID>MaxLineLength:BasePlantTriangle.kt$BasePlantTriangle$protected</ID>
+    <ID>MaxLineLength:FieldComputationsTest.kt$FieldComputationsTest$"Your expected yield is 10.8 t/acre. Production is 21.6 tonnes (between 14.4 and 28.8), and estimated value is 647,000 Naira."</ID>
+    <ID>MaxLineLength:StartPageActivity.kt$StartPageActivity$description = "Welcome to the AKILIMO rapid yield assessment tool, this tools offers several advantages for your cassava production"</ID>
+    <ID>NestedBlockDepth:PlantsInTriangleActivity.kt$PlantsInTriangleActivity$private fun refreshPlantTriangleCountData(fieldInfoEntity: FieldInfoEntity?)</ID>
+    <ID>NewLineAtEndOfFile:DateHelper.kt$com.akilimo.rya.utils.DateHelper.kt</ID>
+    <ID>ReturnCount:TriangleFragment.kt$TriangleFragment$override fun verifyStep(): VerificationError?</ID>
+    <ID>SwallowedException:SplashActivity.kt$SplashActivity$ex: Exception</ID>
+    <ID>SwallowedException:Tools.kt$Tools$ex: Exception</ID>
+    <ID>SwallowedException:TriangleFragment.kt$TriangleFragment$ex: Exception</ID>
+    <ID>SwallowedException:TriangleThreeFragment.kt$TriangleThreeFragment$ex: Exception</ID>
+    <ID>SwallowedException:TriangleTwoFragment.kt$TriangleTwoFragment$ex: Exception</ID>
+    <ID>TooGenericExceptionCaught:SplashActivity.kt$SplashActivity$ex: Exception</ID>
+    <ID>TooGenericExceptionCaught:StartPageActivity.kt$StartPageActivity$ex: Exception</ID>
+    <ID>TooGenericExceptionCaught:Tools.kt$Tools$ex: Exception</ID>
+    <ID>TooGenericExceptionCaught:TriangleFragment.kt$TriangleFragment$ex: Exception</ID>
+    <ID>TooGenericExceptionCaught:TriangleThreeFragment.kt$TriangleThreeFragment$ex: Exception</ID>
+    <ID>TooGenericExceptionCaught:TriangleTwoFragment.kt$TriangleTwoFragment$ex: Exception</ID>
+    <ID>TooManyFunctions:FieldComputations.kt$FieldComputations</ID>
+    <ID>TooManyFunctions:PlantTriangleDao.kt$PlantTriangleDao</ID>
+    <ID>UnusedParameter:FieldYieldAdapter.kt$FieldYieldAdapter$view: View</ID>
+    <ID>UnusedParameter:YieldPrecisionAdapter.kt$YieldPrecisionAdapter$view: View</ID>
+    <ID>UnusedPrivateProperty:AppDatabase.kt$AppDatabase.Companion$private const val NUMBER_OF_THREADS = 4</ID>
+    <ID>UnusedPrivateProperty:AssessmentActivity.kt$AssessmentActivity$private lateinit var apiInterface: ApiInterface</ID>
+    <ID>UnusedPrivateProperty:AssessmentActivity.kt$AssessmentActivity$private lateinit var fuelrodApiInterface: FuelrodApiInterface</ID>
+    <ID>UnusedPrivateProperty:AssessmentResultsFragment.kt$AssessmentResultsFragment$val roundedLowerConfidenceHa = fc.roundToNDecimalPlaces(rootYieldLowerConfidenceBound, 1)</ID>
+    <ID>UnusedPrivateProperty:AssessmentResultsFragment.kt$AssessmentResultsFragment$val roundedSdHa = fc.roundToNDecimalPlaces(rootYieldStandardDev, 2)</ID>
+    <ID>UnusedPrivateProperty:AssessmentResultsFragment.kt$AssessmentResultsFragment$val roundedTotalCropValueLower = fc.roundToNDecimalPlaces(totalCropValueLowerBound)</ID>
+    <ID>UnusedPrivateProperty:AssessmentResultsFragment.kt$AssessmentResultsFragment$val roundedTotalCropValueUpper = fc.roundToNDecimalPlaces(totalCropValueUpperBound)</ID>
+    <ID>UnusedPrivateProperty:AssessmentResultsFragment.kt$AssessmentResultsFragment$val roundedUpperConfidenceHa = fc.roundToNDecimalPlaces(rootYieldUpperConfidenceBound, 1)</ID>
+    <ID>UnusedPrivateProperty:AssessmentResultsFragment.kt$AssessmentResultsFragment$val roundedYieldHa = fc.roundToNDecimalPlaces(averageTonneYield, 1)</ID>
+    <ID>UnusedPrivateProperty:FieldComputations.kt$FieldComputations$val numberFormat = NumberFormat.getNumberInstance(Locale.US)</ID>
+    <ID>UnusedPrivateProperty:FieldInfoFragment.kt$FieldInfoFragment$private var _areaUnitIndex = 0</ID>
+    <ID>UnusedPrivateProperty:FieldInfoFragment.kt$FieldInfoFragment$private var _selectedFieldAreaUnit: String? = null</ID>
+    <ID>UnusedPrivateProperty:FieldYieldAdapter.kt$FieldYieldAdapter$val currentYieldAmount = fieldYield.yieldAmount</ID>
+    <ID>UnusedPrivateProperty:PlantTriangleStepperActivity.kt$PlantTriangleStepperActivity$private var plantCount = 0</ID>
+    <ID>UnusedPrivateProperty:PlantTriangleStepperActivity.kt$PlantTriangleStepperActivity$private var triangleCount = 0</ID>
+    <ID>UnusedPrivateProperty:PlantTriangleStepperActivity.kt$PlantTriangleStepperActivity$val yieldClass = database?.yieldPrecisionDao()?.findOne()</ID>
+    <ID>UnusedPrivateProperty:PlantingPeriodFragment.kt$PlantingPeriodFragment$// create an OnDateSetListener private val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth -&gt; cal.set(Calendar.YEAR, year) cal.set(Calendar.MONTH, monthOfYear) cal.set(Calendar.DAY_OF_MONTH, dayOfMonth) val myFormat = "MM/yyyy" // mention the format you need val sdf = SimpleDateFormat(myFormat, Locale.US) binding.plantingYearMonth.text = sdf.format(cal.time) }</ID>
+    <ID>UnusedPrivateProperty:PrefillCurrency.kt$PrefillCurrency$val k = e</ID>
+    <ID>UnusedPrivateProperty:StartPageActivity.kt$StartPageActivity$private lateinit var binding: ActivityStartPageBinding</ID>
+    <ID>UnusedPrivateProperty:Tools.kt$Tools$private val LOG_TAG = Tools::class.java.simpleName</ID>
+    <ID>UnusedPrivateProperty:TriangleOneActivity.kt$TriangleOneActivity$private lateinit var prefs: MySharedPreferences</ID>
+    <ID>UnusedPrivateProperty:TriangleThreeFragment.kt$private const val PLANT_COUNT = "plant_count"</ID>
+    <ID>UnusedPrivateProperty:TriangleThreeFragment.kt$private const val TRIANGLE_NAME = "triangle_name"</ID>
+    <ID>UnusedPrivateProperty:TriangleTwoFragment.kt$private const val PLANT_COUNT = "plant_count"</ID>
+    <ID>UnusedPrivateProperty:TriangleTwoFragment.kt$private const val TRIANGLE_NAME = "triangle_name"</ID>
+    <ID>VariableNaming:BaseStepFragment.kt$BaseStepFragment$protected var LOG_TAG = this::class.java.simpleName</ID>
+    <ID>VariableNaming:SplashActivity.kt$SplashActivity$val LOG_TAG: String = this::class.java.simpleName</ID>
+    <ID>VariableNaming:TriangleFragment.kt$TriangleFragment$protected var _binding: FragmentTriangleBinding? = null</ID>
+    <ID>VariableNaming:TriangleOnePlantCountFragment.kt$TriangleOnePlantCountFragment$protected var _binding: FragmentPlantCountBinding? = null</ID>
+    <ID>WildcardImport:AppDatabase.kt$import com.akilimo.rya.entities.*</ID>
+    <ID>WildcardImport:AppDatabase.kt$import com.akilimo.rya.repos.*</ID>
+    <ID>WildcardImport:CurrencyDao.kt$import androidx.room.*</ID>
+    <ID>WildcardImport:EstimateResultsDao.kt$import androidx.room.*</ID>
+    <ID>WildcardImport:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
+    <ID>WildcardImport:FieldComputationsTest.kt$import org.junit.Assert.*</ID>
+    <ID>WildcardImport:FieldInfoDao.kt$import androidx.room.*</ID>
+    <ID>WildcardImport:FieldYieldDao.kt$import androidx.room.*</ID>
+    <ID>WildcardImport:HomeStepperActivity.kt$import com.akilimo.rya.views.fragments.*</ID>
+    <ID>WildcardImport:PlantTriangleDao.kt$import androidx.room.*</ID>
+    <ID>WildcardImport:StartPageStepperActivity.kt$import com.akilimo.rya.views.fragments.onboarding.*</ID>
+    <ID>WildcardImport:UserInfoDao.kt$import androidx.room.*</ID>
+    <ID>WildcardImport:YieldPrecisionDao.kt$import androidx.room.*</ID>
+  </CurrentIssues>
+</SmellBaseline>

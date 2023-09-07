@@ -35,28 +35,28 @@ class AssessmentActivity : AppCompatActivity() {
 
         fragmentArray.add(YieldEstimateFragment.newInstance())
         fragmentArray.add(AssessmentResultsFragment.newInstance(prefs.loadApiEndpoint()))
-        fragmentArray.add(PlotResultsFragment.newInstance(prefs.loadApiEndpoint()))
+//        fragmentArray.add(PlotResultsFragment.newInstance(prefs.loadApiEndpoint()))
 
         mStepperLayout = binding.stepperLayout
         stepperAdapter = MyStepperAdapter(supportFragmentManager, applicationContext, fragmentArray)
         mStepperLayout.adapter = stepperAdapter
-
-        binding.stepperLayout.setListener(object : StepperLayout.StepperListener {
-            override fun onCompleted(completeButton: View?) {
-//                val intent = Intent(this@AssessmentActivity, PlantTrianglesActivity::class.java)
-//                startActivity(intent)
-//                Animatoo.animateSwipeLeft(this@AssessmentActivity)
-            }
-
-            override fun onError(verificationError: VerificationError?) {
-            }
-
-            override fun onStepSelected(newStepPosition: Int) {
-            }
-
-            override fun onReturn() {
-            }
-
-        })
+//
+//        binding.stepperLayout.setListener(object : StepperLayout.StepperListener {
+//            override fun onCompleted(completeButton: View?) {
+////                val intent = Intent(this@AssessmentActivity, PlantTrianglesActivity::class.java)
+////                startActivity(intent)
+////                Animatoo.animateSwipeLeft(this@AssessmentActivity)
+//            }
+//
+//            override fun onError(verificationError: VerificationError?) {
+//            }
+//
+//            override fun onStepSelected(newStepPosition: Int) {
+//            }
+//
+//            override fun onReturn() {
+//            }
+//
+//        })
     }
 }
