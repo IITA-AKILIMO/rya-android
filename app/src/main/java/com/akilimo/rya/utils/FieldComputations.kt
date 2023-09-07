@@ -3,6 +3,8 @@ package com.akilimo.rya.utils
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.Locale
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -90,5 +92,10 @@ class FieldComputations {
 
     fun computeTotalCropValue(totalRootProd: Double, rootUnitPrice: Double): Double {
         return totalRootProd * rootUnitPrice
+    }
+
+    fun formatToString(value: Double, format: String = "#,##0"): String {
+        val numberFormat = NumberFormat.getNumberInstance(Locale.US)
+        return DecimalFormat(format).format(value)
     }
 }
