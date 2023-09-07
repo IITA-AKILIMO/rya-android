@@ -76,7 +76,7 @@ internal class FieldComputationsTest {
     }
 
     @Test
-    fun compute_root_yield_per_hectare() {
+    fun compute_root_yield_per_hectare_acre() {
         val triArea = fc.triangleArea(sideLength = 5.0)
         //First triangle
         val rootWeightTr1 = doubleArrayOf(2.5, 1.9, 3.0)
@@ -110,23 +110,34 @@ internal class FieldComputationsTest {
             rootYieldPerTonneTri2,
             rootYieldPerTonneTri3
         )
+        //Post conversion calculations begin below here based on field unit
+
 
         //average tonne yield RY
         val averageTonneYield = fc.computeAverage(rootTonneYields)
-        val roundedYield = fc.roundToNDecimalPlaces(averageTonneYield, 1)
-        assertEquals(26.7, roundedYield, 0.0)
+        val roundedYieldHa = fc.roundToNDecimalPlaces(averageTonneYield, 1)
+        val roundedYieldAcre = fc.roundToNDecimalPlaces(averageTonneYield / hectareToAcre, 1)
+        assertEquals(26.7, roundedYieldHa, 0.0)
+        assertEquals(10.8, roundedYieldAcre, 0.0)
 
         //root yield standard deviation RySd
         val rootYieldStandardDev = fc.computeSampleStandardDeviation(yieldValues = rootTonneYields)
-        val roundedSd = fc.roundToNDecimalPlaces(rootYieldStandardDev, 2)
-        assertEquals(4.44, roundedSd, 0.0)
+        val roundedSdHa = fc.roundToNDecimalPlaces(rootYieldStandardDev, 2)
+        val roundedSdAcre = fc.roundToNDecimalPlaces(rootYieldStandardDev / hectareToAcre, 2)
+        assertEquals(4.44, roundedSdHa, 0.0)
+        assertEquals(1.80, roundedSdAcre, 0.0)
 
         val rootYieldLowerConfidenceBound = fc.computeLowerConfidenceBound(
             averageTonneYield,
             rootYieldStandardDev
         )
-        val roundedLowerConfidence = fc.roundToNDecimalPlaces(rootYieldLowerConfidenceBound, 1)
-        assertEquals(17.8, roundedLowerConfidence, 0.0)
+        val roundedLowerConfidenceHa = fc.roundToNDecimalPlaces(rootYieldLowerConfidenceBound, 1)
+        val roundedLowerConfidenceAcre = fc.roundToNDecimalPlaces(
+            rootYieldLowerConfidenceBound / hectareToAcre,
+            1
+        )
+        assertEquals(17.8, roundedLowerConfidenceHa, 0.0)
+        assertEquals(7.2, roundedLowerConfidenceAcre, 0.0)
 
         val negativeLower = fc.computeLowerConfidenceBound(1.5, 4.8)
         assertEquals(0.0, negativeLower, 0.0)
@@ -135,48 +146,65 @@ internal class FieldComputationsTest {
             averageTonneYield,
             rootYieldStandardDev
         )
-        val roundedUpperConfidence = fc.roundToNDecimalPlaces(rootYieldUpperConfidenceBound, 1)
-        assertEquals(35.5, roundedUpperConfidence, 0.0)
+        val roundedUpperConfidenceHa = fc.roundToNDecimalPlaces(rootYieldUpperConfidenceBound, 1)
+        val roundedUpperConfidenceAcre = fc.roundToNDecimalPlaces(
+            rootYieldUpperConfidenceBound / hectareToAcre,
+            1
+        )
+        assertEquals(35.5, roundedUpperConfidenceHa, 0.0)
+        assertEquals(14.4, roundedUpperConfidenceAcre, 0.0)
 
         val totalRootProduction = fc.computeTotalRootProduction(
             fieldSize = landSizeHa,
             rootYield = averageTonneYield
         )
 
-        val roundedTotalRootProduction = fc.roundToNDecimalPlaces(totalRootProduction, 0)
-        assertEquals(267.0, roundedTotalRootProduction, 0.0)
+        val roundedTotalRootProductionHa = fc.roundToNDecimalPlaces(totalRootProduction, 0)
+        val roundedTotalRootProductionAcre = fc.roundToNDecimalPlaces(
+            totalRootProduction / hectareToAcre, 0
+        )
+        assertEquals(267.0, roundedTotalRootProductionHa, 0.0)
+        assertEquals(108.0, roundedTotalRootProductionAcre, 0.0)
 
         val rootProductionLowerCB = fc.computeRootProductionConfidenceBound(
             fieldSize = landSizeHa,
             rootYieldLowerCB = rootYieldLowerConfidenceBound
         )
-        val roundedRootProductionLowerCB = fc.roundToNDecimalPlaces(rootProductionLowerCB, 0)
-        assertEquals(178.0, roundedRootProductionLowerCB, 0.0)
+        val roundedRootProductionLowerCBHa = fc.roundToNDecimalPlaces(rootProductionLowerCB, 0)
+        val roundedRootProductionLowerCBAcre = fc.roundToNDecimalPlaces(
+            rootProductionLowerCB / hectareToAcre, 0
+        )
+        assertEquals(178.0, roundedRootProductionLowerCBHa, 0.0)
+        assertEquals(72.0, roundedRootProductionLowerCBAcre, 0.0)
 
         val rootProductionUpperCB = fc.computeRootProductionConfidenceBound(
             fieldSize = landSizeHa,
             rootYieldLowerCB = rootYieldUpperConfidenceBound
         )
-        val roundedRootProductionUpperCB = fc.roundToNDecimalPlaces(rootProductionUpperCB, 0)
-        assertEquals(355.0, roundedRootProductionUpperCB, 0.0)
+        val roundedRootProductionUpperCBHa = fc.roundToNDecimalPlaces(rootProductionUpperCB, 0)
+        val roundedRootProductionUpperCBAcre = fc.roundToNDecimalPlaces(
+            rootProductionUpperCB / hectareToAcre, 0
+        )
+        assertEquals(355.0, roundedRootProductionUpperCBHa, 0.0)
+        assertEquals(144.0, roundedRootProductionUpperCBAcre, 0.0)
 
 
         val totalCropValue = fc.computeTotalCropValue(
-            totalRootProd = roundedTotalRootProduction,
+            totalRootProd = roundedTotalRootProductionHa,
             rootUnitPrice = rootUnitPrice
         )
 
         assertEquals(8010000.00, totalCropValue, 0.0)
 
         val totalCropValueUpperBound = fc.computeTotalCropValue(
-            totalRootProd = roundedRootProductionUpperCB,
+            totalRootProd = roundedRootProductionUpperCBHa,
             rootUnitPrice = rootUnitPrice
         )
         val roundedTotalCropValueUpper = fc.roundToNDecimalPlaces(totalCropValueUpperBound)
         assertEquals(10650000.00, roundedTotalCropValueUpper, 0.0)
 
         val totalCropValueLowerBound = fc.computeTotalCropValue(
-            totalRootProd = roundedRootProductionLowerCB,
+            totalRootProd = roundedRootProductionLowerCBHa,
             rootUnitPrice = rootUnitPrice
         )
 
