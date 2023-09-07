@@ -10,13 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.databinding.FragmentPlotResultsBinding
-import com.akilimo.rya.rest.ApiInterface
-import com.akilimo.rya.rest.request.RyaPlot
 import com.akilimo.rya.views.fragments.BaseStepFragment
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 /**
@@ -28,7 +22,6 @@ class PlotResultsFragment(private val ryaEndpoint: String) : BaseStepFragment() 
     private var ctx: Context? = null
     private var _binding: FragmentPlotResultsBinding? = null
     private var database: AppDatabase? = null
-    private var apiInterface: ApiInterface? = null
 
 
     private val binding get() = _binding!!
@@ -47,7 +40,6 @@ class PlotResultsFragment(private val ryaEndpoint: String) : BaseStepFragment() 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         database = AppDatabase.getDatabase(ctx!!)
-        apiInterface = ApiInterface.create(ryaEndpoint)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -78,8 +70,6 @@ class PlotResultsFragment(private val ryaEndpoint: String) : BaseStepFragment() 
                 "Estimated value: $totalEstimate ${estimateResults.currency}"
             binding.tonnageResultsSub.text =
                 "(With a price of ${estimateResults.tonnagePrice} ${estimateResults.currency} per tonne)"
-
-            renderPlot(RyaPlot(fileName = estimateResults.fileNameLean))
         }
     }
 
@@ -88,40 +78,5 @@ class PlotResultsFragment(private val ryaEndpoint: String) : BaseStepFragment() 
     ): View {
         _binding = FragmentPlotResultsBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    private fun renderPlot(ryaPlot: RyaPlot) {
-        val imageView = binding.yieldPlotImage
-
-
-        val plotReader = apiInterface?.readPlot(ryaPlot)
-
-
-        plotReader?.enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.body() != null) {
-                    val bytes = response.body()!!.bytes()
-                    val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                    imageView.setImageBitmap(bitmap)
-                    with(binding) {
-                        shimmerViewContainer.stopShimmer()
-                        shimmerViewContainer.visibility = View.GONE
-                        widgetGroup.visibility = View.VISIBLE
-                        lottieAnimation.visibility = View.GONE
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseBody>, throwable: Throwable) {
-                with(binding) {
-                    shimmerViewContainer.stopShimmer()
-                    shimmerViewContainer.visibility = View.GONE
-                    widgetGroup.visibility = View.GONE
-                    lottieAnimation.visibility = View.VISIBLE
-                }
-                Toast.makeText(ctx, throwable.message, Toast.LENGTH_SHORT).show()
-            }
-
-        })
     }
 }

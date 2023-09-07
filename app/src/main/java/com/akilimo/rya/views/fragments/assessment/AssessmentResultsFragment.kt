@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.databinding.FragmentAssessmentResultsBinding
-import com.akilimo.rya.rest.ApiInterface
 import com.akilimo.rya.utils.FieldComputations
 import com.akilimo.rya.views.fragments.BaseStepFragment
 
@@ -25,7 +24,6 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
     private var ctx: Context? = null
     private var _binding: FragmentAssessmentResultsBinding? = null
     private var database: AppDatabase? = null
-    private var apiInterface: ApiInterface? = null
 
     private val fc = FieldComputations()
     private var recText = ""
@@ -56,8 +54,6 @@ class AssessmentResultsFragment(private val ryaEndpoint: String) : BaseStepFragm
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        apiInterface = ApiInterface.create(ryaEndpoint)
 
         binding.btnRetry.setOnClickListener {
             val sendIntent: Intent = Intent().apply {
