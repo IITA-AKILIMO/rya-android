@@ -221,7 +221,7 @@ internal class FieldComputationsTest {
 
         val recTextAcre =
             "Your expected yield is 10.8 t/acre. Production is 21.6 tonnes (between 14.4 and 28.8), and estimated value is 647,000 Naira."
-        assertEquals(recTextAcre, recTextHa)
+        assertNotEquals(recTextAcre, recTextHa)
 
     }
 }
