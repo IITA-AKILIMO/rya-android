@@ -8,22 +8,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.akilimo.rya.adapter.HomeStepperAdapter
 import com.akilimo.rya.databinding.ActivityHomeStepperBinding
-import com.akilimo.rya.rest.FuelrodApiInterface
-import com.akilimo.rya.rest.response.RemoteConfig
 import com.akilimo.rya.utils.MySharedPreferences
 import com.akilimo.rya.views.activities.triangle.TriangleOneActivity
 import com.akilimo.rya.views.fragments.*
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.stepstone.stepper.StepperLayout
 import com.stepstone.stepper.VerificationError
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-
 
 class HomeStepperActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeStepperBinding
-    private lateinit var fuelrodApiInterface: FuelrodApiInterface
     private lateinit var prefs: MySharedPreferences
 
     private lateinit var stepperAdapter: HomeStepperAdapter
@@ -37,7 +30,6 @@ class HomeStepperActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 //        installSplashScreen()
         binding = ActivityHomeStepperBinding.inflate(layoutInflater)
-        fuelrodApiInterface = FuelrodApiInterface.create()
 
         setContentView(binding.root)
 
@@ -69,8 +61,6 @@ class HomeStepperActivity : AppCompatActivity() {
 
         prefs = MySharedPreferences(this)
 
-        loadConfig()
-
         fragmentArray.add(YieldClassFragment.newInstance())
         fragmentArray.add(FieldInfoFragment.newInstance())
         fragmentArray.add(CassavaPriceFragment.newInstance())
@@ -80,29 +70,5 @@ class HomeStepperActivity : AppCompatActivity() {
         stepperAdapter =
             HomeStepperAdapter(supportFragmentManager, applicationContext, fragmentArray)
         mStepperLayout.adapter = stepperAdapter
-    }
-
-
-    private fun loadConfig() {
-        val configReader: Call<List<RemoteConfig>> = fuelrodApiInterface.readConfig("rya")
-
-
-        configReader.enqueue(object : Callback<List<RemoteConfig>> {
-            override fun onResponse(
-                call: Call<List<RemoteConfig>>, response: Response<List<RemoteConfig>>
-            ) {
-                val configList = response.body()
-                if (!configList.isNullOrEmpty()) {
-                    val remoteConfig = configList[0]
-                    prefs.saveApiEndpoint(remoteConfig.configValue)
-                }
-            }
-
-            override fun onFailure(call: Call<List<RemoteConfig>>, t: Throwable) {
-                Toast.makeText(
-                    applicationContext, "Unable to load remote configurations", Toast.LENGTH_SHORT
-                ).show()
-            }
-        })
     }
 }

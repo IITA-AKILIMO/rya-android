@@ -16,6 +16,8 @@ plugins {
     id 'org.sonarqube' version '3.4.0.2513' apply false
     id "io.gitlab.arturbosch.detekt" version "1.23.1" apply false
 }
+
+
 //
 //tasks.withType<KotlinCompile>().configureEach {
 //    compilerExecutionStrategy.set(KotlinCompilerExecutionStrategy.IN_PROCESS)
