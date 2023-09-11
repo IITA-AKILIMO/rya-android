@@ -10,6 +10,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.appupdate.AppUpdateOptions
 import com.google.android.play.core.install.InstallState
 import com.google.android.play.core.install.InstallStateUpdatedListener
 import com.google.android.play.core.install.model.AppUpdateType
@@ -20,7 +21,7 @@ class InAppUpdate(private val parentActivity: Activity) {
     private val appUpdateManager: AppUpdateManager?
     private var updateType = AppUpdateType.FLEXIBLE
     private val UPDATE_REQUEST_CODE = 500
-    private val RESULT_CANCELLED = 501
+    private val RESULT_CANCELLED = 0
 
     init {
         appUpdateManager = AppUpdateManagerFactory.create(parentActivity)
@@ -35,15 +36,19 @@ class InAppUpdate(private val parentActivity: Activity) {
     }
 
     fun checkForUpdates() {
-        appUpdateManager!!.appUpdateInfo.addOnSuccessListener { info: AppUpdateInfo ->
-            val isUpdateAvailable = info.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-            val updateAllowed = info.isUpdateTypeAllowed(updateType)
+        appUpdateManager!!.appUpdateInfo.addOnSuccessListener { updateInfo: AppUpdateInfo ->
+            val isUpdateAvailable =
+                updateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+            val updateAllowed = updateInfo.isUpdateTypeAllowed(updateType)
             if (isUpdateAvailable && updateAllowed) {
+                val updateOptions = AppUpdateOptions
+                    .newBuilder(updateType)
+                    .build()
                 try {
                     appUpdateManager.startUpdateFlowForResult(
-                        info,
-                        updateType,
+                        updateInfo,
                         parentActivity,
+                        updateOptions,
                         UPDATE_REQUEST_CODE
                     )
                 } catch (ex: SendIntentException) {

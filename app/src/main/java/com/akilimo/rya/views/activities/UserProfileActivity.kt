@@ -7,6 +7,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.SpinnerAdapter
 import android.widget.Toast
+import android.window.OnBackInvokedDispatcher
 import androidx.appcompat.app.AppCompatActivity
 import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.adapter.MySpinnerAdapter
@@ -274,6 +275,9 @@ class UserProfileActivity : AppCompatActivity() {
         finish()
     }
 
+
+
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
         if (!hasError) {
