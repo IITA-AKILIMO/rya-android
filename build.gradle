@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     dependencies {
-        classpath "com.vanniktech:gradle-android-junit-jacoco-plugin:0.16.0"
+        classpath "org.jacoco:org.jacoco.core:0.8.11"
         classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:3.4.0.2513"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.1"
     }
@@ -16,20 +16,3 @@ plugins {
     id 'org.sonarqube' version '3.4.0.2513' apply false
     id "io.gitlab.arturbosch.detekt" version "1.23.1" apply false
 }
-
-
-//
-//tasks.withType<KotlinCompile>().configureEach {
-//    compilerExecutionStrategy.set(KotlinCompilerExecutionStrategy.IN_PROCESS)
-//}
-
-
-//task clean(type: Delete) {
-//    delete rootProject.buildDir
-//}
-
-//tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-//    kotlinOptions {
-//        jvmTarget = "11"
-//    }
-//}
