@@ -5,13 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.aemerse.onboard.OnboardAdvanced
-import com.aemerse.onboard.OnboardFragment
+import com.limurse.onboard.OnboardFragment
 import com.akilimo.rya.AppDatabase.Companion.getDatabase
 import com.akilimo.rya.BuildConfig
 import com.akilimo.rya.R
 import com.akilimo.rya.databinding.ActivityStartPageBinding
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
+import com.limurse.onboard.OnboardAdvanced
 
 
 class StartPageActivity : OnboardAdvanced() {
