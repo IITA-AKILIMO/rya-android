@@ -45,6 +45,7 @@ android {
     def releaseVersionName = computeBuildNumber()
     def appVersionCode = computeVersionCode()
 
+    namespace 'com.akilimo.rya'
     compileSdk 34
 
     defaultConfig {
@@ -96,8 +97,6 @@ android {
             excludes += ['META-INF/LICENSE']
         }
     }
-
-    namespace 'com.akilimo.rya'
 
 }
 
