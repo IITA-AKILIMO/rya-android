@@ -1,3 +1,3 @@
-# Rapid Yield Assessment for Android
+# Rapid Yield Assessment Tool
 
-Android version for the Rapid Yield Assessment tool
+Rapid yield assesment tool
