@@ -5,12 +5,6 @@ plugins {
     id 'com.google.devtools.ksp'
     id 'jacoco'
     id 'org.sonarqube'
-    id 'io.gitlab.arturbosch.detekt'
-}
-
-detekt {
-    // other detekt configuration goes here
-    baseline = file("$rootDir /detekt-baseline.xml")
 }
 
 
