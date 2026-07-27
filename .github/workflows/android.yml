@@ -126,7 +126,7 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
           packageName: ${{ vars.APP_PACKAGE }}
           releaseFiles: release/app-release.aab
-          track: beta
+          tracks: beta
           status: completed
           whatsNewDirectory: release/distribution/whatsnew
 
@@ -137,7 +137,7 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
           packageName: ${{ vars.APP_PACKAGE }}
           releaseFiles: release/app-release.aab
-          track: production
+          tracks: production
           status: completed
           whatsNewDirectory: release/distribution/whatsnew
 
