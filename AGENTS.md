@@ -3,7 +3,7 @@
 ## Project
 
 Single-module Android app for rapid cassava yield assessment (AKILIMO RYA).
-Package: `com.akilimo.rya`. MinSDK 21, TargetSDK 35.
+Package: `com.akilimo.rya`. MinSDK 23, TargetSDK 36.
 
 ## Key Commands
 
@@ -29,14 +29,14 @@ Package: `com.akilimo.rya`. MinSDK 21, TargetSDK 35.
 
 | Tool | Version |
 |------|---------|
-| Gradle | 8.13 |
-| AGP | 8.13.2 |
-| Kotlin | 2.0.0 |
+| Gradle | 9.3.1 |
+| AGP | 9.1.1 |
+| Kotlin | 2.2.10 (built-in with AGP 9.x) |
 | JDK | 21 |
-| compileSdk | 35 |
-| minSdk | 21 |
+| compileSdk | 37 |
+| minSdk | 23 |
 
-Both **kapt** (Room compiler) and **KSP** plugins are applied. Room uses kapt.
+Room uses KSP (not kapt). kapt is removed as of AGP 9.x.
 
 ## Architecture
 
