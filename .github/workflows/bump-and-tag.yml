@@ -1,21 +1,39 @@
-name: Bump version
+name: GitHub Release
+
 on:
-  workflow_run:
-    workflows: ["Android CICD"]
-    types:
-      - completed
+  pull_request:
     branches:
       - main
+    types: [closed]
+  workflow_dispatch:
+
+concurrency:
+  group: release-main
+  cancel-in-progress: false
+
 jobs:
-  bump-tag-version:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+  release:
+    if: >
+      (github.event_name == 'pull_request' && github.event.pull_request.merged == true) ||
+      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
-    concurrency:
-      cancel-in-progress: true
-      group: semver-${{ github.ref }}
+    name: Create release tag
+    permissions:
+      contents: write
+      pull-requests: read
+
     steps:
-      - uses: actions/checkout@v4
-      - name: Bump version and push tag
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+          ref: >-
+            ${{ github.event_name == 'pull_request'
+                && github.event.pull_request.merge_commit_sha
+                || 'main' }}
+
+      - name: Generate Tag
         id: tag_version
         uses: masgeek/github-tag-action@release
         with:
@@ -23,11 +41,19 @@ jobs:
           tag_prefix: ""
           create_annotated_tag: true
 
-      - name: Create a GitHub release
+      - name: Verify tag was produced
+        run: |
+          if [ -z "${{ steps.tag_version.outputs.new_tag }}" ]; then
+            echo "::error::tag_version produced no new_tag — refusing to create a release."
+            exit 1
+          fi
+          echo "New tag: ${{ steps.tag_version.outputs.new_tag }}"
+
+      - name: Create GitHub Release
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Version ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
-          allowUpdates: true
           makeLatest: true
+          allowUpdates: true

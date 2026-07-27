@@ -1,11 +1,19 @@
-name: Create next release
+name: Next Release PR
+
 on:
-  push:
-    branches:
-      - develop
+  workflow_run:
+    workflows: ["CI Checks"]
+    types: [completed]
+  workflow_dispatch:
+
 jobs:
-  action-pull-request:
+  next_release_pr:
     runs-on: ubuntu-latest
+    name: Next Release PR
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.event == 'push' && github.event.workflow_run.conclusion == 'success')
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -13,13 +21,14 @@ jobs:
           fetch-depth: 0
 
       - name: Create pull request
-        uses: devops-infra/action-pull-request@v0.5.5
+        uses: devops-infra/action-pull-request@v0.6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           title: 'Next release'
           reviewer: ${{ github.actor }}
           assignee: ${{ github.actor }}
           target_branch: main
-          label: automatic,release
-          new_string: ${{ github.event.commits[0].message }}
-          get_diff: true
+          label: release
+          body: "${{ github.event.head_commit.message }}"
+          new_string: "${{ github.event.head_commit.message }}"
+          get_diff: false

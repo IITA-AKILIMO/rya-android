@@ -12,17 +12,17 @@ Package: `com.akilimo.rya`. MinSDK 23, TargetSDK 36.
 ./gradlew assembleDebug
 ./gradlew assembleRelease
 
-# Tests (CI runs testRelease specifically)
-./gradlew testRelease
+# Tests (CI runs testDebugUnitTest)
+./gradlew testDebugUnitTest
 
 # Single test class
-./gradlew testRelease --tests "com.akilimo.rya.utils.FieldComputationsTest"
+./gradlew testDebugUnitTest --tests "com.akilimo.rya.utils.FieldComputationsTest"
 
-# Lint / static analysis
-./gradlew detekt
+# Lint
+./gradlew lintDebug
 
 # Full CI-equivalent check
-./gradlew testRelease detekt
+./gradlew testDebugUnitTest lintDebug
 ```
 
 ## Toolchain
@@ -60,14 +60,10 @@ Version is computed dynamically in `app/build.gradle`:
 - `develop` → auto-creates PR to `main`
 - `beta` → builds AAB, signs, publishes to Play Store beta track
 - `main` → builds AAB, signs, publishes to Play Store production, creates GitHub release + tag
-- CI runs `./gradlew testRelease` (with `continue-on-error: true`)
+- CI runs `./gradlew testDebugUnitTest` (with `--continue`)
 
 ## Code Quality
 
-- **Detekt**: config at `config/detekt/detekt.yml`, baseline at `app/detekt-baseline.xml`
-  - Max line length: 120
-  - `warningsAsErrors: false`, `maxIssues: 0`
-  - ForbiddenComment rule blocks `TODO:`, `FIXME:`, `STOPSHIP:` in code
 - **SonarQube**: configured in `app/build.gradle`, project key `IITA-AKILIMO_rya-android_AYWat7AVA_a0kZ5UNFXL`
 
 ## Commit Conventions

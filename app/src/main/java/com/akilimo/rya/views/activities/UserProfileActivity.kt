@@ -1,13 +1,13 @@
 package com.akilimo.rya.views.activities
 
-import android.R
+import android.R as AndroidR
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.SpinnerAdapter
 import android.widget.Toast
-import android.window.OnBackInvokedDispatcher
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.akilimo.rya.AppDatabase
 import com.akilimo.rya.adapter.MySpinnerAdapter
@@ -53,6 +53,17 @@ class UserProfileActivity : AppCompatActivity() {
 
         database = AppDatabase.getDatabase(this)
 
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (!hasError) {
+                    moveTaskToBack(true)
+                } else {
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        })
+
 
         designationList = ArrayList()
         designationList.add("Farmer")
@@ -76,15 +87,15 @@ class UserProfileActivity : AppCompatActivity() {
         }
 
         val designationAdapter = ArrayAdapter(
-            this@UserProfileActivity, R.layout.simple_dropdown_item_1line, designationList
+            this@UserProfileActivity, AndroidR.layout.simple_dropdown_item_1line, designationList
         )
 
         val languageAdapter = ArrayAdapter(
-            this@UserProfileActivity, R.layout.simple_dropdown_item_1line, languageList
+            this@UserProfileActivity, AndroidR.layout.simple_dropdown_item_1line, languageList
         )
 
         val areaUnitAdapter = ArrayAdapter(
-            this@UserProfileActivity, R.layout.simple_dropdown_item_1line, areaUnitList
+            this@UserProfileActivity, AndroidR.layout.simple_dropdown_item_1line, areaUnitList
         )
 
 
@@ -276,12 +287,4 @@ class UserProfileActivity : AppCompatActivity() {
     }
 
 
-
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        super.onBackPressed()
-        if (!hasError) {
-            moveTaskToBack(true)
-        }
-    }
 }
