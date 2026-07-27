@@ -1,6 +1,6 @@
 package com.akilimo.rya.updates
 
-import android.R
+import android.R as AndroidR
 import android.app.Activity
 import android.content.IntentSender.SendIntentException
 import android.view.View
@@ -72,7 +72,7 @@ class InAppUpdate(private val parentActivity: Activity) {
 
     private fun notifyUpdateCompleteSnackBar() {
         Snackbar.make(
-            parentActivity.findViewById(R.id.content),
+            parentActivity.findViewById(AndroidR.id.content),
             "Update completed",
             Snackbar.LENGTH_INDEFINITE
         )

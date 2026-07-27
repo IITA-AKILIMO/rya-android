@@ -1,9 +1,9 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     dependencies {
-        classpath "org.jacoco:org.jacoco.core:0.8.11"
-        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:3.4.0.2513"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.6"
+        classpath "org.jacoco:org.jacoco.core:0.8.15"
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:7.0.1.6134"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.8"
     }
 }
 
@@ -12,6 +12,6 @@ plugins {
     id 'com.android.application' version '9.3.1' apply false
     id 'com.android.library' version '9.3.1' apply false
     id 'com.google.devtools.ksp' version '2.3.2' apply false
-    id 'org.sonarqube' version '3.4.0.2513' apply false
+    id 'org.sonarqube' version '7.3.1.8318' apply false
     id "io.gitlab.arturbosch.detekt" version "1.23.8" apply false
 }
