@@ -2,6 +2,15 @@ name: Android CICD
 on:
   #  pull_request:
   push:
+    paths:
+      - 'app/**'
+      - 'build.gradle'
+      - 'settings.gradle'
+      - 'gradle.properties'
+      - 'gradle/**'
+      - 'gradlew'
+      - 'gradlew.bat'
+      - '.github/workflows/android.yml'
 
 jobs:
 
@@ -19,13 +28,14 @@ jobs:
       RELEASE_VERSION: ${{ secrets.GITHUB_RUN_ID }}
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: 21
+          cache: 'gradle'
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
@@ -48,13 +58,14 @@ jobs:
       PACKAGE_NAME: ${{ secrets.APP_PACKAGE }}
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: 21
+          cache: 'gradle'
 
       - name: Get and set name of current branch
         run: echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
@@ -63,7 +74,7 @@ jobs:
         run: echo ${BRANCH_NAME}
 
       - name: Set up Python 3.9
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
 
       - name: Install Poetry
         run: |
@@ -113,7 +124,7 @@ jobs:
       - name: Copy release notes
         run: cp -r distribution release
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         name: Upload artifact
         with:
           name: app-release
@@ -125,7 +136,7 @@ jobs:
     name: Publish to Google PlayStore
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         name: Retrieve artifacts
         with:
           name: app-release
@@ -168,7 +179,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         name: Retrieve artifacts
         with:
           name: app-release
@@ -197,7 +208,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         name: Retrieve artifacts
         with:
           name: app-release
