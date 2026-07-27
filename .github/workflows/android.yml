@@ -73,24 +73,8 @@ jobs:
       - name: Display current branch name
         run: echo ${BRANCH_NAME}
 
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v5
-
-      - name: Install Poetry
-        run: |
-          curl -sSL https://install.python-poetry.org | python3 -
-
-      - name: Download pyproject.toml
-        run: curl -L https://raw.githubusercontent.com/masgeek/py-github/develop/pyproject.toml -o pyproject.toml
-
-      - name: Download Tag fetching script
-        run: curl -L https://raw.githubusercontent.com/masgeek/py-github/develop/fetch-tags.py -o latest-tag.py
-
-      - name: Install dependencies with Poetry
-        run: poetry install --no-root
-
       - name: Fetch latest tag
-        run: poetry run python latest-tag.py
+        run: git describe --tags --abbrev=0 > $LATEST_TAG_FILE
 
       - name: Update release version
         run: echo "RELEASE_VERSION=$(cat $LATEST_TAG_FILE)" >> $GITHUB_ENV
