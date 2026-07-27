@@ -10,13 +10,6 @@ on:
         description: 'Release version tag'
         required: true
         type: string
-      track:
-        description: 'Play Store track'
-        required: true
-        type: choice
-        options:
-          - beta
-          - production
 
 concurrency:
   group: build-${{ github.ref_name }}
@@ -62,7 +55,11 @@ jobs:
 
       - name: Set version
         run: |
-          echo "RELEASE_VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "RELEASE_VERSION=${{ inputs.version }}" >> $GITHUB_ENV
+          else
+            echo "RELEASE_VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
+          fi
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
@@ -163,8 +160,8 @@ jobs:
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref_name }}
-          name: "Version ${{ github.ref_name }}"
+          tag_name: ${{ inputs.version || github.ref_name }}
+          name: "Version ${{ inputs.version || github.ref_name }}"
           files: release/app-release.aab
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
