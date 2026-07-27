@@ -26,7 +26,6 @@ abstract class AppDatabase : RoomDatabase() {
         // For Singleton instantiation
         @Volatile
         private var database: AppDatabase? = null
-        private const val NUMBER_OF_THREADS = 4
 
         @JvmStatic
         @Synchronized
@@ -35,7 +34,7 @@ abstract class AppDatabase : RoomDatabase() {
                 synchronized(AppDatabase::class.java) {
                     if (database == null) {
                         database = Room.databaseBuilder(
-                            context.applicationContext, AppDatabase::class.java, "RYA_09_JAN_2023"
+                            context.applicationContext, AppDatabase::class.java, "RYA_JUL_2026"
                         )
                             .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()
