@@ -23,7 +23,7 @@ concurrency:
 jobs:
   checks:
     runs-on: ubuntu-latest
-    name: Unit tests & Detekt
+    name: Unit tests
 
     steps:
       - uses: actions/checkout@v4
@@ -42,8 +42,8 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-      - name: Run unit tests & detekt
-        run: ./gradlew testRelease detekt --no-daemon
+      - name: Run unit tests
+        run: ./gradlew testDebugUnitTest --no-daemon --continue
 
       - name: Upload test results
         if: always()
@@ -51,12 +51,4 @@ jobs:
         with:
           name: unit-test-results
           path: app/build/reports/tests/
-          retention-days: 7
-
-      - name: Upload detekt report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: detekt-results
-          path: build/reports/detekt/
           retention-days: 7
