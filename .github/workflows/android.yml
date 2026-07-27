@@ -1,89 +1,68 @@
-name: Android CICD
+name: Build & Publish
+
 on:
-  #  pull_request:
   push:
-    paths:
-      - 'app/**'
-      - 'build.gradle'
-      - 'settings.gradle'
-      - 'gradle.properties'
-      - 'gradle/**'
-      - 'gradlew'
-      - 'gradlew.bat'
-      - '.github/workflows/android.yml'
+    tags:
+      - '*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version tag'
+        required: true
+        type: string
+      track:
+        description: 'Play Store track'
+        required: true
+        type: choice
+        options:
+          - beta
+          - production
+
+concurrency:
+  group: build-${{ github.ref_name }}
+  cancel-in-progress: false
 
 jobs:
-
-  run_tests:
-    name: Unit tests
-    runs-on: ubuntu-latest
-    concurrency:
-      group: ci-${{ github.ref }}
-      cancel-in-progress: true
-
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      REPO_NAME: ${{ secrets.REPO_NAME }}
-      LATEST_TAG_FILE: ${{ secrets.LATEST_TAG_FILE }}
-      RELEASE_VERSION: ${{ secrets.GITHUB_RUN_ID }}
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@v4
-
-      - name: set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: 21
-          cache: 'gradle'
-
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-
-      - name: Run Unit tests
-        run: ./gradlew testRelease
-        continue-on-error: true
-
   build_artifacts:
-    if: contains(github.ref, 'beta') || contains(github.ref, 'main')
-    needs: run_tests
-    name: Build artifacts
     runs-on: ubuntu-latest
+    name: Build artifacts
+    outputs:
+      track: ${{ steps.track.outputs.track }}
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       REPO_NAME: ${{ secrets.REPO_NAME }}
-      BRANCH_NAME: ${{ github.head_ref }}
-      LATEST_TAG_FILE: ${{ secrets.LATEST_TAG_FILE }}
-      RELEASE_VERSION: ${{ secrets.GITHUB_RUN_ID }}
-      PACKAGE_NAME: ${{ secrets.APP_PACKAGE }}
+      PACKAGE_NAME: ${{ vars.APP_PACKAGE }}
+
     steps:
       - name: Checkout the code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: set up JDK
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: 21
-          cache: 'gradle'
 
-      - name: Get and set name of current branch
-        run: echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-read-only: false
 
-      - name: Display current branch name
-        run: echo ${BRANCH_NAME}
+      - name: Determine release track
+        id: track
+        run: |
+          TAG="${{ github.ref_name }}"
+          if [[ "$TAG" == *"beta"* ]]; then
+            echo "track=beta" >> $GITHUB_OUTPUT
+          else
+            echo "track=production" >> $GITHUB_OUTPUT
+          fi
 
-      - name: Fetch latest tag
-        run: git describe --tags --abbrev=0 > $LATEST_TAG_FILE
-
-      - name: Update release version
-        run: echo "RELEASE_VERSION=$(cat $LATEST_TAG_FILE)" >> $GITHUB_ENV
-
-      - name: Set branch name
-        run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
-
-      - name: Show branch name
-        run: echo $BRANCH_NAME
+      - name: Set version
+        run: |
+          echo "RELEASE_VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
@@ -91,22 +70,39 @@ jobs:
       - name: Generate android AAB
         run: ./gradlew bundleRelease -x test
 
-      - name: Create release folder
-        run: mkdir -p $GITHUB_WORKSPACE/release
-
-      - name: Reverse JKS file
-        run: echo "${{ secrets.KEYSTORE_FILE }}" | base64 -d > $GITHUB_WORKSPACE/akilimo.jks
+      - name: Verify build output
+        run: |
+          if [ ! -f "app/build/outputs/bundle/release/app-release.aab" ]; then
+            echo "AAB not found after build!"
+            exit 1
+          fi
+          echo "AAB size: $(du -h app/build/outputs/bundle/release/app-release.aab | cut -f1)"
 
       - name: Sign AAB
-        run: jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore akilimo.jks
-          -storepass ${{ secrets.KEYSTORE_PASSWORD }} -keypass ${{ secrets.KEY_PASSWORD }}
-          app/build/outputs/bundle/release/app-release.aab ${{ secrets.KEY_ALIAS }} --signedjar $GITHUB_WORKSPACE/release/app-release-signed.aab
+        uses: ilharp/sign-android-release@v2
+        id: sign_aab
+        with:
+          releaseDir: app/build/outputs/bundle/release
+          signingKey: ${{ secrets.KEYSTORE_FILE }}
+          keyAlias: ${{ secrets.KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+          buildToolsVersion: 36.0.0
 
-      - name: Copy release tag file
-        run: cp  $LATEST_TAG_FILE release
+      - name: Create release folder
+        run: mkdir -p release/distribution/whatsnew
+
+      - name: Copy signed AAB
+        run: |
+          for file in ${{ steps.sign_aab.outputs.signedFiles }}; do
+            cp "$file" "release/app-release.aab"
+          done
 
       - name: Copy release notes
-        run: cp -r distribution release
+        run: |
+          if [ -d "distribution/whatsnew" ]; then
+            cp -r distribution/whatsnew/* release/distribution/whatsnew/ || true
+          fi
 
       - uses: actions/upload-artifact@v4
         name: Upload artifact
@@ -127,39 +123,34 @@ jobs:
           path: release
 
       - name: Upload Beta Release
-        if: contains(github.ref, 'beta')
+        if: needs.build_artifacts.outputs.track == 'beta'
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
-          packageName: ${{ secrets.APP_PACKAGE }}
-          releaseFiles: release/*.aab
+          packageName: ${{ vars.APP_PACKAGE }}
+          releaseFiles: release/app-release.aab
           track: beta
           status: completed
           whatsNewDirectory: release/distribution/whatsnew
 
       - name: Upload Production Release
-        if: contains(github.ref, 'main')
+        if: needs.build_artifacts.outputs.track == 'production'
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
-          packageName: ${{ secrets.APP_PACKAGE }}
-          releaseFiles: release/*.aab
+          packageName: ${{ vars.APP_PACKAGE }}
+          releaseFiles: release/app-release.aab
           track: production
           status: completed
           whatsNewDirectory: release/distribution/whatsnew
 
-
-  upload_beta_artifacts:
-    if: contains(github.ref, 'beta')
+  upload_release_assets:
     needs: publish_to_playstore
-    name: Upload to github beta
+    name: Upload release assets
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     env:
-      LATEST_TAG_FILE: ${{ secrets.LATEST_TAG_FILE }}
-      GHR_TAG: "1.0.0"
-      GHR_REPLACE: "1"
-      GHR_PATH: release
-      GHR_PRERELEASE: "1"
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
@@ -168,42 +159,12 @@ jobs:
         with:
           name: app-release
           path: release
-      - run: |
-          cp release/distribution/whatsnew/* release
-          rm -rf release/distribution
-          ls release
 
-      - name: Read latest tag from tag file
-        run: echo "GHR_TAG=$(cat release/$LATEST_TAG_FILE)-beta" >> $GITHUB_ENV
-
-      - name: Upload release artifacts
-        uses: masgeek/github-action-ghr@v1.3.2
-
-  upload_production_artifacts:
-    if: contains(github.ref, 'main')
-    needs: publish_to_playstore
-    name: Upload to github release
-    runs-on: ubuntu-latest
-    env:
-      LATEST_TAG_FILE: ${{ secrets.LATEST_TAG_FILE }}
-      GHR_TAG: "1.0.0"
-      GHR_REPLACE: "1"
-      GHR_PATH: release
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    steps:
-      - uses: actions/download-artifact@v4
-        name: Retrieve artifacts
+      - name: Upload to GitHub Release
+        uses: softprops/action-gh-release@v2
         with:
-          name: app-release
-          path: release
-      - run: |
-          cp release/distribution/whatsnew/* release
-          rm -rf release/distribution
-          ls release
-
-      - name: Read latest tag from tag file
-        run: echo "GHR_TAG=$(cat release/$LATEST_TAG_FILE)" >> $GITHUB_ENV
-
-      - name: Upload release artifacts
-        uses: masgeek/github-action-ghr@v1.3.2
+          tag_name: ${{ github.ref_name }}
+          name: "Version ${{ github.ref_name }}"
+          files: release/app-release.aab
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
