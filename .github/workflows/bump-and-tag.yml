@@ -1,16 +1,20 @@
 name: Bump version
 on:
-  push:
+  workflow_run:
+    workflows: ["Android CICD"]
+    types:
+      - completed
     branches:
       - main
 jobs:
   bump-tag-version:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     concurrency:
       cancel-in-progress: true
       group: semver-${{ github.ref }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Bump version and push tag
         id: tag_version
         uses: masgeek/github-tag-action@release

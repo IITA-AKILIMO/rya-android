@@ -84,4 +84,3 @@ Enforced by pre-commit hooks:
 - JitPack is a dependency source (`https://jitpack.io`) — some deps come from GitHub repos directly
 - Debug build type injects `PORT_NUMBER` string resource with value `9085`
 - `android.enableJetifier=true` is on in `gradle.properties`
-- `kotlin.incremental=false` — incremental compilation is disabled
