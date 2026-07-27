@@ -43,7 +43,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Run unit tests & detekt
-        run: ./gradlew testRelease detekt --no-daemon
+        run: ./gradlew testRelease detekt --no-daemon --continue
 
       - name: Upload test results
         if: always()
